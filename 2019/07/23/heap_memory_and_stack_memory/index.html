@@ -46,18 +46,18 @@
   };
 </script>
 
-  <meta name="description" content="今天的问题 内存空间 静态存储区（全局变量） 栈区（局部变量） 堆区（动态申请数据） 文字常量区 程序代码区   具体问题 NOTES   每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆 内存空间静态存储区（全局变量）先说最简单的全局变量，包含全局变量和 stati">
+  <meta name="description" content="每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆">
 <meta name="keywords" content="Embedded,Conception">
 <meta property="og:type" content="article">
 <meta property="og:title" content="堆内存和栈内存">
 <meta property="og:url" content="http://blog.jassy.com/2019/07/23/heap_memory_and_stack_memory/index.html">
 <meta property="og:site_name" content="弱者">
-<meta property="og:description" content="今天的问题 内存空间 静态存储区（全局变量） 栈区（局部变量） 堆区（动态申请数据） 文字常量区 程序代码区   具体问题 NOTES   每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆 内存空间静态存储区（全局变量）先说最简单的全局变量，包含全局变量和 stati">
+<meta property="og:description" content="每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-06-03T16:04:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="堆内存和栈内存">
-<meta name="twitter:description" content="今天的问题 内存空间 静态存储区（全局变量） 栈区（局部变量） 堆区（动态申请数据） 文字常量区 程序代码区   具体问题 NOTES   每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆 内存空间静态存储区（全局变量）先说最简单的全局变量，包含全局变量和 stati">
+<meta name="twitter:description" content="每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆">
 
 <link rel="canonical" href="http://blog.jassy.com/2019/07/23/heap_memory_and_stack_memory/">
 
@@ -143,12 +143,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">11</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">12</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">14</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">16</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -253,24 +253,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <ul>
-<li><a href="#今天的问题">今天的问题</a></li>
-<li><a href="#内存空间">内存空间</a><ul>
-<li><a href="#静态存储区全局变量">静态存储区（全局变量）</a></li>
-<li><a href="#栈区局部变量">栈区（局部变量）</a></li>
-<li><a href="#堆区动态申请数据">堆区（动态申请数据）</a></li>
-<li><a href="#文字常量区">文字常量区</a></li>
-<li><a href="#程序代码区">程序代码区</a></li>
-</ul>
-</li>
-<li><a href="#具体问题">具体问题</a></li>
-<li><a href="#notes">NOTES</a></li>
-</ul>
-<blockquote>
+        <blockquote>
 <p>每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心</p>
 </blockquote>
 <h2 id="今天的问题"><a href="#今天的问题" class="headerlink" title="今天的问题"></a>今天的问题</h2><p>局部变量存储在<strong>___</strong>，全局变量存储在<strong>__</strong>，动态申请数据存储在<strong>__</strong>。</p>
-<p>栈  静态存储区  堆</p>
+<p>栈  静态存储区  堆<br>  <a id="more"></a></p>
 <h2 id="内存空间"><a href="#内存空间" class="headerlink" title="内存空间"></a>内存空间</h2><h3 id="静态存储区（全局变量）"><a href="#静态存储区（全局变量）" class="headerlink" title="静态存储区（全局变量）"></a>静态存储区（全局变量）</h3><p>先说最简单的全局变量，包含全局变量和 static 修饰符修饰的静态变量，都是保存在静态存储区当中，并且分为未初始化区域和初始化区域。初始化的全局变量和静态变量保存在一块区域中，未初始化的全局变量和未初始化的静态变量保存在另一块相邻的区域中。</p>
 <p>全局变量的生命周期持续到整个程序结束，在程序结束后由系统释放。</p>
 <p>对于嵌入式程序来讲，在编译后的 map 文件中就已经确定了全局变量的存储地址位置，通过该 map 文件就可以进行全局变量的调试读取等操作。</p>
@@ -342,8 +329,8 @@
       <i class="fa fa-chevron-left"></i> Project Euler  题解：31~40
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/07/23/leetcode-contest-No130/" rel="next" title="LeetCode Contest No.130">
-      LeetCode Contest No.130 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/07/23/intelligent_pointer/" rel="next" title="智能指针">
+      智能指针 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -399,14 +386,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

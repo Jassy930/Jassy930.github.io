@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/witch_128px.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/witch_128px.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/witch_128px.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://blog.jassy.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="忘记前一段时间某个时候提到某个事情了，想起来纠错这回事，大概回忆了一下是一个挺有意思的过程，索性重新搜索了一下复习了一遍，把大概原理在这里写一写，权当记录  从小时候说起小时候妈妈教导我……咳咳，打开方式不太对。 小的时候我的娱乐活动比较少，空闲时间基本上都是在看书中度过的，其中有一本书我记得很清楚，叫做《数学游戏》，里面是各种数学题，很多有趣很多有意思的题目，直到现在仍然对其中的题目印象非常深">
+<meta name="keywords" content="Communication">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汉明码——纠错与校验">
+<meta property="og:url" content="http://blog.jassy.com/2019/11/27/Hamming_Code/index.html">
+<meta property="og:site_name" content="弱者">
+<meta property="og:description" content="忘记前一段时间某个时候提到某个事情了，想起来纠错这回事，大概回忆了一下是一个挺有意思的过程，索性重新搜索了一下复习了一遍，把大概原理在这里写一写，权当记录  从小时候说起小时候妈妈教导我……咳咳，打开方式不太对。 小的时候我的娱乐活动比较少，空闲时间基本上都是在看书中度过的，其中有一本书我记得很清楚，叫做《数学游戏》，里面是各种数学题，很多有趣很多有意思的题目，直到现在仍然对其中的题目印象非常深">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://blog.jassy.com/assets/Hamming_Code/14642488356727964.jpg">
+<meta property="og:image" content="http://blog.jassy.com/assets/Hamming_Code/14642488357089277.jpg">
+<meta property="og:updated_time" content="2019-11-27T09:31:37.520Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汉明码——纠错与校验">
+<meta name="twitter:description" content="忘记前一段时间某个时候提到某个事情了，想起来纠错这回事，大概回忆了一下是一个挺有意思的过程，索性重新搜索了一下复习了一遍，把大概原理在这里写一写，权当记录  从小时候说起小时候妈妈教导我……咳咳，打开方式不太对。 小的时候我的娱乐活动比较少，空闲时间基本上都是在看书中度过的，其中有一本书我记得很清楚，叫做《数学游戏》，里面是各种数学题，很多有趣很多有意思的题目，直到现在仍然对其中的题目印象非常深">
+<meta name="twitter:image" content="http://blog.jassy.com/assets/Hamming_Code/14642488356727964.jpg">
+
+<link rel="canonical" href="http://blog.jassy.com/2019/11/27/Hamming_Code/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>汉明码——纠错与校验 | 弱者</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">弱者</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">12</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">16</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="default">
+    <link itemprop="mainEntityOfPage" href="http://blog.jassy.com/2019/11/27/Hamming_Code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jassy">
+      <meta itemprop="description" content="Little blog, Little think">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="弱者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          汉明码——纠错与校验
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-11-27 16:53:45 / Modified: 17:31:37" itemprop="dateCreated datePublished" datetime="2019-11-27T16:53:45+08:00">2019-11-27</time>
+            </span>
+
+          
+            <span id="/2019/11/27/Hamming_Code/" class="post-meta-item leancloud_visitors" data-flag-title="汉明码——纠错与校验" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>忘记前一段时间某个时候提到某个事情了，想起来纠错这回事，大概回忆了一下是一个挺有意思的过程，索性重新搜索了一下复习了一遍，把大概原理在这里写一写，权当记录</p>
+</blockquote>
+<h2 id="从小时候说起"><a href="#从小时候说起" class="headerlink" title="从小时候说起"></a>从小时候说起</h2><p>小时候妈妈教导我……咳咳，打开方式不太对。</p>
+<p>小的时候我的娱乐活动比较少，空闲时间基本上都是在看书中度过的，其中有一本书我记得很清楚，叫做《数学游戏》，里面是各种数学题，很多有趣很多有意思的题目，直到现在仍然对其中的题目印象非常深刻，还有再读一遍的冲动。</p>
+<p>好，进入正题，这本书中有这样一个题目：</p>
+<blockquote>
+<p>国王为10天后的生日宴会准备了1000桶酒，不幸的是，其中一桶被下了毒。为了确定哪桶是毒酒，有人提议用死刑犯试毒。毒的潜伏期为10天。问：至少需要多少个死刑犯才能确保找出毒酒？方案如何实行？</p>
+</blockquote>
+<p>以我小学生的智力水平，书中的题目大部分都是这个难度，我也都是直接放弃看答案了，这里我们还是稍微给自己一点时间稍微思考一下：<br><a id="more"></a><br><img src="/assets/Hamming_Code/14642488356727964.jpg" alt><br><img src="/assets/Hamming_Code/14642488357089277.jpg" alt></p>
+<p>好的！还是不会！</p>
+<p>答案这里使用简单一点的举个例子，比如我们有八桶酒，分别编号0-7，需要几个死刑犯才能试出毒酒呢？</p>
+<p>三个</p>
+<p><strong>一号罪犯喝  4 5 6 7 四桶</strong></p>
+<p><strong>二号罪犯喝  2 3 6 7 四桶</strong></p>
+<p><strong>三号罪犯喝  1 3 5 7 四桶</strong></p>
+<p>（三个罪犯都撑死了</p>
+<p>然后用0和1代表罪犯生存或者死亡，生死和毒酒之间的关系如下</p>
+<table>
+<thead>
+<tr>
+<th>一号罪犯</th>
+<th>二号罪犯</th>
+<th>三号罪犯</th>
+<th>毒桶</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>三个罪犯都没死，0号都没喝</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>只有三号喝了1号</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>只有二号喝了2号</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>…</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>4</td>
+<td>…</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>5</td>
+<td>…</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>6</td>
+<td>三号没死 1357 是好的 除此之外只有 6 号一二号都喝了</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>7</td>
+<td>都死了，有且只有7三个罪犯都喝了</td>
+</tr>
+</tbody>
+</table>
+<p>哇，这东西看上去好熟悉，这不就是二进制么！这样三个罪犯就可以通过这样的方法，最大检查 $2^3 = 8$ 桶酒的是否有毒。以此类推的话，1000桶酒需要 $2^{10} = 1024 &gt; 1000$ 也就是十个罪犯来检验。done，问题解决</p>
+<h2 id="纠错"><a href="#纠错" class="headerlink" title="纠错"></a>纠错</h2><p>这个时候明眼人已经看出来了，为什么举上面这个栗子呢，这个例子实际上就是一个纠错的过程，在1000位数据中找到错误的一位数据，找到了就可以纠正这位数据，支付的代价就是对于1000位数据而言，还需要10位数据（罪犯）的状态去进行验证。</p>
+<p>我们来看一下一般情况下的汉明码是怎么去实现的。</p>
+<p>例如我们需要传输4个bit的数据 1101 。这里出现了第一个与上面例子不同的地方，就是我们验证的校验位也是需要随同数据一同发送出去的，校验位同样有发送错误的可能性，所以校验位也需要能够对其本身进行校验。假设需要传输的位数为 n ，校验位为 k 的话，我们需要通过这个公式来确定校验位的个数，也就是 k 的大小。</p>
+<p>$$ 2^k &gt;= n+k $$</p>
+<p>so easy。这个公式的意思就是校验位总共能够校验的位数要大于数据位加上校验位之和。这样对于我们的例子而言 n = 4 ，所以 k 取3，这样校验位的位数就能够满足我们验证一位错误的需求。具体操作如下：</p>
+<p>首先我们需要发送的总数据位数为 $n + k = 7$ 位</p>
+<table>
+<thead>
+<tr>
+<th>圈</th>
+<th>圈</th>
+<th>圈</th>
+<th>圈</th>
+<th>圈</th>
+<th>圈</th>
+<th>圈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> -</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>- </td>
+</tr>
+</tbody>
+</table>
+<p> （圈是占地方的</p>
+<p>把所有2的幂次位作为校验位，也就是1、2、4、8、16这些位置，这里我们用 C 表示</p>
+<table>
+<thead>
+<tr>
+<th>C0</th>
+<th>C1</th>
+<th>圈</th>
+<th>C2</th>
+<th>圈</th>
+<th>圈</th>
+<th>圈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> -</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>- </td>
+</tr>
+</tbody>
+</table>
+<p>其他位置填充数据，这里我们用D表示</p>
+<table>
+<thead>
+<tr>
+<th>C0</th>
+<th>C1</th>
+<th>D0</th>
+<th>C2</th>
+<th>D1</th>
+<th>D2</th>
+<th>D3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> -</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>然后我们给每一位校验位（罪犯）分配各自校验的数据位（毒酒）</p>
+<p>这里用 A 代表整个7位数据</p>
+<p>C0： A0  A2  A4  A6   也即  C0 D0 D1 D3</p>
+<p>C1： A1  A2  A5  A6   也即  C1 D0 D2 D3</p>
+<p>C2： A3  A4  A5  A6   也即  C2 D1 D2 D3</p>
+<p>规则如下：第一位校验位校验所有能够整除2的位数，也就是二进制表示中最低位为1的。第二位校验位校验所有能够整除4的，也就是二级制表示中次低位为1的。</p>
+<p>因为校验位同时也需要校验自己，是2的幂次，所以也可以这样表示：<strong>校验位校验与其按位求与结果为1的。</strong></p>
+<p>然后我们根据配偶原则，让校验位与其所校验的数据位1的个数为偶数，也即加和的最低位为0。</p>
+<p>对于 C0 将其校验的数据，除掉自身都写出来： 1 1 1 奇 C0 取 1</p>
+<p>同样对于 C1： 1 0 1 偶 C1 取 0</p>
+<p>同样对于 C2： 1 0 1 偶 C2 取 0</p>
+<p>这样拼出我们最终的总数据</p>
+<table>
+<thead>
+<tr>
+<th>C0</th>
+<th>C1</th>
+<th>D0</th>
+<th>C2</th>
+<th>D1</th>
+<th>D2</th>
+<th>D3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>That‘s it！，这样我们最后传输的数据为 1 0 1 0 1 0 1 ，可以纠错的位数为1</p>
+<h3 id="试验"><a href="#试验" class="headerlink" title="试验"></a>试验</h3><p>试验一下纠错，例如在数据传输的过程中有一位发生了错误  变成了  1 0 1 0 1 1 1</p>
+<p>将其中2的幂次位的校验位对应校验的数据提出来，求其和，看奇偶</p>
+<table>
+<thead>
+<tr>
+<th>数据位</th>
+<th>值</th>
+<th>奇偶</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A0 A2 A4 A6</td>
+<td>1 1 1 1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>A1 A2 A5 A6</td>
+<td>0 1 1 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>A3 A4 A5 A6</td>
+<td>0 1 1 1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>哇，是不是又好熟悉，和第一节中的例子一样，所以我们把这三位拼起来 1 1 0 （倒过来），二进制表示是6， 也即第六位是错误的数据位！</p>
+<p>哇，好厉害。 这样就完成了</p>
+<h2 id="回顾与分析"><a href="#回顾与分析" class="headerlink" title="回顾与分析"></a>回顾与分析</h2><p>了解了汉明码的使用和纠错的过程，我们来仔细回顾看一下其中一些细节的问题</p>
+<ol>
+<li>汉明码纠错能力只有一位，不管数据长度是多少，根据数据长度使用对应长度的纠错码，可以校验并具备一位的纠错能力。同时可以推想，在实际应用中不适宜对太长的数据直接使用汉明码处理纠错，应该分割为小块分别使用，增加纠错能力。实际上正是因为如此，汉明码也被称为是一种线性分组码，将长数据划分为小块分别编码。</li>
+<li>中间我们在确定校验位的0或1时，使用的是配偶原则。同样，存在着配奇原则，使其对应位数数据相加为奇数，实际使用中两种方法并无区别。</li>
+<li>汉明码数据中所有2的幂次位置都被校验位占据，所以如果校验码中只有一位为1，其余为0的情况的话，是校验码出错，可以直接读数据，结果是正确的。如果是数据位出错的话，则校验码中至少有两位是1。</li>
+<li>数据共有n位，我们至少需要k位进行校验，其满足这样的关系：</li>
+</ol>
+<p>$$ 2^k &gt;= n+k $$</p>
+<ol start="5">
+<li>以上说的情况的前提都是只有一位出错的情况。那么如果出现两位错误，仍然举上面的例子，我们获得的数据为 1 0 0 1 1 0 1 这种情况下：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>数据位</th>
+<th>值</th>
+<th>奇偶</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A0 A2 A4 A6</td>
+<td>1 0 1 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>A1 A2 A5 A6</td>
+<td>0 0 0 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>A3 A4 A5 A6</td>
+<td>1 1 0 1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>可以看到仍然认为数据是错误的，但是已经不具备纠错的能力了。在普遍意义下，汉明码是能够具备2位的检测能力的，也即，知道数据有错误，但是并不具备2位的纠错能力。</p>
+<p>除此之外，想要对汉明码进一步了解的话，可以再搜索一下这些关键字：汉明码的纠错能力和检测能力  最小码距  汉明距离</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/weixin.png" alt="Jassy WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Jassy Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Communication/" rel="tag"><i class="fa fa-tag"></i> Communication</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/08/12/leetcode_1155/" rel="prev" title="LeetCode 1155">
+      <i class="fa fa-chevron-left"></i> LeetCode 1155
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/27/Matlab_cluster_parfor/" rel="next" title="MATLAB并行工具箱--parfor的使用">
+      MATLAB并行工具箱--parfor的使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#从小时候说起"><span class="nav-number">1.</span> <span class="nav-text">从小时候说起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#纠错"><span class="nav-number">2.</span> <span class="nav-text">纠错</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#试验"><span class="nav-number">2.1.</span> <span class="nav-text">试验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾与分析"><span class="nav-number">3.</span> <span class="nav-text">回顾与分析</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jassy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Jassy</p>
+  <div class="site-description" itemprop="description">Little blog, Little think</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jassy930" title="GitHub → https://github.com/Jassy930" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fengw930@163.com" title="E-Mail → mailto:fengw930@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.jassy.wang" title="Weibo → https://weibo.jassy.wang" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">京ICP备16009867号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;">
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-shower"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jassy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+              leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (let item of results) {
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (let url of entries) {
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=lad2yfDEnuAaSepMT7diKzIR-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'lad2yfDEnuAaSepMT7diKzIR-gzGzoHsz',
+            'X-LC-Key': 'WJpzD2gyAgcTGpskQ0OxPrz3',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5dc1438e00012d02d483',
+      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
+      repo: 'Jassy930.github.io',
+      owner: 'Jassy930',
+      admin: ['Jassy930'],
+      id: 'e50959aa1a417bfd0147ae5bf119519d',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>

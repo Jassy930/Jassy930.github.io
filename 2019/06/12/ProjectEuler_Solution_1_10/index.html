@@ -143,12 +143,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">11</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">12</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">14</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">16</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -252,6 +252,7 @@
 <p>自己做的Project Euler的题解，不见得最优，也不见得优雅，但是答案是对的。基本上可以暴力求解的都是直接暴力求的。</p>
 <h2 id="Problem-1-Multiples-of-3-and-5"><a href="#Problem-1-Multiples-of-3-and-5" class="headerlink" title="Problem 1:Multiples of 3 and 5"></a><a href="https://projecteuler.net/problem=1" target="_blank" rel="noopener">Problem 1:Multiples of 3 and 5</a></h2><p>暴力遍历，能整除3或者5的话累加</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (i % <span class="number">3</span> == <span class="number">0</span> || i % <span class="number">5</span> == <span class="number">0</span>)</span><br><span class="line">			num += i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <a id="more"></a>
 <h2 id="Problem-2-Even-Fibonacci-numbers"><a href="#Problem-2-Even-Fibonacci-numbers" class="headerlink" title="Problem 2:Even Fibonacci numbers"></a><a href="https://projecteuler.net/problem=2" target="_blank" rel="noopener">Problem 2:Even Fibonacci numbers</a></h2><p>把4000000以下的 fib 数列都求出来，再遍历一般累加奇数。</p>
 <p>这里其实 fib 数列的奇偶性是有规律的，按照 奇-奇-偶 的形式无限循环，所以也可以用数列的第几项是否能被3整除来判断。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; fib;</span><br><span class="line">	fib.push_back(<span class="number">1</span>);</span><br><span class="line">	fib.push_back(<span class="number">2</span>);</span><br><span class="line">	<span class="keyword">while</span> (fib.back() &lt; (<span class="number">4000000</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		fib.push_back(fib.at(fib.size() - <span class="number">1</span>) + fib.at(fib.size() - <span class="number">2</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> f : fib)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (f &lt; <span class="number">4000000</span>) &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; f &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">if</span> (f % <span class="number">2</span> == <span class="number">0</span>) num += f;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -370,14 +371,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -1,6 +1,354 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MATLAB并行工具箱--parfor的使用</title>
+    <url>/2019/11/27/Matlab_cluster_parfor/</url>
+    <content><![CDATA[<blockquote>
+<p>最近在使用进行MATLAB进行一些计算的时候因为计算时间实在是太长了（五天。所以开始考虑进行算法优化，就在这时无意间看到了系统的CPU占用率，what？25%哈哈哈哈哈或或或或或或或或，matlab个ZZ。于是想起了parfor这回事，算法用的是动态规划算法，但是在每个递推过程中也要计算$2000 \times 2000$个循环，正好可以用并行计算，perfect，条件允许，直接开始！</p>
+</blockquote>
+<h2 id="要啥简介，直接开干"><a href="#要啥简介，直接开干" class="headerlink" title="要啥简介，直接开干"></a>要啥简介，直接开干</h2><p>来看一个简单的不能再简单的例子，我们用for将一个数组乘以2<br><a id="more"></a></p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">n = <span class="number">1000</span>;</span><br><span class="line">a = <span class="built_in">rand</span>(n,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:n</span><br><span class="line">    a(<span class="built_in">i</span>) = a(<span class="built_in">i</span>) * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>试着跑一下，没什么问题（这要有啥问题可以不活了），看一下运行时间</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">Elapsed time is <span class="number">0.000034</span> seconds.</span><br></pre></td></tr></table></figure>
+<p>一个n x 1大小的随机数组，然后把其中每个数乘以二，下面就是改成parfor并行计算的</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">n = <span class="number">1000</span>;</span><br><span class="line">a = <span class="built_in">rand</span>(n,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">parfor</span> <span class="built_in">i</span>=<span class="number">1</span>:n</span><br><span class="line">    a(<span class="built_in">i</span>) = a(<span class="built_in">i</span>) * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>so easy。这样就改好了，matlab果然易用，同样看一下时间</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">Starting parallel pool (parpool) using the <span class="string">'local'</span> profile ... connected to <span class="number">4</span> workers.</span><br><span class="line">Elapsed time is <span class="number">32.119578</span> seconds.</span><br></pre></td></tr></table></figure>
+<p>WTF，本来想要提高效率的，怎么会变得这么慢，不过看说明似乎干了些别的，再跑一遍试试？</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">Elapsed time is <span class="number">0.183769</span> seconds.</span><br></pre></td></tr></table></figure>
+<p>看上去时间正常多了嘛不过还是比正常跑慢，怎么回事？首先如果看到上面这些，恭喜，这就是已经开始多核心并行计算了，后面我们来具体分析及使用MATLAB的并行计算。</p>
+<h2 id="MATLAB并行计算解释及分析"><a href="#MATLAB并行计算解释及分析" class="headerlink" title="MATLAB并行计算解释及分析"></a>MATLAB并行计算解释及分析</h2><p>首先通俗解释一下我们做的事情，比如我们有一堆砖要搬，从A搬到B再搬到C结束。正常情况下，我们有一个小伙子来做这件事，他一次一次把所有砖从A搬到B再搬到C。这就是正常情况下的计算。</p>
+<p>但是我们的CPU是多核心的，例如我们是有四个小伙子的，但是在搬砖过程中，这四个小伙子只有一个小伙子在搬砖，另外三个小伙子在围观。。。这怎么可能快嘛，但是我们的小伙子很能干，只要砖不是非常多，工作都能很快完成，时间差距不大，所以也就不需要所有人都上了。</p>
+<p>并行计算就是让这几个小伙子都动起来，一起去做这件事，这样才能更加效率的解决工作量比较大的问题。在上面的例子中我们就是这样去做的。</p>
+<p><strong>但是</strong></p>
+<p><strong>为什么第一次运行这么慢</strong>：因为matlab开始并行计算之前，需要进行一些预备工作，这些工作默认是没有开启的，所以在第一次进行并行计算的时候，需要首先进行预备工作，花费一些时间，这样时间长也是理所当然的了。</p>
+<p><strong>为什么第二次还是这么慢</strong>：虽然在工作中有更多的小伙子来干活，但是在干活中，还需要有一个人去给这些小伙子分配工作，这个分配工作的动作也是需要耗费时间的，这样在工作量非常小的情况下（如上例）这个分配工作的时间可能比做这项工作消耗的时间都要长，这样最终反而计算时间更长。</p>
+<h3 id="Parallel-Pool-的设置"><a href="#Parallel-Pool-的设置" class="headerlink" title="Parallel Pool 的设置"></a>Parallel Pool 的设置</h3><p>然后我们来看一下 MATLAB 中关于并行工具箱相关的设置：</p>
+<p>（matlab版本使用2015a，其他版本请找相关设置</p>
+<p>matlab 中去做这项工作的部分叫做 Parallel pool。在 matlab 的设置界面中或者主界面的左下角的图标处可以进入并行计算工具箱的设置。大概长这样：</p>
+<p><img src="/assets/Matlab_cluster_parfor/并行工具箱设置.png" alt="并行工具箱设置"></p>
+<p>最上面的 Clusters 是关于计算的集群的设置，请选择 local （后面看我努力程度是否出个搭建集群的教程吧，非常简单）</p>
+<p><img src="/assets/Matlab_cluster_parfor/ClusterProfileManager.png" alt="Cluster Profile Manager"></p>
+<p>点击蓝色文字处 Cluster Profile Manager 就可以对本地的这个 Cluster 进行配置了，中间最重要的配置是 <strong>Number of workers to start on your local machine</strong> 这个决定了有多少个小伙子给你干活，默认情况下，CPU 是几核的就填几。（这一步在实际运行中有一些疑问，核心数or线程数，等待后续进一步验证。）修改后可以顺手点击 <strong>Validate</strong> 进行验证，几项测试都通过的话就说明配置没有问题，退出设置后点击同样在主界面中左下角菜单中的另外一项 <strong>Start parallel pool</strong> 就可以打开了，或者在程序中运行到 parfor 时 MATLAB 也会自动开启。</p>
+<p>开启之后可以开启系统的任务管理器，查看一下 matlab.exe 有几个，如果 worker 数量为4，那么应该有五个进程在运行，一个是用来进行调度管理的，另外四个是干活的小伙子。可以通过占用内存的不同来区别这两种进程，会有一个占用的内存大小与其他有较大的区别。</p>
+<p><img src="/assets/Matlab_cluster_parfor/ValidationResults.png" alt="Validation Relusts"></p>
+<p>在并行工具箱的设置中还有两个设置，一个是在遇到需要进行并行计算的语句时自动开启这个 Parallel Pool ，另一个是在一定时间内没有使用并行计算的时候，自动关闭，时间可以自己进行设置。</p>
+<h2 id="适用范围-amp-变量说明-amp-技巧"><a href="#适用范围-amp-变量说明-amp-技巧" class="headerlink" title="适用范围&amp;变量说明&amp;技巧"></a>适用范围&amp;变量说明&amp;技巧</h2><p>基本使用方法介绍的差不多了，但是哪里有程序第一次能跑起来的。哪种情况才适合使用 parfor 进行并行计算，使用时需要注意哪些问题，怎样才能进一步提高计算速度，我们接着往后看。</p>
+<h3 id="适用范围"><a href="#适用范围" class="headerlink" title="适用范围"></a>适用范围</h3><ul>
+<li><p>各部分计算独立：既然是并行计算，所以最基本的要求是 <strong>各个部分计算独立</strong> ，也就是说不同小伙子做的工作能独立开，不能互相依赖。你可以让小伙子们同时把砖从A点搬到B点，但是不能让一部分从A搬到B，一部分从B搬到C，因为从B搬到C的工作依赖于另一部分工作，有可能出现没有砖可以搬的情况。</p>
+</li>
+<li><p>计算量足够大：就如同第一个例子一样，可以看到在进行并行计算的过程中，不管是多个小伙子的工作分配或者是和工作分配者和小伙子之间的数据发送与接收，都需要消耗一定量的时间，这样情况下如果工作量本身规模不大，这些消耗已经比并行计算带来的时间优势完全抹杀掉了，所以只有在计算量极大的情况下才适用。并且计算量越大，并行计算带来的时间优势越明显。</p>
+</li>
+</ul>
+<h3 id="变量分类"><a href="#变量分类" class="headerlink" title="变量分类"></a>变量分类</h3><p>MATLAB 对 parfor 使用中的变量分为五类，如下图：</p>
+<p><img src="/assets/Matlab_cluster_parfor/parfor_vartypes.png" alt="parfor_vartypes"></p>
+<ul>
+<li>loop Variable ： 循环变量，就是简单的 for 循环中的变量，上图中的 i。</li>
+<li>Sliced Variable ： 某数组中分发给每个 worker 的变量，或者多个 worker 存储到同一个数组中的变量，要求不同 worker 接触的变量不能重复交叉的现象，并且下标连续，不能使用例如 2*i 这类下标。</li>
+<li>Broadcast Variable ： 需要分发给每个 worker 使用的同一个数据，这个数据对于每个 worker 来说是只读不写的。</li>
+<li>Reduction Variable ： 在不同循环中对同一个变量进行叠加的计算，注意这个叠加的意思不仅仅代表加法，任何符合交换律的运算都可以，比如加减乘除，当然不能混用，因为混用之后就不符合交换律了，这样才能在不同 worker 计算完成时间不确定的情况下保证计算的正确性。也即，计算顺序不影响计算结果。</li>
+<li>Temporary Variable ： 临时变量，在每个 worker 运行过程中创建并销毁的变量，不同 worker 之间使用自己的临时变量，互相独立。</li>
+</ul>
+<p>如果在使用过程中报错无法运算，可以查看一下自己使用的变量和上面五类对应一下属于哪类。所有涉及到的变量 <strong>必须</strong> 属于这五类中的某一类，并符合相关的规则。所以如果出错不能运行的话，慢慢对照查一下吧。</p>
+<h3 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h3><blockquote>
+<p>如何进一步提高计算速度</p>
+</blockquote>
+<ul>
+<li><p>影响速度的主要因素：计算依旧是使用 CPU 去跑的，经过不同电脑的几次试验，主要影响因素是 <strong>核心数量</strong> ，主频当然是有影响的，但是差距不大，核心数越多速度越快。所以尽可能的发动你的交际技巧去找个多核电脑吧。</p>
+</li>
+<li><p>尽量减少 worker 传输的数据量：在进行计算时，管理这些小伙子工作的人要把工作内容一项一项分配下去，例如工作需要的数据，这样不可避免的会出现很多数据交换，在 MATLAB 中这些数据被称为 <strong>Broadcast Variables</strong> ，非常形象的一个名字，这些数据需要分发到每个 worker 的手中。这里我们需要尽量减少这类变量的大小，只传必要的数据过去，看上去似乎不多，但是在巨量的循环次数面前，浪费的每一点时间都可以被放大到很大的程度。</p>
+</li>
+</ul>
+<h3 id="关于worker数量"><a href="#关于worker数量" class="headerlink" title="关于worker数量"></a>关于worker数量</h3><p>根据我自己查到的各种资料，都是说 worker 数量与 CPU 核心数量相同，但是在我多个电脑多次实际运行过程中发现这样 CPU 占用率一直不是100%，所以目前我在本机运行的时候使用的 worker 数量都是线程数，这点有待进行进一步考证。因为占用率是一方面，也要考虑计算的实际速度。</p>
+]]></content>
+      <tags>
+        <tag>Communication</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>汉明码——纠错与校验</title>
+    <url>/2019/11/27/Hamming_Code/</url>
+    <content><![CDATA[<blockquote>
+<p>忘记前一段时间某个时候提到某个事情了，想起来纠错这回事，大概回忆了一下是一个挺有意思的过程，索性重新搜索了一下复习了一遍，把大概原理在这里写一写，权当记录</p>
+</blockquote>
+<h2 id="从小时候说起"><a href="#从小时候说起" class="headerlink" title="从小时候说起"></a>从小时候说起</h2><p>小时候妈妈教导我……咳咳，打开方式不太对。</p>
+<p>小的时候我的娱乐活动比较少，空闲时间基本上都是在看书中度过的，其中有一本书我记得很清楚，叫做《数学游戏》，里面是各种数学题，很多有趣很多有意思的题目，直到现在仍然对其中的题目印象非常深刻，还有再读一遍的冲动。</p>
+<p>好，进入正题，这本书中有这样一个题目：</p>
+<blockquote>
+<p>国王为10天后的生日宴会准备了1000桶酒，不幸的是，其中一桶被下了毒。为了确定哪桶是毒酒，有人提议用死刑犯试毒。毒的潜伏期为10天。问：至少需要多少个死刑犯才能确保找出毒酒？方案如何实行？</p>
+</blockquote>
+<p>以我小学生的智力水平，书中的题目大部分都是这个难度，我也都是直接放弃看答案了，这里我们还是稍微给自己一点时间稍微思考一下：<br><a id="more"></a><br><img src="/assets/Hamming_Code/14642488356727964.jpg" alt><br><img src="/assets/Hamming_Code/14642488357089277.jpg" alt></p>
+<p>好的！还是不会！</p>
+<p>答案这里使用简单一点的举个例子，比如我们有八桶酒，分别编号0-7，需要几个死刑犯才能试出毒酒呢？</p>
+<p>三个</p>
+<p><strong>一号罪犯喝  4 5 6 7 四桶</strong></p>
+<p><strong>二号罪犯喝  2 3 6 7 四桶</strong></p>
+<p><strong>三号罪犯喝  1 3 5 7 四桶</strong></p>
+<p>（三个罪犯都撑死了</p>
+<p>然后用0和1代表罪犯生存或者死亡，生死和毒酒之间的关系如下</p>
+<table>
+<thead>
+<tr>
+<th>一号罪犯</th>
+<th>二号罪犯</th>
+<th>三号罪犯</th>
+<th>毒桶</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>三个罪犯都没死，0号都没喝</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>只有三号喝了1号</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>只有二号喝了2号</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>…</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>4</td>
+<td>…</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>5</td>
+<td>…</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>6</td>
+<td>三号没死 1357 是好的 除此之外只有 6 号一二号都喝了</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>7</td>
+<td>都死了，有且只有7三个罪犯都喝了</td>
+</tr>
+</tbody>
+</table>
+<p>哇，这东西看上去好熟悉，这不就是二进制么！这样三个罪犯就可以通过这样的方法，最大检查 $2^3 = 8$ 桶酒的是否有毒。以此类推的话，1000桶酒需要 $2^{10} = 1024 &gt; 1000$ 也就是十个罪犯来检验。done，问题解决</p>
+<h2 id="纠错"><a href="#纠错" class="headerlink" title="纠错"></a>纠错</h2><p>这个时候明眼人已经看出来了，为什么举上面这个栗子呢，这个例子实际上就是一个纠错的过程，在1000位数据中找到错误的一位数据，找到了就可以纠正这位数据，支付的代价就是对于1000位数据而言，还需要10位数据（罪犯）的状态去进行验证。</p>
+<p>我们来看一下一般情况下的汉明码是怎么去实现的。</p>
+<p>例如我们需要传输4个bit的数据 1101 。这里出现了第一个与上面例子不同的地方，就是我们验证的校验位也是需要随同数据一同发送出去的，校验位同样有发送错误的可能性，所以校验位也需要能够对其本身进行校验。假设需要传输的位数为 n ，校验位为 k 的话，我们需要通过这个公式来确定校验位的个数，也就是 k 的大小。</p>
+<p>$$ 2^k &gt;= n+k $$</p>
+<p>so easy。这个公式的意思就是校验位总共能够校验的位数要大于数据位加上校验位之和。这样对于我们的例子而言 n = 4 ，所以 k 取3，这样校验位的位数就能够满足我们验证一位错误的需求。具体操作如下：</p>
+<p>首先我们需要发送的总数据位数为 $n + k = 7$ 位</p>
+<table>
+<thead>
+<tr>
+<th>圈</th>
+<th>圈</th>
+<th>圈</th>
+<th>圈</th>
+<th>圈</th>
+<th>圈</th>
+<th>圈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> -</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>- </td>
+</tr>
+</tbody>
+</table>
+<p> （圈是占地方的</p>
+<p>把所有2的幂次位作为校验位，也就是1、2、4、8、16这些位置，这里我们用 C 表示</p>
+<table>
+<thead>
+<tr>
+<th>C0</th>
+<th>C1</th>
+<th>圈</th>
+<th>C2</th>
+<th>圈</th>
+<th>圈</th>
+<th>圈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> -</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>- </td>
+</tr>
+</tbody>
+</table>
+<p>其他位置填充数据，这里我们用D表示</p>
+<table>
+<thead>
+<tr>
+<th>C0</th>
+<th>C1</th>
+<th>D0</th>
+<th>C2</th>
+<th>D1</th>
+<th>D2</th>
+<th>D3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> -</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>然后我们给每一位校验位（罪犯）分配各自校验的数据位（毒酒）</p>
+<p>这里用 A 代表整个7位数据</p>
+<p>C0： A0  A2  A4  A6   也即  C0 D0 D1 D3</p>
+<p>C1： A1  A2  A5  A6   也即  C1 D0 D2 D3</p>
+<p>C2： A3  A4  A5  A6   也即  C2 D1 D2 D3</p>
+<p>规则如下：第一位校验位校验所有能够整除2的位数，也就是二进制表示中最低位为1的。第二位校验位校验所有能够整除4的，也就是二级制表示中次低位为1的。</p>
+<p>因为校验位同时也需要校验自己，是2的幂次，所以也可以这样表示：<strong>校验位校验与其按位求与结果为1的。</strong></p>
+<p>然后我们根据配偶原则，让校验位与其所校验的数据位1的个数为偶数，也即加和的最低位为0。</p>
+<p>对于 C0 将其校验的数据，除掉自身都写出来： 1 1 1 奇 C0 取 1</p>
+<p>同样对于 C1： 1 0 1 偶 C1 取 0</p>
+<p>同样对于 C2： 1 0 1 偶 C2 取 0</p>
+<p>这样拼出我们最终的总数据</p>
+<table>
+<thead>
+<tr>
+<th>C0</th>
+<th>C1</th>
+<th>D0</th>
+<th>C2</th>
+<th>D1</th>
+<th>D2</th>
+<th>D3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>That‘s it！，这样我们最后传输的数据为 1 0 1 0 1 0 1 ，可以纠错的位数为1</p>
+<h3 id="试验"><a href="#试验" class="headerlink" title="试验"></a>试验</h3><p>试验一下纠错，例如在数据传输的过程中有一位发生了错误  变成了  1 0 1 0 1 1 1</p>
+<p>将其中2的幂次位的校验位对应校验的数据提出来，求其和，看奇偶</p>
+<table>
+<thead>
+<tr>
+<th>数据位</th>
+<th>值</th>
+<th>奇偶</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A0 A2 A4 A6</td>
+<td>1 1 1 1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>A1 A2 A5 A6</td>
+<td>0 1 1 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>A3 A4 A5 A6</td>
+<td>0 1 1 1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>哇，是不是又好熟悉，和第一节中的例子一样，所以我们把这三位拼起来 1 1 0 （倒过来），二进制表示是6， 也即第六位是错误的数据位！</p>
+<p>哇，好厉害。 这样就完成了</p>
+<h2 id="回顾与分析"><a href="#回顾与分析" class="headerlink" title="回顾与分析"></a>回顾与分析</h2><p>了解了汉明码的使用和纠错的过程，我们来仔细回顾看一下其中一些细节的问题</p>
+<ol>
+<li>汉明码纠错能力只有一位，不管数据长度是多少，根据数据长度使用对应长度的纠错码，可以校验并具备一位的纠错能力。同时可以推想，在实际应用中不适宜对太长的数据直接使用汉明码处理纠错，应该分割为小块分别使用，增加纠错能力。实际上正是因为如此，汉明码也被称为是一种线性分组码，将长数据划分为小块分别编码。</li>
+<li>中间我们在确定校验位的0或1时，使用的是配偶原则。同样，存在着配奇原则，使其对应位数数据相加为奇数，实际使用中两种方法并无区别。</li>
+<li>汉明码数据中所有2的幂次位置都被校验位占据，所以如果校验码中只有一位为1，其余为0的情况的话，是校验码出错，可以直接读数据，结果是正确的。如果是数据位出错的话，则校验码中至少有两位是1。</li>
+<li>数据共有n位，我们至少需要k位进行校验，其满足这样的关系：</li>
+</ol>
+<p>$$ 2^k &gt;= n+k $$</p>
+<ol start="5">
+<li>以上说的情况的前提都是只有一位出错的情况。那么如果出现两位错误，仍然举上面的例子，我们获得的数据为 1 0 0 1 1 0 1 这种情况下：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>数据位</th>
+<th>值</th>
+<th>奇偶</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A0 A2 A4 A6</td>
+<td>1 0 1 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>A1 A2 A5 A6</td>
+<td>0 0 0 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>A3 A4 A5 A6</td>
+<td>1 1 0 1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>可以看到仍然认为数据是错误的，但是已经不具备纠错的能力了。在普遍意义下，汉明码是能够具备2位的检测能力的，也即，知道数据有错误，但是并不具备2位的纠错能力。</p>
+<p>除此之外，想要对汉明码进一步了解的话，可以再搜索一下这些关键字：汉明码的纠错能力和检测能力  最小码距  汉明距离</p>
+]]></content>
+      <tags>
+        <tag>Communication</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode 1155</title>
     <url>/2019/08/12/leetcode_1155/</url>
     <content><![CDATA[<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0">
@@ -270,10 +618,12 @@ bottom: .4em;
  
 <p>LeetCode Contest 149 No.2</p>
 <blockquote>
-<p>&#x8FD9;&#x91CC;&#x6709; <strong>d</strong>&#xA0;&#x4E2A;&#x4E00;&#x6837;&#x7684;&#x9AB0;&#x5B50;&#xFF0C;&#x6BCF;&#x4E2A;&#x9AB0;&#x5B50;&#x4E0A;&#x90FD;&#x6709;&#xA0;<strong>f</strong>&#xA0;&#x4E2A;&#x9762;&#xFF0C;&#x5206;&#x522B;&#x6807;&#x53F7;&#x4E3A;&#xA0;<strong>1, 2, ..., f</strong>&#x3002;</p>
+  <p>&#x8FD9;&#x91CC;&#x6709; <strong>d</strong>&#xA0;&#x4E2A;&#x4E00;&#x6837;&#x7684;&#x9AB0;&#x5B50;&#xFF0C;&#x6BCF;&#x4E2A;&#x9AB0;&#x5B50;&#x4E0A;&#x90FD;&#x6709;&#xA0;<strong>f</strong>&#xA0;&#x4E2A;&#x9762;&#xFF0C;&#x5206;&#x522B;&#x6807;&#x53F7;&#x4E3A;&#xA0;<strong>1, 2, ..., f</strong>&#x3002;</p>
+
 <p>&#x6211;&#x4EEC;&#x7EA6;&#x5B9A;&#xFF1A;&#x63B7;&#x9AB0;&#x5B50;&#x7684;&#x5F97;&#x5230;&#x603B;&#x70B9;&#x6570;&#x4E3A;&#x5404;&#x9AB0;&#x5B50;&#x9762;&#x671D;&#x4E0A;&#x7684;&#x6570;&#x5B57;&#x7684;&#x603B;&#x548C;&#x3002;</p>
 <p>&#x5982;&#x679C;&#x9700;&#x8981;&#x63B7;&#x51FA;&#x7684;&#x603B;&#x70B9;&#x6570;&#x4E3A;&#xA0;<strong>target</strong>&#xFF0C;&#x8BF7;&#x4F60;&#x8BA1;&#x7B97;&#x51FA;&#x6709;&#x591A;&#x5C11;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x7EC4;&#x5408;&#x60C5;&#x51B5;&#xFF08;&#x6240;&#x6709;&#x7684;&#x7EC4;&#x5408;&#x60C5;&#x51B5;&#x603B;&#x5171;&#x6709; <strong>f^d</strong> &#x79CD;&#xFF09;&#xFF0C;&#x6A21;&#xA0;<strong>10^9 + 7</strong>&#xA0;&#x540E;&#x8FD4;&#x56DE;&#x3002;</p>
 </blockquote>
+<a id="more"></a>
 <p>&#x4E00;&#x5F00;&#x59CB;&#x6211;&#x4EE5;&#x4E3A;&#x8FD9;&#x662F;&#x4E00;&#x9053;&#x6570;&#x5B66;&#x9898;&#xFF0C;&#x6392;&#x5217;&#x7EC4;&#x5408;&#x7684;&#x6570;&#x5B66;&#x9898;</p>
 <p>&#x56E0;&#x4E3A;&#x4E0A;&#x5B66;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x662F;&#x90A3;&#x6837;&#x505A;&#x7684;&#xFF0C;&#x53EA;&#x662F;&#x6709;&#x4E9B;&#x7279;&#x6B8A;&#x60C5;&#x51B5;</p>
 <p>&#x7136;&#x540E;&#x6211;&#x53D1;&#x73B0;&#x8FD9;&#x9053;&#x9898;&#x7684;&#x7279;&#x6B8A;&#x60C5;&#x51B5;&#x6570;&#x90FD;&#x6570;&#x4E0D;&#x5B8C;&#xFF0C;&#x6211;&#x50BB;&#x4E86;</p>
@@ -350,21 +700,9 @@ bottom: .4em;
   <entry>
     <title>LeetCode Contest No.132</title>
     <url>/2019/07/23/leetcode-contest-No132/</url>
-    <content><![CDATA[<ul>
-<li><a href="#leetcode-contest-记录">LeetCode Contest 记录</a><ul>
-<li><a href="#contest-132">Contest 132</a><ul>
-<li><a href="#no-除数博弈">No.5024 除数博弈</a></li>
-<li><a href="#no-节点与其祖先之间的最大差值">No.5030 节点与其祖先之间的最大差值</a></li>
-<li><a href="#no-最长等差数列">No.5025 最长等差数列</a></li>
-<li><a href="#no-从先序遍历还原二叉树">No.5031 从先序遍历还原二叉树</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="LeetCode-Contest-记录"><a href="#LeetCode-Contest-记录" class="headerlink" title="LeetCode Contest 记录"></a>LeetCode Contest 记录</h1><h2 id="Contest-132"><a href="#Contest-132" class="headerlink" title="Contest 132"></a>Contest 132</h2><p>通过：3/4  排名：99/1047  0:59:44  1WA</p>
+    <content><![CDATA[<h2 id="Contest-132"><a href="#Contest-132" class="headerlink" title="Contest 132"></a>Contest 132</h2><p>通过：3/4  排名：99/1047  0:59:44  1WA</p>
 <p>最后一道题规定时间内没有做出来，超时7分钟做出来的，无错误提交（似乎）。</p>
-<p>这次竞赛感觉看完题都比较虚，但是其实做题之后的效果比预想的好，虽然最后一道题规定时间内没有做出来，但是感觉可以接受，也是很久没有出过 hard 的题目了，这次的 hard 题目实现的相当的。。。。复杂且乱，但是能做出来就是好事。</p>
+<p>这次竞赛感觉看完题都比较虚，但是其实做题之后的效果比预想的好，虽然最后一道题规定时间内没有做出来，但是感觉可以接受，也是很久没有出过 hard 的题目了，这次的 hard 题目实现的相当的。。。。复杂且乱，但是能做出来就是好事。<br>  <a id="more"></a></p>
 <h3 id="No-5024-除数博弈"><a href="#No-5024-除数博弈" class="headerlink" title="No.5024 除数博弈"></a>No.5024 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/divisor-game/" target="_blank" rel="noopener">除数博弈</a></h3><p>1WA</p>
 <p>看到这个题，感觉可能是动态规划后，第一个想法：动态规划都是简单的题了啊！</p>
 <p>是的，这道题还花了整整20分钟才做出来，感觉其中十分钟浪费在了不可置信上和另外一些事情上。。。这次做竞赛太不专心了，批评一下自己，竞赛还是要好好做的。</p>
@@ -391,20 +729,8 @@ bottom: .4em;
   <entry>
     <title>LeetCode Contest No.131</title>
     <url>/2019/07/23/leetcode-contest-No131/</url>
-    <content><![CDATA[<ul>
-<li><a href="#leetcode-contest-记录">LeetCode Contest 记录</a><ul>
-<li><a href="#contest-131">Contest 131</a><ul>
-<li><a href="#no-删除最外层的括号">No.5016 删除最外层的括号</a></li>
-<li><a href="#no-从根到叶的二进制数之和">No.5017 从根到叶的二进制数之和</a></li>
-<li><a href="#no-驼峰式匹配">No.5018 驼峰式匹配</a></li>
-<li><a href="#no-视频拼接">No.5019 视频拼接</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="LeetCode-Contest-记录"><a href="#LeetCode-Contest-记录" class="headerlink" title="LeetCode Contest 记录"></a>LeetCode Contest 记录</h1><h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
-<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧~~~错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。</p>
+    <content><![CDATA[<h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
+<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧~~~错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。<br>  <a id="more"></a></p>
 <h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" target="_blank" rel="noopener">删除最外层的括号</a></h3><p>1WA</p>
 <p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
 <h3 id="No-5017-从根到叶的二进制数之和"><a href="#No-5017-从根到叶的二进制数之和" class="headerlink" title="No.5017 从根到叶的二进制数之和"></a>No.5017 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/sum-of-root-to-leaf-binary-numbers/" target="_blank" rel="noopener">从根到叶的二进制数之和</a></h3><p>一开始初始值给错了，没有大问题。</p>
@@ -421,31 +747,9 @@ bottom: .4em;
       </tags>
   </entry>
   <entry>
-    <title>智能指针</title>
-    <url>/2019/07/23/intelligent_pointer/</url>
-    <content><![CDATA[<p><a href="https://www.cnblogs.com/TenosDoIt/p/3456704.html" target="_blank" rel="noopener">https://www.cnblogs.com/TenosDoIt/p/3456704.html</a></p>
-]]></content>
-      <tags>
-        <tag>Conception</tag>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode Contest No.130</title>
     <url>/2019/07/23/leetcode-contest-No130/</url>
-    <content><![CDATA[<ul>
-<li><a href="#leetcode-contest-记录">LeetCode Contest 记录</a><ul>
-<li><a href="#contest-130">Contest 130</a><ul>
-<li><a href="#no1018-可被-5-整除的二进制前缀httpsleetcode-cncomproblemsbinary-prefix-divisible-by-5">No.1018 可被 5 整除的二进制前缀</a></li>
-<li><a href="#no1017-负二进制转换httpsleetcode-cncomproblemsconvert-to-base-2">No.1017 负二进制转换</a></li>
-<li><a href="#no1019-链表中的下一个更大节点httpsleetcode-cncomproblemsnext-greater-node-in-linked-list">No.1019 链表中的下一个更大节点</a></li>
-<li><a href="#no1020-飞地的数量httpsleetcode-cncomproblemsnumber-of-enclaves">No.1020 飞地的数量</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="LeetCode-Contest-记录"><a href="#LeetCode-Contest-记录" class="headerlink" title="LeetCode Contest 记录"></a>LeetCode Contest 记录</h1><h2 id="Contest-130"><a href="#Contest-130" class="headerlink" title="Contest 130"></a>Contest 130</h2><p>通过：4/4  排名：59/1293  1:58:42  6WA</p>
+    <content><![CDATA[<h2 id="Contest-130"><a href="#Contest-130" class="headerlink" title="Contest 130"></a>Contest 130</h2><p>通过：4/4  排名：59/1293  1:58:42  6WA<br>    <a id="more"></a></p>
 <h3 id="No-1018-可被-5-整除的二进制前缀"><a href="#No-1018-可被-5-整除的二进制前缀" class="headerlink" title="No.1018 可被 5 整除的二进制前缀"></a>No.1018 <a href="https://leetcode-cn.com/problems/binary-prefix-divisible-by-5/" target="_blank" rel="noopener">可被 5 整除的二进制前缀</a></h3><p>思考过多，还在想那样做对不对，做的太少所以对题目类型不熟悉。</p>
 <h3 id="No-1017-负二进制转换"><a href="#No-1017-负二进制转换" class="headerlink" title="No.1017 负二进制转换"></a>No.1017 <a href="https://leetcode-cn.com/problems/convert-to-base-2/" target="_blank" rel="noopener">负二进制转换</a></h3><p>2WA</p>
 <p>emmmmmm，这道题怎么就过了呢。。。</p>
@@ -467,26 +771,23 @@ bottom: .4em;
       </tags>
   </entry>
   <entry>
+    <title>智能指针</title>
+    <url>/2019/07/23/intelligent_pointer/</url>
+    <content><![CDATA[<p><a href="https://www.cnblogs.com/TenosDoIt/p/3456704.html" target="_blank" rel="noopener">https://www.cnblogs.com/TenosDoIt/p/3456704.html</a></p>
+]]></content>
+      <tags>
+        <tag>Conception</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>堆内存和栈内存</title>
     <url>/2019/07/23/heap_memory_and_stack_memory/</url>
-    <content><![CDATA[<ul>
-<li><a href="#今天的问题">今天的问题</a></li>
-<li><a href="#内存空间">内存空间</a><ul>
-<li><a href="#静态存储区全局变量">静态存储区（全局变量）</a></li>
-<li><a href="#栈区局部变量">栈区（局部变量）</a></li>
-<li><a href="#堆区动态申请数据">堆区（动态申请数据）</a></li>
-<li><a href="#文字常量区">文字常量区</a></li>
-<li><a href="#程序代码区">程序代码区</a></li>
-</ul>
-</li>
-<li><a href="#具体问题">具体问题</a></li>
-<li><a href="#notes">NOTES</a></li>
-</ul>
-<blockquote>
+    <content><![CDATA[<blockquote>
 <p>每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心</p>
 </blockquote>
 <h2 id="今天的问题"><a href="#今天的问题" class="headerlink" title="今天的问题"></a>今天的问题</h2><p>局部变量存储在<strong>___</strong>，全局变量存储在<strong>__</strong>，动态申请数据存储在<strong>__</strong>。</p>
-<p>栈  静态存储区  堆</p>
+<p>栈  静态存储区  堆<br>  <a id="more"></a></p>
 <h2 id="内存空间"><a href="#内存空间" class="headerlink" title="内存空间"></a>内存空间</h2><h3 id="静态存储区（全局变量）"><a href="#静态存储区（全局变量）" class="headerlink" title="静态存储区（全局变量）"></a>静态存储区（全局变量）</h3><p>先说最简单的全局变量，包含全局变量和 static 修饰符修饰的静态变量，都是保存在静态存储区当中，并且分为未初始化区域和初始化区域。初始化的全局变量和静态变量保存在一块区域中，未初始化的全局变量和未初始化的静态变量保存在另一块相邻的区域中。</p>
 <p>全局变量的生命周期持续到整个程序结束，在程序结束后由系统释放。</p>
 <p>对于嵌入式程序来讲，在编译后的 map 文件中就已经确定了全局变量的存储地址位置，通过该 map 文件就可以进行全局变量的调试读取等操作。</p>
@@ -792,25 +1093,11 @@ pre[data-line] .line-highlight[data-end]:after {
 <blockquote>
 <p>&#x7F57;&#x9A6C;&#x4E0D;&#x662F;&#x4E00;&#x5929;&#x5EFA;&#x6210;&#x7684;&#xFF0C;&#x4F60;&#x4E5F;&#x4E0D;&#x4F1A;&#x4E00;&#x4E0B;&#x6210;&#x4E3A;&#x68A6;&#x60F3;&#x4E2D;&#x7684;&#x4EBA;&#xFF0C;&#x4F46;&#x662F;&#x53EA;&#x8981;&#x5728;&#x5B66;&#x4E60;&#x5728;&#x52AA;&#x529B;&#xFF0C;&#x5C31;&#x662F;&#x8D8A;&#x6765;&#x8D8A;&#x63A5;&#x8FD1;&#x7684;&#x3002;</p>
 </blockquote>
-<ul>
-<li><a href="#project-euler-%E9%A2%98%E8%A7%A331~40"> Project Euler  &#x9898;&#x89E3;&#xFF1A;31~40</a>
-<ul>
-<li><a href="#problem-31-coin-sumshttpsprojecteulernetproblem31"> Problem 31: Coin sums</a></li>
-<li><a href="#problem-32-pandigital-productshttpsprojecteulernetproblem32"> Problem 32: Pandigital products</a></li>
-<li><a href="#problem-33-digit-cancelling-fractionshttpsprojecteulernetproblem3"> Problem 33: Digit cancelling fractions</a></li>
-<li><a href="#problem-34-digit-factorialshttpsprojecteulernetproblem34"> Problem 34: Digit factorials</a></li>
-<li><a href="#problem-35-circular-primeshttpsprojecteulernetproblem35"> Problem 35: Circular primes</a></li>
-<li><a href="#problem-36-double-base-palindromeshttpsprojecteulernetproblem36"> Problem 36: Double-base palindromes</a></li>
-<li><a href="#problem-37-truncatable-primeshttpsprojecteulernetproblem37"> Problem 37: Truncatable primes</a></li>
-<li><a href="#problem-38-pandigital-multipleshttpsprojecteulernetproblem38"> Problem 38: Pandigital multiples</a></li>
-<li><a href="#problem-39-integer-right-triangleshttpsprojecteulernetproblem39"> Problem 39: Integer right triangles</a></li>
-<li><a href="#problem-40-champernownes-constanthttpsprojecteulernetproblem40"> Problem 40: Champernowne&apos;s constant</a></li>
-<li><a href="#prime-python"> Prime (python)</a></li>
-</ul>
-</li>
-</ul>
+
 <p>&#x7EE7;&#x7EED;&#x4E0A;&#x4E00;&#x6B21;&#x7684;Project Euler&#x7684;&#x9898;&#x89E3;&#xFF0C;&#x4E0D;&#x89C1;&#x5F97;&#x6700;&#x4F18;&#xFF0C;&#x4E5F;&#x4E0D;&#x89C1;&#x5F97;&#x4F18;&#x96C5;&#xFF0C;&#x4F46;&#x662F;&#x7B54;&#x6848;&#x662F;&#x5BF9;&#x7684;&#xFF0C;&#x601D;&#x8DEF;&#x4E5F;&#x662F;&#x6CA1;&#x95EE;&#x9898;&#x7684;&#x3002;&#x8FD9;&#x6B21;&#x662F;31~40&#x9898;&#x3002;</p>
+
 <p>(&#x5947;&#x602A;&#xFF0C;&#x8FD9;&#x4EBA;&#x600E;&#x4E48;&#x53C8;&#x5F00;&#x59CB;&#x7528;python&#x5199;&#x4E86;</p>
+  <a id="more"></a>
 <h2 class="mume-header" id="problem-31-coin-sumshttpsprojecteulernetproblem31"><a href="https://projecteuler.net/problem=31" target="_blank" rel="noopener">Problem 31: Coin sums</a></h2>
 
 <p>&#x55EF;&#x3002;&#x3002;&#x633A;&#x7ECF;&#x5178;&#x633A;&#x5E38;&#x89C1;&#x7684;&#x5B8C;&#x5168;&#x80CC;&#x5305;DP&#x95EE;&#x9898;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x6EE1;&#x8111;&#x5B50;&#x4E0D;&#x77E5;&#x9053;&#x5728;&#x60F3;&#x4EC0;&#x4E48;&#xFF0C;&#x6123;&#x662F;&#x6CA1;&#x505A;&#x51FA;&#x6765;&#xFF0C;&#x540E;&#x6765;&#x770B;&#x4E86;&#x770B;&#x522B;&#x4EBA;&#x7684;&#x63D0;&#x793A;&#x624D;&#x60F3;&#x5230;&#x5E94;&#x8BE5;&#x6309;&#x7167;&#x786C;&#x5E01;&#x79CD;&#x7C7B;&#x53BB;&#x5FAA;&#x73AF;&#x3002;&#x4E00;&#x76F4;&#x5728;&#x60F3;&#x600E;&#x4E48;&#x53BB;&#x5904;&#x7406;&#x91CD;&#x590D;&#x7684;&#x60C5;&#x51B5;&#x3002;</p>
@@ -1323,19 +1610,9 @@ pre[data-line] .line-highlight[data-end]:after {
     </head>
     <body for="html-export">
       <div class="mume markdown-preview  ">
-      <ul>
-<li><a href="#problem-21amicable-numbershttpsprojecteulernetproblem21"> Problem 21:Amicable numbers</a></li>
-<li><a href="#problem-22names-scoreshttpsprojecteulernetproblem22"> Problem 22:Names scores</a></li>
-<li><a href="#problem-23non-abundant-sumshttpsprojecteulernetproblem23"> Problem 23:Non-abundant sums</a></li>
-<li><a href="#problem-24lexicographic-permutationshttpsprojecteulernetproblem24"> Problem 24:Lexicographic permutations</a></li>
-<li><a href="#problem-251000-digit-fibonacci-numberhttpsprojecteulernetproblem25"> Problem 25:1000-digit Fibonacci number</a></li>
-<li><a href="#problem-26reciprocal-cycleshttpsprojecteulernetproblem26"> Problem 26:Reciprocal cycles</a></li>
-<li><a href="#problem-27quadratic-primeshttpsprojecteulernetproblem27"> Problem 27:Quadratic primes</a></li>
-<li><a href="#problem-28number-spiral-diagonalshttpsprojecteulernetproblem28"> Problem 28:Number spiral diagonals</a></li>
-<li><a href="#problem-29distinct-powershttpsprojecteulernetproblem29"> Problem 29:Distinct powers</a></li>
-<li><a href="#problem-30digit-fifth-powershttpsprojecteulernetproblem30"> Problem 30:Digit fifth powers</a></li>
-</ul>
+
 <p>&#x7EE7;&#x7EED;&#x4E0A;&#x4E00;&#x6B21;&#x7684;Project Euler&#x7684;&#x9898;&#x89E3;&#xFF0C;&#x4E0D;&#x89C1;&#x5F97;&#x6700;&#x4F18;&#xFF0C;&#x4E5F;&#x4E0D;&#x89C1;&#x5F97;&#x4F18;&#x96C5;&#xFF0C;&#x4F46;&#x662F;&#x7B54;&#x6848;&#x662F;&#x5BF9;&#x7684;&#xFF0C;&#x601D;&#x8DEF;&#x4E5F;&#x662F;&#x6CA1;&#x95EE;&#x9898;&#x7684;&#x3002;&#x8FD9;&#x6B21;&#x662F;21~30&#x9898;&#x3002;</p>
+  <a id="more"></a>
 <h2 class="mume-header" id="problem-21amicable-numbershttpsprojecteulernetproblem21"><a href="https://projecteuler.net/problem=21" target="_blank" rel="noopener">Problem 21:Amicable numbers</a></h2>
 
 <p>&#x5BF9;&#x4E8E;x&#xFF0C;&#x9664;&#x81EA;&#x5DF1;&#x4EE5;&#x5916;&#x7684;&#x56E0;&#x6570;&#x7684;&#x548C;&#x5B9A;&#x4E49;&#x4E3A;d(x)&#xFF0C;&#x6C42;&#x51FA;1000&#x4EE5;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x6EE1;&#x8DB3;<code>d(a)=d(b) &amp;&amp; a!=b</code>&#x7684;&#x6570;&#x5BF9;&#x5E76;&#x6C42;&#x548C;&#x3002;</p>
@@ -1911,19 +2188,8 @@ pre[data-line] .line-highlight[data-end]:after {
     </head>
     <body for="html-export">
       <div class="mume markdown-preview  ">
-      <ul>
-<li><a href="#problem-11largest-product-in-a-gridhttpsprojecteulernetproblem11"> Problem 11:Largest product in a grid</a></li>
-<li><a href="#problem-12highly-divisible-triangular-numberhttpsprojecteulernetproblem12"> Problem 12:Highly divisible triangular number</a></li>
-<li><a href="#problem-13large-sumhttpsprojecteulernetproblem13"> Problem 13:Large sum</a></li>
-<li><a href="#problem-14longest-collatz-sequencehttpsprojecteulernetproblem14"> Problem 14:Longest Collatz sequence</a></li>
-<li><a href="#problem-15lattice-pathshttpsprojecteulernetproblem15"> Problem 15:Lattice paths</a></li>
-<li><a href="#problem-16power-digit-sumhttpsprojecteulernetproblem16"> Problem 16:Power digit sum</a></li>
-<li><a href="#problem-17number-letter-countshttpsprojecteulernetproblem17"> Problem 17:Number letter counts</a></li>
-<li><a href="#problem-18maximum-path-sum-ihttpsprojecteulernetproblem18"> Problem 18:Maximum path sum I</a></li>
-<li><a href="#problem-19counting-sundayshttpsprojecteulernetproblem19"> Problem 19:Counting Sundays</a></li>
-<li><a href="#problem-20factorial-digit-sumhttpsprojecteulernetproblem20"> Problem 20:Factorial digit sum</a></li>
-</ul>
 <p>&#x7EE7;&#x7EED;&#x4E0A;&#x4E00;&#x6B21;&#x7684;Project Euler&#x7684;&#x9898;&#x89E3;&#xFF0C;&#x4E0D;&#x89C1;&#x5F97;&#x6700;&#x4F18;&#xFF0C;&#x4E5F;&#x4E0D;&#x89C1;&#x5F97;&#x4F18;&#x96C5;&#xFF0C;&#x4F46;&#x662F;&#x7B54;&#x6848;&#x662F;&#x5BF9;&#x7684;&#xFF0C;&#x601D;&#x8DEF;&#x4E5F;&#x662F;&#x6CA1;&#x95EE;&#x9898;&#x7684;&#x3002;&#x8FD9;&#x6B21;&#x662F;11~20&#x9898;&#x3002;</p>
+  <a id="more"></a>
 <h2 class="mume-header" id="problem-11largest-product-in-a-gridhttpsprojecteulernetproblem11"><a href="https://projecteuler.net/problem=11" target="_blank" rel="noopener">Problem 11:Largest product in a grid</a></h2>
 
 <p>&#x5728;&#x4E00;&#x4E2A;20x20&#x7684;&#x8868;&#x683C;&#x5185;&#x5728;&#x6A2A;&#x7AD6;&#x659C;&#x56DB;&#x4E2A;&#x65B9;&#x5411;&#x4E0A;&#x627E;&#x8FDE;&#x7EED;&#x56DB;&#x4E2A;&#x6570;&#x5B57;&#x7684;&#x6700;&#x5927;&#x4E58;&#x79EF;&#x3002;</p>
@@ -2250,9 +2516,10 @@ pre[data-line] .line-highlight[data-end]:after {
     <content><![CDATA[<h1 id="Lecture-1-Introduction-to-NLP-and-Deep-Learning"><a href="#Lecture-1-Introduction-to-NLP-and-Deep-Learning" class="headerlink" title="Lecture 1: Introduction to NLP and Deep Learning"></a>Lecture 1: Introduction to NLP and Deep Learning</h1><h2 id="What-is-Natural-Language-Processing"><a href="#What-is-Natural-Language-Processing" class="headerlink" title="What is Natural Language Processing"></a>What is Natural Language Processing</h2><h3 id="Intersecting-of"><a href="#Intersecting-of" class="headerlink" title="Intersecting of"></a>Intersecting of</h3><ul>
 <li>computer science </li>
 <li>artificial intelligence</li>
-<li>linguistics</li>
+<li>linguistics<a id="more"></a>
+<h3 id="Goal"><a href="#Goal" class="headerlink" title="Goal"></a>Goal</h3></li>
 </ul>
-<h3 id="Goal"><a href="#Goal" class="headerlink" title="Goal"></a>Goal</h3><p>let computer process or “understand” NL to perform tasks</p>
+<p>let computer process or “understand” NL to perform tasks</p>
 <ul>
 <li>Performing tasks</li>
 <li>question answering</li>
@@ -2357,6 +2624,7 @@ pre[data-line] .line-highlight[data-end]:after {
 <p>自己做的Project Euler的题解，不见得最优，也不见得优雅，但是答案是对的。基本上可以暴力求解的都是直接暴力求的。</p>
 <h2 id="Problem-1-Multiples-of-3-and-5"><a href="#Problem-1-Multiples-of-3-and-5" class="headerlink" title="Problem 1:Multiples of 3 and 5"></a><a href="https://projecteuler.net/problem=1" target="_blank" rel="noopener">Problem 1:Multiples of 3 and 5</a></h2><p>暴力遍历，能整除3或者5的话累加</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (i % <span class="number">3</span> == <span class="number">0</span> || i % <span class="number">5</span> == <span class="number">0</span>)</span><br><span class="line">			num += i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <a id="more"></a>
 <h2 id="Problem-2-Even-Fibonacci-numbers"><a href="#Problem-2-Even-Fibonacci-numbers" class="headerlink" title="Problem 2:Even Fibonacci numbers"></a><a href="https://projecteuler.net/problem=2" target="_blank" rel="noopener">Problem 2:Even Fibonacci numbers</a></h2><p>把4000000以下的 fib 数列都求出来，再遍历一般累加奇数。</p>
 <p>这里其实 fib 数列的奇偶性是有规律的，按照 奇-奇-偶 的形式无限循环，所以也可以用数列的第几项是否能被3整除来判断。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; fib;</span><br><span class="line">	fib.push_back(<span class="number">1</span>);</span><br><span class="line">	fib.push_back(<span class="number">2</span>);</span><br><span class="line">	<span class="keyword">while</span> (fib.back() &lt; (<span class="number">4000000</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		fib.push_back(fib.at(fib.size() - <span class="number">1</span>) + fib.at(fib.size() - <span class="number">2</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> f : fib)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (f &lt; <span class="number">4000000</span>) &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; f &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">if</span> (f % <span class="number">2</span> == <span class="number">0</span>) num += f;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -2389,6 +2657,7 @@ pre[data-line] .line-highlight[data-end]:after {
 <p>做 Project Euler 的过程中很多大整数运算，所以先撸了一个大整数加法和大整数,使用string作为输入输出参数</p>
 <p>大整数加法代码：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 大整数加法</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">BIGadd</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; nums)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (nums.size() == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">"0"</span>;</span><br><span class="line">	<span class="keyword">if</span> (nums.size() == <span class="number">1</span>)<span class="keyword">return</span> nums.at(<span class="number">0</span>);</span><br><span class="line">	<span class="built_in">string</span> out = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> maxdig = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> i : nums) maxdig = MAX(maxdig, i.size());</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; ; k++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">auto</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (nums.at(i).size() &gt; k)</span><br><span class="line">				sum += nums.at(i).at(nums.at(i).size() - k - <span class="number">1</span>) - <span class="number">48</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (sum == <span class="number">0</span> &amp;&amp; k&gt;=maxdig) <span class="keyword">return</span> out;</span><br><span class="line">		out = (<span class="keyword">char</span>)(sum % <span class="number">10</span> + <span class="number">48</span>) + out;</span><br><span class="line">		sum = sum / <span class="number">10</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <a id="more"></a>
 <p>大整数乘法代码：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 大整数乘法 配套上面的使用</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">BIGtimes</span><span class="params">(<span class="built_in">string</span> m, <span class="built_in">string</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; adds;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = n.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">string</span> line=<span class="string">""</span>;</span><br><span class="line">		<span class="keyword">int</span>  sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = m.size() - <span class="number">1</span>; k &gt;= <span class="number">0</span>; k--)</span><br><span class="line">		&#123;</span><br><span class="line">			sum += (n.at(i) - <span class="number">48</span>) * (m.at(k) - <span class="number">48</span>);</span><br><span class="line">			line = (<span class="keyword">char</span>)(sum % <span class="number">10</span> + <span class="number">48</span>)+line;</span><br><span class="line">			sum = sum / <span class="number">10</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(sum!=<span class="number">0</span>)</span><br><span class="line">		line = (<span class="keyword">char</span>)(sum % <span class="number">10</span> + <span class="number">48</span>)+line;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = n.size()<span class="number">-1</span>; k &gt; i; k--)line = line + <span class="string">'0'</span>;</span><br><span class="line">		adds.push_back(line);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> BIGadd(adds);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
@@ -2677,7 +2946,9 @@ pre[data-line] .line-highlight[data-end]:after {
 
 <p>&#x6700;&#x8FD1;&#x505A;&#x4E86;&#x4E00;&#x4E9B; Project Euler &#x7684;&#x9898;&#x76EE;&#x3002;&#x76EE;&#x524D;&#x53EA;&#x505A;&#x4E86;&#x524D;&#x5341;&#x9898;&#xFF0C;&#x611F;&#x89C9;&#x548C;&#x4E00;&#x822C;&#x7684;&#x7F16;&#x7A0B;&#x9898;&#x76EE;&#x6BD4;&#x8FD8;&#x662F;&#x633A;&#x6709;&#x610F;&#x601D;&#x7684;&#xFF0C;&#x5355;&#x4E00;&#x6848;&#x4F8B;&#xFF0C;&#x4E0D;&#x9650;&#x65F6;&#x95F4;&#xFF0C;&#x4E0D;&#x9650;&#x505A;&#x6CD5;&#xFF0C;&#x53EA;&#x8981;&#x505A;&#x51FA;&#x6765;&#x7684;&#x5C31;&#x53EF;&#x4EE5;&#xFF0C;&#x4F60;&#x613F;&#x610F;&#x7684;&#x8BDD;&#x66B4;&#x529B;&#x6C42;&#x89E3;&#xFF0C;&#x624B;&#x52A8;&#x53BB;&#x7B97;&#x90FD;&#x53EF;&#x4EE5;&#xFF0C;&#x8FD8;&#x662F;&#x633A;&#x6709;&#x610F;&#x601D;&#x7684;&#x3002;</p>
 <p>&#x524D;&#x9762;&#x6709;&#x51E0;&#x9053;&#x5173;&#x4E8E;&#x8D28;&#x6570; (Prime Number) &#x7684;&#x9898;&#x76EE;&#xFF0C;&#x9700;&#x8981;&#x5224;&#x65AD;&#x4E00;&#x4E2A;&#x6570;&#x662F;&#x5426;&#x662F;&#x8D28;&#x6570;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8FD9;&#x6B21;&#x7684;&#x95EE;&#x9898;&#x4E86;&#x3002;</p>
+  <a id="more"></a>
 <p><a href="https://projecteuler.net/problem=7" target="_blank" rel="noopener"><strong>Problem 7.</strong> 10001st prime</a></p>
+
 <blockquote>
 <p>By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.<br>
 What is the 10 001st prime number?</p>
@@ -3087,6 +3358,8 @@ pre[data-line] .line-highlight[data-end]:after {
 <p>&#x6700;&#x8FD1;&#x60F3;&#x5728;Jetson TX1&#x8FD9;&#x4E2A;&#x677F;&#x5B50;&#x4E0A;&#x5B66;&#x4E60;Caffe&#x548C;&#x673A;&#x5668;&#x5B66;&#x4E60;&#x4E00;&#x4E9B;&#x5185;&#x5BB9;&#xFF0C;&#x4E8E;&#x662F;&#x628A;&#x5B89;&#x88C5;Caffe&#x7684;&#x8FC7;&#x7A0B;&#x548C;&#x5176;&#x4E2D;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;&#x505A;&#x4E00;&#x4E2A;&#x5B66;&#x4E60;&#x7B14;&#x8BB0;&#x3002;<br>
 &#x9996;&#x5148;&#x6B63;&#x5E38;&#x7684;&#x5B89;&#x88C5;&#x53EF;&#x4EE5;&#x53C2;&#x8003;Caffe&#x7684;&#x5B98;&#x7F51;&#x548C;&#x7F51;&#x4E0A;&#x6570;&#x4E0D;&#x6E05;&#x7684;&#x6559;&#x7A0B;&#xFF0C;&#x8FD9;&#x91CC;&#x4E0D;&#x518D;&#x8BB0;&#x5F55;&#x4E86;&#xFF0C;&#x91CD;&#x70B9;&#x8BF4;&#x5B89;&#x88C5;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x95EE;&#x9898;&#x4E0E;&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#x3002;</p>
 </blockquote>
+
+  <a id="more"></a>
 <hr>
 <h2 class="mume-header" id="%E4%B8%80-%E5%9C%A8%E5%AE%89%E8%A3%85caffe%E4%B9%8B%E5%89%8D%E9%9C%80%E8%A6%81%E8%BF%9B%E8%A1%8C%E4%BE%9D%E8%B5%96%E9%A1%B9%E7%9A%84%E5%AE%89%E8%A3%85">&#x4E00;&#x3001;&#x5728;&#x5B89;&#x88C5;Caffe&#x4E4B;&#x524D;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x4F9D;&#x8D56;&#x9879;&#x7684;&#x5B89;&#x88C5;</h2>
 
