@@ -271,6 +271,7 @@
 <h3 id="文字常量区"><a href="#文字常量区" class="headerlink" title="文字常量区"></a>文字常量区</h3><p>保存常量字符串的区域。程序结束后由系统释放。</p>
 <h3 id="程序代码区"><a href="#程序代码区" class="headerlink" title="程序代码区"></a>程序代码区</h3><p>程序代码区，存放二进制代码。</p>
 <h2 id="具体问题"><a href="#具体问题" class="headerlink" title="具体问题"></a>具体问题</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>* p = <span class="string">"Hello World1"</span>;</span><br><span class="line"><span class="keyword">char</span> a[] = <span class="string">"Hello World2"</span>;</span><br><span class="line">p[<span class="number">2</span>] = <span class="string">'A'</span>;</span><br><span class="line">a[<span class="number">2</span>] = <span class="string">'A'</span>;</span><br><span class="line"><span class="keyword">char</span>* p1 = <span class="string">"Hello World1"</span>;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>行1 中 p 在栈区中，字符串在文字常量区中</li>
 <li>行2 中 a 在栈区中，字符串在栈区中</li>
@@ -329,8 +330,8 @@
       <i class="fa fa-chevron-left"></i> Project Euler  题解：31~40
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/07/23/intelligent_pointer/" rel="next" title="智能指针">
-      智能指针 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/07/23/leetcode-contest-No130/" rel="next" title="LeetCode Contest No.130">
+      LeetCode Contest No.130 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -466,9 +467,11 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-              leancloudSelector(url).innerText = counter.time + 1;
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
               .catch(error => {
                 console.log('Failed to save visitor count', error);
               })

@@ -6,16 +6,23 @@
     <content><![CDATA[<blockquote>
 <p>最近在使用进行MATLAB进行一些计算的时候因为计算时间实在是太长了（五天。所以开始考虑进行算法优化，就在这时无意间看到了系统的CPU占用率，what？25%哈哈哈哈哈或或或或或或或或，matlab个ZZ。于是想起了parfor这回事，算法用的是动态规划算法，但是在每个递推过程中也要计算$2000 \times 2000$个循环，正好可以用并行计算，perfect，条件允许，直接开始！</p>
 </blockquote>
-<h2 id="要啥简介，直接开干"><a href="#要啥简介，直接开干" class="headerlink" title="要啥简介，直接开干"></a>要啥简介，直接开干</h2><p>来看一个简单的不能再简单的例子，我们用for将一个数组乘以2<br><a id="more"></a></p>
+<h2 id="要啥简介，直接开干"><a href="#要啥简介，直接开干" class="headerlink" title="要啥简介，直接开干"></a>要啥简介，直接开干</h2><p>来看一个简单的不能再简单的例子，我们用for将一个数组乘以2</p>
+<a id="more"></a>
+
 <figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">n = <span class="number">1000</span>;</span><br><span class="line">a = <span class="built_in">rand</span>(n,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:n</span><br><span class="line">    a(<span class="built_in">i</span>) = a(<span class="built_in">i</span>) * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
 <p>试着跑一下，没什么问题（这要有啥问题可以不活了），看一下运行时间</p>
 <figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">Elapsed time is <span class="number">0.000034</span> seconds.</span><br></pre></td></tr></table></figure>
+
 <p>一个n x 1大小的随机数组，然后把其中每个数乘以二，下面就是改成parfor并行计算的</p>
 <figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">n = <span class="number">1000</span>;</span><br><span class="line">a = <span class="built_in">rand</span>(n,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">parfor</span> <span class="built_in">i</span>=<span class="number">1</span>:n</span><br><span class="line">    a(<span class="built_in">i</span>) = a(<span class="built_in">i</span>) * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
 <p>so easy。这样就改好了，matlab果然易用，同样看一下时间</p>
 <figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">Starting parallel pool (parpool) using the <span class="string">'local'</span> profile ... connected to <span class="number">4</span> workers.</span><br><span class="line">Elapsed time is <span class="number">32.119578</span> seconds.</span><br></pre></td></tr></table></figure>
+
 <p>WTF，本来想要提高效率的，怎么会变得这么慢，不过看说明似乎干了些别的，再跑一遍试试？</p>
 <figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">Elapsed time is <span class="number">0.183769</span> seconds.</span><br></pre></td></tr></table></figure>
+
 <p>看上去时间正常多了嘛不过还是比正常跑慢，怎么回事？首先如果看到上面这些，恭喜，这就是已经开始多核心并行计算了，后面我们来具体分析及使用MATLAB的并行计算。</p>
 <h2 id="MATLAB并行计算解释及分析"><a href="#MATLAB并行计算解释及分析" class="headerlink" title="MATLAB并行计算解释及分析"></a>MATLAB并行计算解释及分析</h2><p>首先通俗解释一下我们做的事情，比如我们有一堆砖要搬，从A搬到B再搬到C结束。正常情况下，我们有一个小伙子来做这件事，他一次一次把所有砖从A搬到B再搬到C。这就是正常情况下的计算。</p>
 <p>但是我们的CPU是多核心的，例如我们是有四个小伙子的，但是在搬砖过程中，这四个小伙子只有一个小伙子在搬砖，另外三个小伙子在围观。。。这怎么可能快嘛，但是我们的小伙子很能干，只要砖不是非常多，工作都能很快完成，时间差距不大，所以也就不需要所有人都上了。</p>
@@ -26,7 +33,7 @@
 <h3 id="Parallel-Pool-的设置"><a href="#Parallel-Pool-的设置" class="headerlink" title="Parallel Pool 的设置"></a>Parallel Pool 的设置</h3><p>然后我们来看一下 MATLAB 中关于并行工具箱相关的设置：</p>
 <p>（matlab版本使用2015a，其他版本请找相关设置</p>
 <p>matlab 中去做这项工作的部分叫做 Parallel pool。在 matlab 的设置界面中或者主界面的左下角的图标处可以进入并行计算工具箱的设置。大概长这样：</p>
-<p><img src="/assets/Matlab_cluster_parfor/并行工具箱设置.png" alt="并行工具箱设置"></p>
+<p><img src="/assets/Matlab_cluster_parfor/%E5%B9%B6%E8%A1%8C%E5%B7%A5%E5%85%B7%E7%AE%B1%E8%AE%BE%E7%BD%AE.png" alt="并行工具箱设置"></p>
 <p>最上面的 Clusters 是关于计算的集群的设置，请选择 local （后面看我努力程度是否出个搭建集群的教程吧，非常简单）</p>
 <p><img src="/assets/Matlab_cluster_parfor/ClusterProfileManager.png" alt="Cluster Profile Manager"></p>
 <p>点击蓝色文字处 Cluster Profile Manager 就可以对本地的这个 Cluster 进行配置了，中间最重要的配置是 <strong>Number of workers to start on your local machine</strong> 这个决定了有多少个小伙子给你干活，默认情况下，CPU 是几核的就填几。（这一步在实际运行中有一些疑问，核心数or线程数，等待后续进一步验证。）修改后可以顺手点击 <strong>Validate</strong> 进行验证，几项测试都通过的话就说明配置没有问题，退出设置后点击同样在主界面中左下角菜单中的另外一项 <strong>Start parallel pool</strong> 就可以打开了，或者在程序中运行到 parfor 时 MATLAB 也会自动开启。</p>
@@ -77,7 +84,9 @@
 <blockquote>
 <p>国王为10天后的生日宴会准备了1000桶酒，不幸的是，其中一桶被下了毒。为了确定哪桶是毒酒，有人提议用死刑犯试毒。毒的潜伏期为10天。问：至少需要多少个死刑犯才能确保找出毒酒？方案如何实行？</p>
 </blockquote>
-<p>以我小学生的智力水平，书中的题目大部分都是这个难度，我也都是直接放弃看答案了，这里我们还是稍微给自己一点时间稍微思考一下：<br><a id="more"></a><br><img src="/assets/Hamming_Code/14642488356727964.jpg" alt><br><img src="/assets/Hamming_Code/14642488357089277.jpg" alt></p>
+<p>以我小学生的智力水平，书中的题目大部分都是这个难度，我也都是直接放弃看答案了，这里我们还是稍微给自己一点时间稍微思考一下：</p>
+<a id="more"></a>
+<p><img src="/assets/Hamming_Code/14642488356727964.jpg" alt><br><img src="/assets/Hamming_Code/14642488357089277.jpg" alt></p>
 <p>好的！还是不会！</p>
 <p>答案这里使用简单一点的举个例子，比如我们有八桶酒，分别编号0-7，需要几个死刑犯才能试出毒酒呢？</p>
 <p>三个</p>
@@ -96,8 +105,7 @@
 <th>解释</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>0</td>
 <td>0</td>
 <td>0</td>
@@ -153,8 +161,7 @@
 <td>7</td>
 <td>都死了，有且只有7三个罪犯都喝了</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>哇，这东西看上去好熟悉，这不就是二进制么！这样三个罪犯就可以通过这样的方法，最大检查 $2^3 = 8$ 桶酒的是否有毒。以此类推的话，1000桶酒需要 $2^{10} = 1024 &gt; 1000$ 也就是十个罪犯来检验。done，问题解决</p>
 <h2 id="纠错"><a href="#纠错" class="headerlink" title="纠错"></a>纠错</h2><p>这个时候明眼人已经看出来了，为什么举上面这个栗子呢，这个例子实际上就是一个纠错的过程，在1000位数据中找到错误的一位数据，找到了就可以纠正这位数据，支付的代价就是对于1000位数据而言，还需要10位数据（罪犯）的状态去进行验证。</p>
 <p>我们来看一下一般情况下的汉明码是怎么去实现的。</p>
@@ -174,18 +181,16 @@
 <th>圈</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td> -</td>
+<tbody><tr>
 <td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
-<td>- </td>
+<td>-</td>
+<td>-</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p> （圈是占地方的</p>
 <p>把所有2的幂次位作为校验位，也就是1、2、4、8、16这些位置，这里我们用 C 表示</p>
 <table>
@@ -200,18 +205,16 @@
 <th>圈</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td> -</td>
+<tbody><tr>
 <td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
-<td>- </td>
+<td>-</td>
+<td>-</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>其他位置填充数据，这里我们用D表示</p>
 <table>
 <thead>
@@ -225,9 +228,8 @@
 <th>D3</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td> -</td>
+<tbody><tr>
+<td>-</td>
 <td>-</td>
 <td>1</td>
 <td>-</td>
@@ -235,8 +237,7 @@
 <td>0</td>
 <td>1</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>然后我们给每一位校验位（罪犯）分配各自校验的数据位（毒酒）</p>
 <p>这里用 A 代表整个7位数据</p>
 <p>C0： A0  A2  A4  A6   也即  C0 D0 D1 D3</p>
@@ -261,9 +262,8 @@
 <th>D3</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td> 1</td>
+<tbody><tr>
+<td>1</td>
 <td>0</td>
 <td>1</td>
 <td>0</td>
@@ -271,8 +271,7 @@
 <td>0</td>
 <td>1</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>That‘s it！，这样我们最后传输的数据为 1 0 1 0 1 0 1 ，可以纠错的位数为1</p>
 <h3 id="试验"><a href="#试验" class="headerlink" title="试验"></a>试验</h3><p>试验一下纠错，例如在数据传输的过程中有一位发生了错误  变成了  1 0 1 0 1 1 1</p>
 <p>将其中2的幂次位的校验位对应校验的数据提出来，求其和，看奇偶</p>
@@ -284,8 +283,7 @@
 <th>奇偶</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>A0 A2 A4 A6</td>
 <td>1 1 1 1</td>
 <td>0</td>
@@ -300,8 +298,7 @@
 <td>0 1 1 1</td>
 <td>1</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>哇，是不是又好熟悉，和第一节中的例子一样，所以我们把这三位拼起来 1 1 0 （倒过来），二进制表示是6， 也即第六位是错误的数据位！</p>
 <p>哇，好厉害。 这样就完成了</p>
 <h2 id="回顾与分析"><a href="#回顾与分析" class="headerlink" title="回顾与分析"></a>回顾与分析</h2><p>了解了汉明码的使用和纠错的过程，我们来仔细回顾看一下其中一些细节的问题</p>
@@ -323,8 +320,7 @@
 <th>奇偶</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>A0 A2 A4 A6</td>
 <td>1 0 1 1</td>
 <td>1</td>
@@ -339,8 +335,7 @@
 <td>1 1 0 1</td>
 <td>1</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>可以看到仍然认为数据是错误的，但是已经不具备纠错的能力了。在普遍意义下，汉明码是能够具备2位的检测能力的，也即，知道数据有错误，但是并不具备2位的纠错能力。</p>
 <p>除此之外，想要对汉明码进一步了解的话，可以再搜索一下这些关键字：汉明码的纠错能力和检测能力  最小码距  汉明距离</p>
 ]]></content>
@@ -698,6 +693,26 @@ bottom: .4em;
       </tags>
   </entry>
   <entry>
+    <title>LeetCode Contest No.131</title>
+    <url>/2019/07/23/leetcode-contest-No131/</url>
+    <content><![CDATA[<h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
+<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧<del>~</del>错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。<br>  <a id="more"></a></p>
+<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" target="_blank" rel="noopener">删除最外层的括号</a></h3><p>1WA</p>
+<p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
+<h3 id="No-5017-从根到叶的二进制数之和"><a href="#No-5017-从根到叶的二进制数之和" class="headerlink" title="No.5017 从根到叶的二进制数之和"></a>No.5017 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/sum-of-root-to-leaf-binary-numbers/" target="_blank" rel="noopener">从根到叶的二进制数之和</a></h3><p>一开始初始值给错了，没有大问题。</p>
+<h3 id="No-5018-驼峰式匹配"><a href="#No-5018-驼峰式匹配" class="headerlink" title="No.5018 驼峰式匹配"></a>No.5018 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/camelcase-matching/" target="_blank" rel="noopener">驼峰式匹配</a></h3><p>居然，做到一半的时候，忘记题目了！！！</p>
+<p>做到一半的时候只记得要匹配对了就可以了，完全忘记了是只能插入小写字母，但是还好还好这道题给的测试用例比较全面，才通过了。</p>
+<p>另外可以多接触一下库啊，isupper这种函数的用法，多知道一些总是好事。</p>
+<h3 id="No-5019-视频拼接"><a href="#No-5019-视频拼接" class="headerlink" title="No.5019 视频拼接"></a>No.5019 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/video-stitching/" target="_blank" rel="noopener">视频拼接</a></h3><p>1WA</p>
+<p>完完全全忘记了那次错误提交是为什么，明明是昨天刚做过的题……</p>
+<p>嗯，那就没啥说的了</p>
+]]></content>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode Contest No.132</title>
     <url>/2019/07/23/leetcode-contest-No132/</url>
     <content><![CDATA[<h2 id="Contest-132"><a href="#Contest-132" class="headerlink" title="Contest 132"></a>Contest 132</h2><p>通过：3/4  排名：99/1047  0:59:44  1WA</p>
@@ -727,23 +742,13 @@ bottom: .4em;
       </tags>
   </entry>
   <entry>
-    <title>LeetCode Contest No.131</title>
-    <url>/2019/07/23/leetcode-contest-No131/</url>
-    <content><![CDATA[<h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
-<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧~~~错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。<br>  <a id="more"></a></p>
-<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" target="_blank" rel="noopener">删除最外层的括号</a></h3><p>1WA</p>
-<p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
-<h3 id="No-5017-从根到叶的二进制数之和"><a href="#No-5017-从根到叶的二进制数之和" class="headerlink" title="No.5017 从根到叶的二进制数之和"></a>No.5017 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/sum-of-root-to-leaf-binary-numbers/" target="_blank" rel="noopener">从根到叶的二进制数之和</a></h3><p>一开始初始值给错了，没有大问题。</p>
-<h3 id="No-5018-驼峰式匹配"><a href="#No-5018-驼峰式匹配" class="headerlink" title="No.5018 驼峰式匹配"></a>No.5018 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/camelcase-matching/" target="_blank" rel="noopener">驼峰式匹配</a></h3><p>居然，做到一半的时候，忘记题目了！！！</p>
-<p>做到一半的时候只记得要匹配对了就可以了，完全忘记了是只能插入小写字母，但是还好还好这道题给的测试用例比较全面，才通过了。</p>
-<p>另外可以多接触一下库啊，isupper这种函数的用法，多知道一些总是好事。</p>
-<h3 id="No-5019-视频拼接"><a href="#No-5019-视频拼接" class="headerlink" title="No.5019 视频拼接"></a>No.5019 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/video-stitching/" target="_blank" rel="noopener">视频拼接</a></h3><p>1WA</p>
-<p>完完全全忘记了那次错误提交是为什么，明明是昨天刚做过的题……</p>
-<p>嗯，那就没啥说的了</p>
+    <title>智能指针</title>
+    <url>/2019/07/23/intelligent_pointer/</url>
+    <content><![CDATA[<p><a href="https://www.cnblogs.com/TenosDoIt/p/3456704.html" target="_blank" rel="noopener">https://www.cnblogs.com/TenosDoIt/p/3456704.html</a></p>
 ]]></content>
       <tags>
-        <tag>Algorithm</tag>
-        <tag>LeetCode</tag>
+        <tag>Conception</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -771,16 +776,6 @@ bottom: .4em;
       </tags>
   </entry>
   <entry>
-    <title>智能指针</title>
-    <url>/2019/07/23/intelligent_pointer/</url>
-    <content><![CDATA[<p><a href="https://www.cnblogs.com/TenosDoIt/p/3456704.html" target="_blank" rel="noopener">https://www.cnblogs.com/TenosDoIt/p/3456704.html</a></p>
-]]></content>
-      <tags>
-        <tag>Conception</tag>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>堆内存和栈内存</title>
     <url>/2019/07/23/heap_memory_and_stack_memory/</url>
     <content><![CDATA[<blockquote>
@@ -801,6 +796,7 @@ bottom: .4em;
 <h3 id="文字常量区"><a href="#文字常量区" class="headerlink" title="文字常量区"></a>文字常量区</h3><p>保存常量字符串的区域。程序结束后由系统释放。</p>
 <h3 id="程序代码区"><a href="#程序代码区" class="headerlink" title="程序代码区"></a>程序代码区</h3><p>程序代码区，存放二进制代码。</p>
 <h2 id="具体问题"><a href="#具体问题" class="headerlink" title="具体问题"></a>具体问题</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>* p = <span class="string">"Hello World1"</span>;</span><br><span class="line"><span class="keyword">char</span> a[] = <span class="string">"Hello World2"</span>;</span><br><span class="line">p[<span class="number">2</span>] = <span class="string">'A'</span>;</span><br><span class="line">a[<span class="number">2</span>] = <span class="string">'A'</span>;</span><br><span class="line"><span class="keyword">char</span>* p1 = <span class="string">"Hello World1"</span>;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>行1 中 p 在栈区中，字符串在文字常量区中</li>
 <li>行2 中 a 在栈区中，字符串在栈区中</li>
@@ -2624,25 +2620,34 @@ pre[data-line] .line-highlight[data-end]:after {
 <p>自己做的Project Euler的题解，不见得最优，也不见得优雅，但是答案是对的。基本上可以暴力求解的都是直接暴力求的。</p>
 <h2 id="Problem-1-Multiples-of-3-and-5"><a href="#Problem-1-Multiples-of-3-and-5" class="headerlink" title="Problem 1:Multiples of 3 and 5"></a><a href="https://projecteuler.net/problem=1" target="_blank" rel="noopener">Problem 1:Multiples of 3 and 5</a></h2><p>暴力遍历，能整除3或者5的话累加</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (i % <span class="number">3</span> == <span class="number">0</span> || i % <span class="number">5</span> == <span class="number">0</span>)</span><br><span class="line">			num += i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
   <a id="more"></a>
 <h2 id="Problem-2-Even-Fibonacci-numbers"><a href="#Problem-2-Even-Fibonacci-numbers" class="headerlink" title="Problem 2:Even Fibonacci numbers"></a><a href="https://projecteuler.net/problem=2" target="_blank" rel="noopener">Problem 2:Even Fibonacci numbers</a></h2><p>把4000000以下的 fib 数列都求出来，再遍历一般累加奇数。</p>
 <p>这里其实 fib 数列的奇偶性是有规律的，按照 奇-奇-偶 的形式无限循环，所以也可以用数列的第几项是否能被3整除来判断。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; fib;</span><br><span class="line">	fib.push_back(<span class="number">1</span>);</span><br><span class="line">	fib.push_back(<span class="number">2</span>);</span><br><span class="line">	<span class="keyword">while</span> (fib.back() &lt; (<span class="number">4000000</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		fib.push_back(fib.at(fib.size() - <span class="number">1</span>) + fib.at(fib.size() - <span class="number">2</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> f : fib)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (f &lt; <span class="number">4000000</span>) &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; f &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">if</span> (f % <span class="number">2</span> == <span class="number">0</span>) num += f;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="Problem-3-Largest-prime-factor"><a href="#Problem-3-Largest-prime-factor" class="headerlink" title="Problem 3:Largest prime factor"></a><a href="https://projecteuler.net/problem=3" target="_blank" rel="noopener">Problem 3:Largest prime factor</a></h2><p>从小打到大找因数，当找到一个因数之后将原始数字除以这个因数，再继续判断。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">problem3</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span> &gt; nums;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> num = <span class="number">600851475143</span>;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> n = <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">while</span> (n &lt;= num)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (num % n == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			nums.push_back(n);</span><br><span class="line">			num = num / n;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			n++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; n &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> i : nums)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> nums.back();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="Problem-4-Largest-palindrome-product"><a href="#Problem-4-Largest-palindrome-product" class="headerlink" title="Problem 4:Largest palindrome product"></a><a href="https://projecteuler.net/problem=4" target="_blank" rel="noopener">Problem 4:Largest palindrome product</a></h2><p>暴力遍历，判断是回文数后记录最大值。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem4</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">100</span>;</span><br><span class="line">	<span class="keyword">int</span> m = <span class="number">100</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> m = <span class="number">100</span>; m &lt;= <span class="number">999</span>; m++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> n = <span class="number">100</span>; n &lt;= <span class="number">999</span>; n++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">stringstream</span> ss;</span><br><span class="line">			<span class="keyword">int</span> nn = n * m;</span><br><span class="line">			ss &lt;&lt; nn;</span><br><span class="line">			<span class="built_in">string</span> aa = ss.str();</span><br><span class="line">			<span class="built_in">string</span> bb = aa;</span><br><span class="line">			reverse(bb.begin(), bb.end());</span><br><span class="line"><span class="comment">//			cout &lt;&lt; aa &lt;&lt; "  " &lt;&lt; bb;</span></span><br><span class="line">			<span class="keyword">if</span> (aa.compare(bb) == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				num = MAX(num, n * m);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; m &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="Problem-5-Smallest-multiple"><a href="#Problem-5-Smallest-multiple" class="headerlink" title="Problem 5:Smallest multiple"></a><a href="https://projecteuler.net/problem=5" target="_blank" rel="noopener">Problem 5:Smallest multiple</a></h2><p>这个没写程序，直接在计算器里乘了一下。。。</p>
 <h2 id="Problem-6-Sum-square-difference"><a href="#Problem-6-Sum-square-difference" class="headerlink" title="Problem 6:Sum square difference"></a><a href="https://projecteuler.net/problem=6" target="_blank" rel="noopener">Problem 6:Sum square difference</a></h2><p>嗯，算数题，算就对了。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem6</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num1=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> num2 = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">100</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		num1 += i * i;</span><br><span class="line">		num2 += i;</span><br><span class="line">	&#125;</span><br><span class="line">	num2 = num2 * num2;</span><br><span class="line">	<span class="keyword">return</span> num2 - num1;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="Problem-7-10001st-prime"><a href="#Problem-7-10001st-prime" class="headerlink" title="Problem 7:10001st prime"></a><a href="https://projecteuler.net/problem=7" target="_blank" rel="noopener">Problem 7:10001st prime</a></h2><p>判断素数，前面有一篇文章有详细解释。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem7</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prime;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; ; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">2</span>; k &lt; i; k++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i % k == <span class="number">0</span>) &#123;</span><br><span class="line">				n++; <span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (n == <span class="number">0</span>) &#123; prime.push_back(i); <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">		<span class="keyword">if</span> (prime.size() == <span class="number">10001</span>) <span class="keyword">return</span> prime.back();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="Problem-8-Largest-product-in-a-series"><a href="#Problem-8-Largest-product-in-a-series" class="headerlink" title="Problem 8:Largest product in a series"></a><a href="https://projecteuler.net/problem=8" target="_blank" rel="noopener">Problem 8:Largest product in a series</a></h2><p>暴力遍历</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem8</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> out = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">string</span> number = <span class="string">"7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450"</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; numbers;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> i : number)</span><br><span class="line">	&#123;</span><br><span class="line">		numbers.push_back(i - <span class="number">48</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numbers.size() - <span class="number">13</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">long</span> <span class="keyword">long</span> num = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = i; k &lt; i + <span class="number">13</span>; k++)</span><br><span class="line">		&#123;</span><br><span class="line">			num = num * numbers.at(k);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i &lt;&lt;<span class="string">"  "</span>&lt;&lt;out&lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		out = MAX(out, num);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*for (int i = 0; i &lt; 13; i++)</span></span><br><span class="line"><span class="comment">	&#123;</span></span><br><span class="line"><span class="comment">		num = num * numbers.at(i);</span></span><br><span class="line"><span class="comment">		out = num;</span></span><br><span class="line"><span class="comment">	&#125;</span></span><br><span class="line"><span class="comment">	for (int i = 13; i &lt; numbers.size(); i++)</span></span><br><span class="line"><span class="comment">	&#123;</span></span><br><span class="line"><span class="comment">		num = num * numbers.at(i);</span></span><br><span class="line"><span class="comment">		num = num / numbers.at(i - 13);</span></span><br><span class="line"><span class="comment">		out = MAX(out, num);</span></span><br><span class="line"><span class="comment">	&#125;*/</span></span><br><span class="line">	<span class="keyword">return</span> out;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="Problem-9-Special-Pythagorean-triplet"><a href="#Problem-9-Special-Pythagorean-triplet" class="headerlink" title="Problem 9:Special Pythagorean triplet"></a><a href="https://projecteuler.net/problem=9" target="_blank" rel="noopener">Problem 9:Special Pythagorean triplet</a></h2><p>暴力遍历</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">problem9</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (a = <span class="number">1</span>; a &lt; <span class="number">1000</span>; a++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (b = <span class="number">1</span>; b &lt; <span class="number">1000</span>; b++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> cc = a * a + b * b;</span><br><span class="line">			<span class="keyword">int</span> c = <span class="number">1000</span> - a - b;</span><br><span class="line">			<span class="keyword">if</span> (c * c == cc)</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; <span class="string">"a"</span> &lt;&lt; a &lt;&lt; <span class="string">"b"</span> &lt;&lt; b &lt;&lt; <span class="string">"c"</span> &lt;&lt; c &lt;&lt; <span class="string">"out:"</span>&lt;&lt;a*b*c&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="Problem-10-Summation-of-primes"><a href="#Problem-10-Summation-of-primes" class="headerlink" title="Problem 10:Summation of primes"></a><a href="https://projecteuler.net/problem=10" target="_blank" rel="noopener">Problem 10:Summation of primes</a></h2><p>同 Problem 7 看之前的文章。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">problem10</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prime;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> sum=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i&lt;<span class="number">2000000</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> ss = <span class="built_in">sqrt</span>(i);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; prime.size(); k++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i % prime.at(k) == <span class="number">0</span>) &#123;</span><br><span class="line">				n++; <span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (prime.at(k) &gt; ss) <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//for (int k = 2; k &lt; i; k++)</span></span><br><span class="line">		<span class="comment">//&#123;</span></span><br><span class="line">		<span class="comment">//	if (i % k == 0) &#123;</span></span><br><span class="line">		<span class="comment">//		n++; break;</span></span><br><span class="line">		<span class="comment">//	&#125;</span></span><br><span class="line">		<span class="comment">//&#125;</span></span><br><span class="line">		<span class="keyword">if</span> (n == <span class="number">0</span>) &#123; prime.push_back(i); sum += i; <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;; &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
         <tag>Project Euler</tag>
@@ -2657,9 +2662,11 @@ pre[data-line] .line-highlight[data-end]:after {
 <p>做 Project Euler 的过程中很多大整数运算，所以先撸了一个大整数加法和大整数,使用string作为输入输出参数</p>
 <p>大整数加法代码：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 大整数加法</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">BIGadd</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; nums)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (nums.size() == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">"0"</span>;</span><br><span class="line">	<span class="keyword">if</span> (nums.size() == <span class="number">1</span>)<span class="keyword">return</span> nums.at(<span class="number">0</span>);</span><br><span class="line">	<span class="built_in">string</span> out = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> maxdig = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> i : nums) maxdig = MAX(maxdig, i.size());</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; ; k++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">auto</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (nums.at(i).size() &gt; k)</span><br><span class="line">				sum += nums.at(i).at(nums.at(i).size() - k - <span class="number">1</span>) - <span class="number">48</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (sum == <span class="number">0</span> &amp;&amp; k&gt;=maxdig) <span class="keyword">return</span> out;</span><br><span class="line">		out = (<span class="keyword">char</span>)(sum % <span class="number">10</span> + <span class="number">48</span>) + out;</span><br><span class="line">		sum = sum / <span class="number">10</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
   <a id="more"></a>
 <p>大整数乘法代码：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 大整数乘法 配套上面的使用</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">BIGtimes</span><span class="params">(<span class="built_in">string</span> m, <span class="built_in">string</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; adds;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = n.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">string</span> line=<span class="string">""</span>;</span><br><span class="line">		<span class="keyword">int</span>  sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = m.size() - <span class="number">1</span>; k &gt;= <span class="number">0</span>; k--)</span><br><span class="line">		&#123;</span><br><span class="line">			sum += (n.at(i) - <span class="number">48</span>) * (m.at(k) - <span class="number">48</span>);</span><br><span class="line">			line = (<span class="keyword">char</span>)(sum % <span class="number">10</span> + <span class="number">48</span>)+line;</span><br><span class="line">			sum = sum / <span class="number">10</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(sum!=<span class="number">0</span>)</span><br><span class="line">		line = (<span class="keyword">char</span>)(sum % <span class="number">10</span> + <span class="number">48</span>)+line;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = n.size()<span class="number">-1</span>; k &gt; i; k--)line = line + <span class="string">'0'</span>;</span><br><span class="line">		adds.push_back(line);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> BIGadd(adds);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
   </entry>
   <entry>

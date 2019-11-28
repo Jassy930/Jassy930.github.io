@@ -313,12 +313,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/07/23/leetcode-contest-No131/" rel="prev" title="LeetCode Contest No.131">
-      <i class="fa fa-chevron-left"></i> LeetCode Contest No.131
+    <a href="/2019/07/23/intelligent_pointer/" rel="prev" title="智能指针">
+      <i class="fa fa-chevron-left"></i> 智能指针
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/08/12/leetcode_1155/" rel="next" title="LeetCode 1155">
-      LeetCode 1155 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/07/23/leetcode-contest-No131/" rel="next" title="LeetCode Contest No.131">
+      LeetCode Contest No.131 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -454,9 +454,11 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-              leancloudSelector(url).innerText = counter.time + 1;
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
               .catch(error => {
                 console.log('Failed to save visitor count', error);
               })

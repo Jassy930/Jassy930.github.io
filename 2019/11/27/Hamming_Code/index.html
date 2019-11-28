@@ -259,7 +259,9 @@
 <blockquote>
 <p>国王为10天后的生日宴会准备了1000桶酒，不幸的是，其中一桶被下了毒。为了确定哪桶是毒酒，有人提议用死刑犯试毒。毒的潜伏期为10天。问：至少需要多少个死刑犯才能确保找出毒酒？方案如何实行？</p>
 </blockquote>
-<p>以我小学生的智力水平，书中的题目大部分都是这个难度，我也都是直接放弃看答案了，这里我们还是稍微给自己一点时间稍微思考一下：<br><a id="more"></a><br><img src="/assets/Hamming_Code/14642488356727964.jpg" alt><br><img src="/assets/Hamming_Code/14642488357089277.jpg" alt></p>
+<p>以我小学生的智力水平，书中的题目大部分都是这个难度，我也都是直接放弃看答案了，这里我们还是稍微给自己一点时间稍微思考一下：</p>
+<a id="more"></a>
+<p><img src="/assets/Hamming_Code/14642488356727964.jpg" alt><br><img src="/assets/Hamming_Code/14642488357089277.jpg" alt></p>
 <p>好的！还是不会！</p>
 <p>答案这里使用简单一点的举个例子，比如我们有八桶酒，分别编号0-7，需要几个死刑犯才能试出毒酒呢？</p>
 <p>三个</p>
@@ -278,8 +280,7 @@
 <th>解释</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>0</td>
 <td>0</td>
 <td>0</td>
@@ -335,8 +336,7 @@
 <td>7</td>
 <td>都死了，有且只有7三个罪犯都喝了</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>哇，这东西看上去好熟悉，这不就是二进制么！这样三个罪犯就可以通过这样的方法，最大检查 $2^3 = 8$ 桶酒的是否有毒。以此类推的话，1000桶酒需要 $2^{10} = 1024 &gt; 1000$ 也就是十个罪犯来检验。done，问题解决</p>
 <h2 id="纠错"><a href="#纠错" class="headerlink" title="纠错"></a>纠错</h2><p>这个时候明眼人已经看出来了，为什么举上面这个栗子呢，这个例子实际上就是一个纠错的过程，在1000位数据中找到错误的一位数据，找到了就可以纠正这位数据，支付的代价就是对于1000位数据而言，还需要10位数据（罪犯）的状态去进行验证。</p>
 <p>我们来看一下一般情况下的汉明码是怎么去实现的。</p>
@@ -356,18 +356,16 @@
 <th>圈</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td> -</td>
+<tbody><tr>
 <td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
-<td>- </td>
+<td>-</td>
+<td>-</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p> （圈是占地方的</p>
 <p>把所有2的幂次位作为校验位，也就是1、2、4、8、16这些位置，这里我们用 C 表示</p>
 <table>
@@ -382,18 +380,16 @@
 <th>圈</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td> -</td>
+<tbody><tr>
 <td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
-<td>- </td>
+<td>-</td>
+<td>-</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>其他位置填充数据，这里我们用D表示</p>
 <table>
 <thead>
@@ -407,9 +403,8 @@
 <th>D3</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td> -</td>
+<tbody><tr>
+<td>-</td>
 <td>-</td>
 <td>1</td>
 <td>-</td>
@@ -417,8 +412,7 @@
 <td>0</td>
 <td>1</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>然后我们给每一位校验位（罪犯）分配各自校验的数据位（毒酒）</p>
 <p>这里用 A 代表整个7位数据</p>
 <p>C0： A0  A2  A4  A6   也即  C0 D0 D1 D3</p>
@@ -443,9 +437,8 @@
 <th>D3</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td> 1</td>
+<tbody><tr>
+<td>1</td>
 <td>0</td>
 <td>1</td>
 <td>0</td>
@@ -453,8 +446,7 @@
 <td>0</td>
 <td>1</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>That‘s it！，这样我们最后传输的数据为 1 0 1 0 1 0 1 ，可以纠错的位数为1</p>
 <h3 id="试验"><a href="#试验" class="headerlink" title="试验"></a>试验</h3><p>试验一下纠错，例如在数据传输的过程中有一位发生了错误  变成了  1 0 1 0 1 1 1</p>
 <p>将其中2的幂次位的校验位对应校验的数据提出来，求其和，看奇偶</p>
@@ -466,8 +458,7 @@
 <th>奇偶</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>A0 A2 A4 A6</td>
 <td>1 1 1 1</td>
 <td>0</td>
@@ -482,8 +473,7 @@
 <td>0 1 1 1</td>
 <td>1</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>哇，是不是又好熟悉，和第一节中的例子一样，所以我们把这三位拼起来 1 1 0 （倒过来），二进制表示是6， 也即第六位是错误的数据位！</p>
 <p>哇，好厉害。 这样就完成了</p>
 <h2 id="回顾与分析"><a href="#回顾与分析" class="headerlink" title="回顾与分析"></a>回顾与分析</h2><p>了解了汉明码的使用和纠错的过程，我们来仔细回顾看一下其中一些细节的问题</p>
@@ -505,8 +495,7 @@
 <th>奇偶</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>A0 A2 A4 A6</td>
 <td>1 0 1 1</td>
 <td>1</td>
@@ -521,8 +510,7 @@
 <td>1 1 0 1</td>
 <td>1</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>可以看到仍然认为数据是错误的，但是已经不具备纠错的能力了。在普遍意义下，汉明码是能够具备2位的检测能力的，也即，知道数据有错误，但是并不具备2位的纠错能力。</p>
 <p>除此之外，想要对汉明码进一步了解的话，可以再搜索一下这些关键字：汉明码的纠错能力和检测能力  最小码距  汉明距离</p>
 
@@ -705,9 +693,11 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-              leancloudSelector(url).innerText = counter.time + 1;
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
               .catch(error => {
                 console.log('Failed to save visitor count', error);
               })

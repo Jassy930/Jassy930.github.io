@@ -54,7 +54,7 @@
 <meta property="og:site_name" content="弱者">
 <meta property="og:description" content="最近在使用进行MATLAB进行一些计算的时候因为计算时间实在是太长了（五天。所以开始考虑进行算法优化，就在这时无意间看到了系统的CPU占用率，what？25%哈哈哈哈哈或或或或或或或或，matlab个ZZ。于是想起了parfor这回事，算法用的是动态规划算法，但是在每个递推过程中也要计算$2000 \times 2000$个循环，正好可以用并行计算，perfect，条件允许，直接开始！  要啥简">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://blog.jassy.com/assets/Matlab_cluster_parfor/并行工具箱设置.png">
+<meta property="og:image" content="http://blog.jassy.com/assets/Matlab_cluster_parfor/%E5%B9%B6%E8%A1%8C%E5%B7%A5%E5%85%B7%E7%AE%B1%E8%AE%BE%E7%BD%AE.png">
 <meta property="og:image" content="http://blog.jassy.com/assets/Matlab_cluster_parfor/ClusterProfileManager.png">
 <meta property="og:image" content="http://blog.jassy.com/assets/Matlab_cluster_parfor/ValidationResults.png">
 <meta property="og:image" content="http://blog.jassy.com/assets/Matlab_cluster_parfor/parfor_vartypes.png">
@@ -62,7 +62,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MATLAB并行工具箱--parfor的使用">
 <meta name="twitter:description" content="最近在使用进行MATLAB进行一些计算的时候因为计算时间实在是太长了（五天。所以开始考虑进行算法优化，就在这时无意间看到了系统的CPU占用率，what？25%哈哈哈哈哈或或或或或或或或，matlab个ZZ。于是想起了parfor这回事，算法用的是动态规划算法，但是在每个递推过程中也要计算$2000 \times 2000$个循环，正好可以用并行计算，perfect，条件允许，直接开始！  要啥简">
-<meta name="twitter:image" content="http://blog.jassy.com/assets/Matlab_cluster_parfor/并行工具箱设置.png">
+<meta name="twitter:image" content="http://blog.jassy.com/assets/Matlab_cluster_parfor/%E5%B9%B6%E8%A1%8C%E5%B7%A5%E5%85%B7%E7%AE%B1%E8%AE%BE%E7%BD%AE.png">
 
 <link rel="canonical" href="http://blog.jassy.com/2019/11/27/Matlab_cluster_parfor/">
 
@@ -255,16 +255,23 @@
         <blockquote>
 <p>最近在使用进行MATLAB进行一些计算的时候因为计算时间实在是太长了（五天。所以开始考虑进行算法优化，就在这时无意间看到了系统的CPU占用率，what？25%哈哈哈哈哈或或或或或或或或，matlab个ZZ。于是想起了parfor这回事，算法用的是动态规划算法，但是在每个递推过程中也要计算$2000 \times 2000$个循环，正好可以用并行计算，perfect，条件允许，直接开始！</p>
 </blockquote>
-<h2 id="要啥简介，直接开干"><a href="#要啥简介，直接开干" class="headerlink" title="要啥简介，直接开干"></a>要啥简介，直接开干</h2><p>来看一个简单的不能再简单的例子，我们用for将一个数组乘以2<br><a id="more"></a></p>
+<h2 id="要啥简介，直接开干"><a href="#要啥简介，直接开干" class="headerlink" title="要啥简介，直接开干"></a>要啥简介，直接开干</h2><p>来看一个简单的不能再简单的例子，我们用for将一个数组乘以2</p>
+<a id="more"></a>
+
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">1000</span>;</span><br><span class="line">a = <span class="built_in">rand</span>(n,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:n</span><br><span class="line">    a(<span class="built_in">i</span>) = a(<span class="built_in">i</span>) * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
 <p>试着跑一下，没什么问题（这要有啥问题可以不活了），看一下运行时间</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Elapsed time is <span class="number">0.000034</span> seconds.</span><br></pre></td></tr></table></figure>
+
 <p>一个n x 1大小的随机数组，然后把其中每个数乘以二，下面就是改成parfor并行计算的</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">1000</span>;</span><br><span class="line">a = <span class="built_in">rand</span>(n,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">parfor</span> <span class="built_in">i</span>=<span class="number">1</span>:n</span><br><span class="line">    a(<span class="built_in">i</span>) = a(<span class="built_in">i</span>) * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
 <p>so easy。这样就改好了，matlab果然易用，同样看一下时间</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Starting parallel pool (parpool) using the <span class="string">'local'</span> profile ... connected to <span class="number">4</span> workers.</span><br><span class="line">Elapsed time is <span class="number">32.119578</span> seconds.</span><br></pre></td></tr></table></figure>
+
 <p>WTF，本来想要提高效率的，怎么会变得这么慢，不过看说明似乎干了些别的，再跑一遍试试？</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Elapsed time is <span class="number">0.183769</span> seconds.</span><br></pre></td></tr></table></figure>
+
 <p>看上去时间正常多了嘛不过还是比正常跑慢，怎么回事？首先如果看到上面这些，恭喜，这就是已经开始多核心并行计算了，后面我们来具体分析及使用MATLAB的并行计算。</p>
 <h2 id="MATLAB并行计算解释及分析"><a href="#MATLAB并行计算解释及分析" class="headerlink" title="MATLAB并行计算解释及分析"></a>MATLAB并行计算解释及分析</h2><p>首先通俗解释一下我们做的事情，比如我们有一堆砖要搬，从A搬到B再搬到C结束。正常情况下，我们有一个小伙子来做这件事，他一次一次把所有砖从A搬到B再搬到C。这就是正常情况下的计算。</p>
 <p>但是我们的CPU是多核心的，例如我们是有四个小伙子的，但是在搬砖过程中，这四个小伙子只有一个小伙子在搬砖，另外三个小伙子在围观。。。这怎么可能快嘛，但是我们的小伙子很能干，只要砖不是非常多，工作都能很快完成，时间差距不大，所以也就不需要所有人都上了。</p>
@@ -275,7 +282,7 @@
 <h3 id="Parallel-Pool-的设置"><a href="#Parallel-Pool-的设置" class="headerlink" title="Parallel Pool 的设置"></a>Parallel Pool 的设置</h3><p>然后我们来看一下 MATLAB 中关于并行工具箱相关的设置：</p>
 <p>（matlab版本使用2015a，其他版本请找相关设置</p>
 <p>matlab 中去做这项工作的部分叫做 Parallel pool。在 matlab 的设置界面中或者主界面的左下角的图标处可以进入并行计算工具箱的设置。大概长这样：</p>
-<p><img src="/assets/Matlab_cluster_parfor/并行工具箱设置.png" alt="并行工具箱设置"></p>
+<p><img src="/assets/Matlab_cluster_parfor/%E5%B9%B6%E8%A1%8C%E5%B7%A5%E5%85%B7%E7%AE%B1%E8%AE%BE%E7%BD%AE.png" alt="并行工具箱设置"></p>
 <p>最上面的 Clusters 是关于计算的集群的设置，请选择 local （后面看我努力程度是否出个搭建集群的教程吧，非常简单）</p>
 <p><img src="/assets/Matlab_cluster_parfor/ClusterProfileManager.png" alt="Cluster Profile Manager"></p>
 <p>点击蓝色文字处 Cluster Profile Manager 就可以对本地的这个 Cluster 进行配置了，中间最重要的配置是 <strong>Number of workers to start on your local machine</strong> 这个决定了有多少个小伙子给你干活，默认情况下，CPU 是几核的就填几。（这一步在实际运行中有一些疑问，核心数or线程数，等待后续进一步验证。）修改后可以顺手点击 <strong>Validate</strong> 进行验证，几项测试都通过的话就说明配置没有问题，退出设置后点击同样在主界面中左下角菜单中的另外一项 <strong>Start parallel pool</strong> 就可以打开了，或者在程序中运行到 parfor 时 MATLAB 也会自动开启。</p>
@@ -486,9 +493,11 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-              leancloudSelector(url).innerText = counter.time + 1;
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
               .catch(error => {
                 console.log('Failed to save visitor count', error);
               })
