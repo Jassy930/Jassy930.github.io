@@ -1,530 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>小扁教你如何实现定位</title>
-    <url>/2019/12/02/howtolocate/</url>
-    <content><![CDATA[<!DOCTYPE html>
-<!-- saved from url=(0046)https://chenpy.com/articles/how+to+locate.html -->
-<html><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width initial-scale=1">
-<title>how to locate</title><link href="/assets/howtolocate/css" rel="stylesheet" type="text/css"><style type="text/css">html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; }
-html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; tab-size: 4; background-position: inherit inherit; background-repeat: inherit inherit; }
-iframe { margin: auto; }
-a.url { word-break: break-all; }
-a:active, a:hover { outline: 0px; }
-.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
-#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
-#write.first-line-indent p { text-indent: 2em; }
-#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
-#write.first-line-indent li { margin-left: 2em; }
-.for-image #write { padding-left: 8px; padding-right: 8px; }
-body.typora-export { padding-left: 30px; padding-right: 30px; }
-.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
-@media screen and (max-width: 500px) { 
-  body.typora-export { padding-left: 0px; padding-right: 0px; }
-  #write { padding-left: 20px; padding-right: 20px; }
-  .CodeMirror-sizer { margin-left: 0px !important; }
-  .CodeMirror-gutters { display: none !important; }
-}
-#write li > figure:last-child { margin-bottom: 0.5rem; }
-#write ol, #write ul { position: relative; }
-img { max-width: 100%; vertical-align: middle; }
-button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
-input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
-*, ::after, ::before { box-sizing: border-box; }
-#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
-#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
-p { line-height: inherit; }
-h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
-p { orphans: 4; }
-h1 { font-size: 2rem; }
-h2 { font-size: 1.8rem; }
-h3 { font-size: 1.6rem; }
-h4 { font-size: 1.4rem; }
-h5 { font-size: 1.2rem; }
-h6 { font-size: 1rem; }
-.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
-.hidden { display: none; }
-.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
-a { cursor: pointer; }
-sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; cursor: pointer; }
-sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
-#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
-figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
-figure > table { margin: 0px !important; }
-tr { break-inside: avoid; break-after: auto; }
-thead { display: table-header-group; }
-table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
-table.md-table td { min-width: 32px; }
-.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
-.CodeMirror-linenumber { }
-.CodeMirror { text-align: left; }
-.CodeMirror-placeholder { opacity: 0.3; }
-.CodeMirror pre { padding: 0px 4px; }
-.CodeMirror-lines { padding: 0px; }
-div.hr:focus { cursor: none; }
-#write pre { white-space: pre-wrap; }
-#write.fences-no-line-wrapping pre { white-space: pre; }
-#write pre.ty-contain-cm { white-space: normal; }
-.CodeMirror-gutters { margin-right: 4px; }
-.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
-.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
-#write .md-fences.mock-cm { white-space: pre-wrap; }
-.md-fences.md-fences-with-lineno { padding-left: 0px; }
-#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
-.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
-.CodeMirror-line, twitterwidget { break-inside: avoid; }
-.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
-.footnotes + .footnotes { margin-top: 0px; }
-.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; background-position: 0px 0px; background-repeat: initial initial; }
-li div { padding-top: 0px; }
-blockquote { margin: 1rem 0px; }
-li .mathjax-block, li p { margin: 0.5rem 0px; }
-li { margin: 0px; position: relative; }
-blockquote > :last-child { margin-bottom: 0px; }
-blockquote > :first-child, li > :first-child { margin-top: 0px; }
-.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
-#write .footnote-line { white-space: pre-wrap; }
-@media print { 
-  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
-  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
-  .typora-export * { -webkit-print-color-adjust: exact; }
-  html.blink-to-pdf { font-size: 13px; }
-  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid; }
-  .typora-export #write::after { height: 0px; }
-}
-.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
-a img, img a { cursor: pointer; }
-pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
-p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
-p > .md-image:only-child { display: inline-block; width: 100%; }
-#write .MathJax_Display { margin: 0.8em 0px 0px; }
-.md-math-block { width: 100%; }
-.md-math-block:not(:empty)::after { display: none; }
-[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
-.md-task-list-item { position: relative; list-style-type: none; }
-.task-list-item.md-task-list-item { padding-left: 0px; }
-.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
-.math { font-size: 1rem; }
-.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
-.md-toc-content { position: relative; margin-left: 0px; }
-.md-toc-content::after, .md-toc::after { display: none; }
-.md-toc-item { display: block; color: rgb(65, 131, 196); }
-.md-toc-item a { text-decoration: none; }
-.md-toc-inner:hover { text-decoration: underline; }
-.md-toc-inner { display: inline-block; cursor: pointer; }
-.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
-.md-toc-h2 .md-toc-inner { margin-left: 2em; }
-.md-toc-h3 .md-toc-inner { margin-left: 4em; }
-.md-toc-h4 .md-toc-inner { margin-left: 6em; }
-.md-toc-h5 .md-toc-inner { margin-left: 8em; }
-.md-toc-h6 .md-toc-inner { margin-left: 10em; }
-@media screen and (max-width: 48em) { 
-  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
-  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
-  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
-  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
-}
-a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
-.footnote-line a:not(.reversefootnote) { color: inherit; }
-.md-attr { display: none; }
-.md-fn-count::after { content: "."; }
-code, pre, samp, tt { font-family: var(--monospace); }
-kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background-color: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; background-position: initial initial; background-repeat: initial initial; }
-.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
-code { text-align: left; }
-a.md-print-anchor { white-space: pre !important; border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
-.md-inline-math .MathJax_SVG .noError { display: none !important; }
-.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
-.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
-.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
-.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
-.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
-.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
-.MathJax_SVG * { transition: none; }
-.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
-.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
-.md-diagram-panel > svg { max-width: 100%; }
-[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; height: auto; }
-[lang="mermaid"] .node text { font-size: 1rem; }
-table tr th { border-bottom-width: 0px; }
-video { max-width: 100%; display: block; margin: 0px auto; }
-iframe { max-width: 100%; width: 100%; border: none; }
-.highlight td, .highlight tr { border: 0px; }
-svg[id^="mermaidChart"] { line-height: 1em; }
-mark { background-color: rgb(255, 255, 0); color: rgb(0, 0, 0); background-position: initial initial; background-repeat: initial initial; }
-.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
-mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
-
-
-:root {
-    --side-bar-bg-color: #fafafa;
-    --control-text-color: #777;
-}
-
-@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
-
-html {
-    font-size: 16px;
-}
-
-body {
-    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-    color: rgb(51, 51, 51);
-    line-height: 1.6;
-}
-
-#write {
-    max-width: 860px;
-  	margin: 0 auto;
-  	padding: 30px;
-    padding-bottom: 100px;
-}
-#write > ul:first-child,
-#write > ol:first-child{
-    margin-top: 30px;
-}
-
-a {
-    color: #4183C4;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    position: relative;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
-    line-height: 1.4;
-    cursor: text;
-}
-h1:hover a.anchor,
-h2:hover a.anchor,
-h3:hover a.anchor,
-h4:hover a.anchor,
-h5:hover a.anchor,
-h6:hover a.anchor {
-    text-decoration: none;
-}
-h1 tt,
-h1 code {
-    font-size: inherit;
-}
-h2 tt,
-h2 code {
-    font-size: inherit;
-}
-h3 tt,
-h3 code {
-    font-size: inherit;
-}
-h4 tt,
-h4 code {
-    font-size: inherit;
-}
-h5 tt,
-h5 code {
-    font-size: inherit;
-}
-h6 tt,
-h6 code {
-    font-size: inherit;
-}
-h1 {
-    padding-bottom: .3em;
-    font-size: 2.25em;
-    line-height: 1.2;
-    border-bottom: 1px solid #eee;
-}
-h2 {
-   padding-bottom: .3em;
-    font-size: 1.75em;
-    line-height: 1.225;
-    border-bottom: 1px solid #eee;
-}
-h3 {
-    font-size: 1.5em;
-    line-height: 1.43;
-}
-h4 {
-    font-size: 1.25em;
-}
-h5 {
-    font-size: 1em;
-}
-h6 {
-   font-size: 1em;
-    color: #777;
-}
-p,
-blockquote,
-ul,
-ol,
-dl,
-table{
-    margin: 0.8em 0;
-}
-li>ol,
-li>ul {
-    margin: 0 0;
-}
-hr {
-    height: 2px;
-    padding: 0;
-    margin: 16px 0;
-    background-color: #e7e7e7;
-    border: 0 none;
-    overflow: hidden;
-    box-sizing: content-box;
-}
-
-li p.first {
-    display: inline-block;
-}
-ul,
-ol {
-    padding-left: 30px;
-}
-ul:first-child,
-ol:first-child {
-    margin-top: 0;
-}
-ul:last-child,
-ol:last-child {
-    margin-bottom: 0;
-}
-blockquote {
-    border-left: 4px solid #dfe2e5;
-    padding: 0 15px;
-    color: #777777;
-}
-blockquote blockquote {
-    padding-right: 0;
-}
-table {
-    padding: 0;
-    word-break: initial;
-}
-table tr {
-    border-top: 1px solid #dfe2e5;
-    margin: 0;
-    padding: 0;
-}
-table tr:nth-child(2n),
-thead {
-    background-color: #f8f8f8;
-}
-table tr th {
-    font-weight: bold;
-    border: 1px solid #dfe2e5;
-    border-bottom: 0;
-    margin: 0;
-    padding: 6px 13px;
-}
-table tr td {
-    border: 1px solid #dfe2e5;
-    margin: 0;
-    padding: 6px 13px;
-}
-table tr th:first-child,
-table tr td:first-child {
-    margin-top: 0;
-}
-table tr th:last-child,
-table tr td:last-child {
-    margin-bottom: 0;
-}
-
-.CodeMirror-lines {
-    padding-left: 4px;
-}
-
-.code-tooltip {
-    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
-    border-top: 1px solid #eef2f2;
-}
-
-.md-fences,
-code,
-tt {
-    border: 1px solid #e7eaed;
-    background-color: #f8f8f8;
-    border-radius: 3px;
-    padding: 0;
-    padding: 2px 4px 0px 4px;
-    font-size: 0.9em;
-}
-
-code {
-    background-color: #f3f4f4;
-    padding: 0 2px 0 2px;
-}
-
-.md-fences {
-    margin-bottom: 15px;
-    margin-top: 15px;
-    padding-top: 8px;
-    padding-bottom: 6px;
-}
-
-
-.md-task-list-item > input {
-  margin-left: -1.3em;
-}
-
-@media print {
-    html {
-        font-size: 13px;
-    }
-    table,
-    pre {
-        page-break-inside: avoid;
-    }
-    pre {
-        word-wrap: break-word;
-    }
-}
-
-.md-fences {
-	background-color: #f8f8f8;
-}
-#write pre.md-meta-block {
-	padding: 1rem;
-    font-size: 85%;
-    line-height: 1.45;
-    background-color: #f7f7f7;
-    border: 0;
-    border-radius: 3px;
-    color: #777777;
-    margin-top: 0 !important;
-}
-
-.mathjax-block>.code-tooltip {
-	bottom: .375rem;
-}
-
-.md-mathjax-midline {
-    background: #fafafa;
-}
-
-#write>h3.md-focus:before{
-	left: -1.5625rem;
-	top: .375rem;
-}
-#write>h4.md-focus:before{
-	left: -1.5625rem;
-	top: .285714286rem;
-}
-#write>h5.md-focus:before{
-	left: -1.5625rem;
-	top: .285714286rem;
-}
-#write>h6.md-focus:before{
-	left: -1.5625rem;
-	top: .285714286rem;
-}
-.md-image>.md-meta {
-    /*border: 1px solid #ddd;*/
-    border-radius: 3px;
-    padding: 2px 0px 0px 4px;
-    font-size: 0.9em;
-    color: inherit;
-}
-
-.md-tag {
-    color: #a7a7a7;
-    opacity: 1;
-}
-
-.md-toc { 
-    margin-top:20px;
-    padding-bottom:20px;
-}
-
-.sidebar-tabs {
-    border-bottom: none;
-}
-
-#typora-quick-open {
-    border: 1px solid #ddd;
-    background-color: #f8f8f8;
-}
-
-#typora-quick-open-item {
-    background-color: #FAFAFA;
-    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
-    border-style: solid;
-    border-width: 1px;
-}
-
-/** focus mode */
-.on-focus-mode blockquote {
-    border-left-color: rgba(85, 85, 85, 0.12);
-}
-
-header, .context-menu, .megamenu-content, footer{
-    font-family: "Segoe UI", "Arial", sans-serif;
-}
-
-.file-node-content:hover .file-node-icon,
-.file-node-content:hover .file-node-open-state{
-    visibility: visible;
-}
-
-.mac-seamless-mode #typora-sidebar {
-    background-color: #fafafa;
-    background-color: var(--side-bar-bg-color);
-}
-
-.md-lang {
-    color: #b4654d;
-}
-
-.html-for-mac .context-menu {
-    --item-hover-bg-color: #E6F0FE;
-}
-
-#md-notification .btn {
-    border: 0;
-}
-
-.dropdown-menu .divider {
-    border-color: #e5e5e5;
-}
-
-.ty-preferences .window-content {
-    background-color: #fafafa;
-}
-
-.ty-preferences .nav-group-item.active {
-    color: white;
-    background: #999;
-}
-
- .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} 
-</style>
-</head>
-<body class="typora-export">
-<div id="write" class="is-mac"><h1><a name="如何实现定位" class="md-header-anchor"></a><span>如何实现定位</span></h1><p><span>定位的方式有哪些呢？常见的定位方式有</span><strong><span>IP定位、GPS定位、基站定位、Wi-Fi定位、蓝牙定位（Beacon）和惯导定位（位置推算）</span></strong><span>等等，还有一些不是很常用或者不是很通用的定位方式，需要特定的设备，这里就管不了了</span></p><p><span>那么问题来了，我们日常使用的手机等设备都是怎么定位的呢？而这些数据又是从哪里来的呢？</span></p><h3><a name="ip定位" class="md-header-anchor"></a><span>IP定位</span></h3><p><span>一般来说，我们打开的网页中如果有本地的天气信息，那么一般都是来自于IP定位。IP定位精度非常低，一般可以精确到城市或者区县，但是如果有些服务提供商收集过高精度的IP位置信息，那么可能会有精度更高的位置结果。但是整体来说，基于IP的定位是不准确并且不可靠的，一般用在无法获取其他定位信息或者精度要求低时才会使用。如果有VPN的话，尝试连接一下其他地方的VPN，再打开网页你就发现天气已经是别的地方的了😂</span></p><p><span>那么问题来了，看下面的两张图，正常情况下天气显示在北京，当连接上香港的VPN的时候，刷新页面，就是香港的天气了（别问我为什么VPN是香港的，因为离大陆近，网速快）</span></p><p><img src="/assets/howtolocate/IP定位-北京天气.png" referrerpolicy="no-referrer" alt="IP定位-北京天气"><span>    </span><img src="/assets/howtolocate/IP定位-香港天气.png" referrerpolicy="no-referrer" alt="IP定位-北京天气"></p><h3><a name="gps定位" class="md-header-anchor"></a><span>GPS定位</span></h3><p><span>说起GPS定位，与其类似的还有格洛纳斯、伽利略和北斗定位系统，都可以实现高精度的区域或者全球的定位。当然最牛X的还是GPS了。就拿GPS来举个栗子吧。GPS定位系统在太空中有24颗卫星（当然还有一些备用和冗余的），能够覆盖全球98%的区域，咱们普通使用的精度一般可以达到10米（军用的精度炒鸡高，加上地面的辅助设备可以达厘米级甚至更高😱）</span></p><p><span>使用GPS定位时，接收机接受来自卫星的信号，计算自己到已知卫星的距离，结合多个卫星的数据就可以计算自己的具体位置。由于接收机的时间不一定是同步的，所以需要计算经度、维度、高度和时间这四个变量，那么接收到4个卫星的信号就可以定位喽，so easy妈妈再也不用担心我找不到家了。如果能够接收到更多卫星的信号位置会计算的更准确，如果有AGPS信息，精度可以更高并且首次定位更快（GPS冷启动首次定位会让你等哭的😭）</span></p><p><img src="/assets/howtolocate/GPS-visible.gif" referrerpolicy="no-referrer" alt="GPS"></p><p><span>但是问题来了虽然</span><strong><span>GPS定位精度高，全球覆盖范围广</span></strong><span>，但是一般</span><strong><span>局限于室外，有建筑物等遮挡会影响定位效果</span></strong></p><h3><a name="基站定位" class="md-header-anchor"></a><span>基站定位</span></h3><p><span>那么问题来了，有木有一个在室内也可以定位的方法呢？那么基站定位就来了，基站就是咱们日常生活中手机打电话上网用的的通信基站。这些基站的位置相对较为固定，可以用作定位使用</span></p><p><span>我们手机一般可以搜到一个或者多个基站，连接上其中一个可以用于通信。一般偏远地区基站覆盖范围较大，可能搜不到基站（没信号😢）或者只能搜到一个基站，定位精度可达几百米甚至几千米。人口密度大的城镇地区基站覆盖范围相对较小，基站密集，定位精度可以达到几百甚至几十米</span></p><p><span>能搜索到一个基站则可以认为在这个基站附近一定范围内，搜索到的基站越多，那么定位结果的可信度和准确度就越高。如果能结合用户的历史数据的话，还可以进一步提升基站定位的精度</span></p><p><span>但是问题来了，虽然</span><strong><span>基站定位可以在室内定位，能够覆盖大部分区域</span></strong><span>（有人烟的区域），但是</span><strong><span>定位精度低，精度几百米甚至几千米</span></strong></p><h3><a name="wi-fi定位" class="md-header-anchor"></a><span>Wi-Fi定位</span></h3><p><span>那么问题又来了，有木有室内定位更准一点的方法呢？那么Wi-Fi定位就不得不说了，现在没了Wi-Fi好像丢了魂一样😂，一般咱们在室内手机定位如果精度比较高，那么非常有可能来自Wi-Fi定位</span></p><p><span>Wi-Fi定位为啥比基站定位精度高呢？当然是因为Wi-Fi覆盖范围小了，只要知道了Wi-Fi的位置，能扫描到这个Wi-Fi就说明在附近了。但是Wi-Fi与基站不同，Wi-Fi移动性比较强，比如说咱们手机分享的热点，搬个家家里的Wi-Fi也就跟着跑了之类的，甚至行车记录仪还带着Wi-Fi满地图跑😂，这些都会导致Wi-Fi定位结果不准确。所以我们需要更多的Wi-Fi或者结合基站定位结果来确定一个置信度更高的位置</span></p><p><strong><span>Wi-Fi定位精度比较高</span></strong><span>，可以达到几十米甚至十米，</span><strong><span>但受移动Wi-Fi影响较大</span></strong></p><h3><a name="蓝牙定位beacon）" class="md-header-anchor"></a><span>蓝牙定位（Beacon）</span></h3><p><span>那么又有人问了，现在商场太TM大了，我想在室内能够知道在哪层还能导航，这时候咋办嘞？那么蓝牙定位就来了。现在的蓝牙4.x在低功耗模式下功耗非常低，并且可以用作定位，</span><strong><span>精度可以达到5米甚至更高</span></strong></p><p><span>但是想要使用蓝牙定位，需要预先布置Beacon节点，并且入库，才能够在定位系统中使用蓝牙定位。相对来说耗费较大，但是结果非常精确</span></p><h3><a name="惯导定位位置推算）" class="md-header-anchor"></a><span>惯导定位（位置推算）</span></h3><p><span>我们日常使用导航时发现位置移动非常平滑（即使有时候看着特别假），这是大都由于有滤波算法（比如卡尔曼滤波）在其中。并且使用到了咱们手机中的地磁、加速度计和陀螺仪等传感器（俗称9轴，因为每个传感器信息都有3轴），可以在没有GPS信号或者信号弱的时候用于推算用户轨迹，以达到轨迹连续、定位准确的目的</span></p><h3><a name="数据收集" class="md-header-anchor"></a><span>数据收集</span></h3><p><span>这时候又有人问了，蓝牙的Beacon是我们自己部署的，我们知道Beacon位置在哪可以理解，但是基站定位和Wi-Fi定位中的的基站、Wi-Fi位置是从哪里来的呢？这要归功于咱们的手机和互联网厂商，比如说Google的Android就会匿名收集基站、Wi-Fi对应的GPS位置信息，咱们使用高德地图、百度地图的时候也会匿名收集同样的信息，也算是取之于民用之于民了</span></p><h3><a name="小结" class="md-header-anchor"></a><span>小结</span></h3><p><span>至此，仿佛知道了日常生活中使用的定位是怎么搞的了，其实还有一些特定设备或者场景下的定位方法没有讨论，有兴趣的话可以自己Google一下</span></p><p><span>上述单种定位方式往往不能得到满意的定位结果，并且都会有一定的局限性，结合多种定位方式，优缺点互补，以达到最优的定位结果</span></p></div>
-
-</body></html>]]></content>
-      <tags>
-        <tag>小扁</tag>
-        <tag>定位</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>想出去玩？去日本吧！——准备工作篇</title>
     <url>/2019/11/28/goto_japan_prepare/</url>
     <content><![CDATA[<blockquote>
 <p>很早之前就想去日本转一转，前一段时间终于算是忙中偷闲出去玩了一圈，回来之后也来整理整理出去游玩的过程，也给小伙伴们一个参考。我也是第一次出国玩，所以有没有说明好的地方也希望小伙伴们能提出来~~</p>
 </blockquote>
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>这次出行去了京都、宇治、奈良、大阪，去的城市不是很多，这次单独介绍一下出行的准备工作，方便想去的小伙伴单独查阅，下一篇会介绍去的景点，再给大家推荐一下好景点和好吃的！</p>
-<p><img src="/assets/goto_japan_prepare/%E5%85%B3%E8%A5%BF%E6%9C%BA%E5%9C%BA.jpg" alt="关西机场出口"><br><strong><center> 关西机场出口 </center></strong></p>
+<p><img src="/assets/goto_japan_prepare/%E5%85%B3%E8%A5%BF%E6%9C%BA%E5%9C%BA.JPG" alt="关西机场出口"><br><strong><center> 关西机场出口 </center></strong></p>
 <a id="more"></a>
 
 <h3 id="护照"><a href="#护照" class="headerlink" title="护照"></a>护照</h3><p>护照是出国用的身份证，很多小伙伴都已经早早办下来了，我们的护照是准备去日本之后才去办的，到你所在地派出所的出入境大厅办理即可，具体地址等等请上网百度，北科附近可以去牡丹园，走着也不远。护照办理时间大约一个星期，去的时候记得带上200元现金。（不需要提前拍照，不需要提前打印）</p>
@@ -532,7 +15,7 @@ header, .context-menu, .megamenu-content, footer{
 <p><strong>注意一</strong>： 去日本需要办理银行流水的一份证明，要求年流水高于10W。这份财产证明是必须的，如果自己没有的话，可以提供直系亲属的同样证明，和能证明亲属关系的文件（户口）也可以。但是有一份75所高校的名单，可以简化申请材料，这个申请材料简化指的就是财力证明，适用于75所高校的本科生，研究生，博士生在读和毕业三年内，具体名单可以上网搜索一下（北科是，北航不是）。满足条件的话提供一份学信网的学籍证明就可以了。（如果都办不了怎么办，淘宝，淘宝能找到不需要财产证明的签证，当然价格嘛，也会高不少的</p>
 <p>这里备注一下，如果以前是75所高校的，现在在另外一所不是75所高校的地方读研，抱歉，这样不符合75所高校范围内的，还是需要提供财产证明。（替小伙伴的600块钱默哀</p>
 <p><strong>注意二</strong>： 这里注意按照正常办理流程，你需要先将酒店和飞机订好，再办理日本护照，因为办理日本护照是需要拿在日期间所有的酒店订单和来回机票订单的（备注，民宿胶囊旅馆等不可以），所以一般情况下需要先订酒店和飞机再去办签证。如果不想那么早定，或者住民宿的话，解决办法有二：一是上booking订酒店，一般酒店都是可以免费取消的，订好酒店后去办签证，签证下来了再取消掉酒店就可以了。二就是淘宝，淘宝办理签证可以办理无机酒的套餐，多掏钱就好了。</p>
-<p><img src="/assets/goto_japan_prepare/%E7%AD%BE%E8%AF%81%E6%9D%90%E6%96%99.jpg" alt="签证厚度"><br><strong><center>我准备的签证材料的厚度</center></strong></p>
+<p><img src="/assets/goto_japan_prepare/%E7%AD%BE%E8%AF%81%E6%9D%90%E6%96%99.JPG" alt="签证厚度"><br><strong><center>我准备的签证材料的厚度</center></strong></p>
 <h3 id="住宿"><a href="#住宿" class="headerlink" title="住宿"></a>住宿</h3><p>订酒店的工作完全在booking上完成，和国内订酒店类似，并且都有中文，没有难度。</p>
 <p>另外提醒一下，日本的酒店一般退房时间是十点或者十一点，与国内不同，不要睡过头了。同样入住时间也很晚，一般三点以后。</p>
 <h3 id="换汇"><a href="#换汇" class="headerlink" title="换汇"></a>换汇</h3><p>这点就看个人消费了，不过可以的话还是少带一些现金，一般情况下买东西或者吃饭或者便利店都可以用信用卡支付的。（甚至我们在便利店使用支付宝直接支付了一单</p>
@@ -542,7 +25,7 @@ header, .context-menu, .megamenu-content, footer{
 <p>但是如果去的地方距离都不算远，比如我们，可以办理一张icoca卡或者西瓜卡，类似于国内的公交卡，但是！但是！这张卡并没有打折的作用，该花多少还是多少。并且经过我们几天的过程来看，感觉直接用现金也不是很麻烦，基本都是自助售票，所以区别不大。如果喜欢刷卡，就可以办理一张卡在日期间用，在地铁站或者便利店都有充值的机器（叫精算机），并且很多便利店都可以使用这张卡支付，不用担心充值过多花不掉的问题。</p>
 <p>网上很多说在淘宝办理这张卡的，对比一下淘宝办理会贵一些，而且到日之后再进行办理也不是非常麻烦，所以还是推荐过去之后再办理（还可能会有限定卡面一类的~~</p>
 <p>从车站怎么去酒店？从酒店怎么去景点？随便走不知道走到哪里了怎么回酒店？请使用 google map 。很多人推荐“乘换案内”这个app，但是是全日文的，用着不舒服斯基，而且我根本不知道我去的地方日文怎么写啊。google map 可以直接敲中文去哪里，然后照着地图走就好了，上手无压力无难度，所有交通相关的查询这一个app足够了。</p>
-<p><img src="/assets/goto_japan_prepare/%E4%B8%AD%E6%9D%91%E6%BB%95%E5%90%89%E7%82%B9%E5%BF%83.jpg" alt="宇治中村滕吉本家的抹茶点心"><br><strong><center>宇治中村滕吉本家的抹茶点心</center></strong></p>
+<p><img src="/assets/goto_japan_prepare/%E4%B8%AD%E6%9D%91%E6%BB%95%E5%90%89%E7%82%B9%E5%BF%83.JPG" alt="宇治中村滕吉本家的抹茶点心"><br><strong><center>宇治中村滕吉本家的抹茶点心</center></strong></p>
 <h3 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h3><p>上网请淘宝，有随身wifi可以用，平均每天不到10元，信号也不错，机场取机场还，推荐。</p>
 <p>电话短信？如果没有很重要的事情其实不办也可以（毕竟都微信办公了，我的飞行模式从过去的飞机一直开着到回到北京。。），办的话有个小技巧，可以几个人只办理一个号的国际漫游，其他人把电话短信都转到这一个号上来。（不负责，没真正这样试过</p>
 <h3 id="东西"><a href="#东西" class="headerlink" title="东西"></a>东西</h3><ul>
@@ -552,13 +35,13 @@ header, .context-menu, .megamenu-content, footer{
 <li>有很多景点或者车站都可以盖章（唐三藏的通关文牒）这个蛮有意思的，喜欢的推荐提前准备一个本本。（哭</li>
 <li>带个方便装硬币的零钱包吧，硬币真的超。。。级。。。多。。。到日本会发现很多自助售货机，很多餐馆也都是自动售货，你就会经常一张钞票进去，哗啦哗啦一袋子硬币出来。</li>
 </ul>
-<p><img src="/assets/goto_japan_prepare/%E7%AB%8B%E5%91%BD%E9%A6%86%E5%A4%A7%E5%AD%A6.jpg" alt="立命馆大学"><br><strong><center>立命馆大学</center></strong></p>
+<p><img src="/assets/goto_japan_prepare/%E7%AB%8B%E5%91%BD%E9%A6%86%E5%A4%A7%E5%AD%A6.JPG" alt="立命馆大学"><br><strong><center>立命馆大学</center></strong></p>
 <h3 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h3><p>（会说英文的一二三四足够了）</p>
 <p>不会日语你也能玩的很happy，英语也不会的话，稍微有点不方便，不过也能玩。所以其实对语言要求并不是很高的，上面提到的用的东西基本都是中文的。经常听说日本人的英语发音都不怎么样，但是在服务岗的说英语感觉都蛮标准的，反而感觉自己英语好渣啊。英语会一些基本的日常用语已经足够了（本人四级不过五百六级死活过不去）。吃饭基本靠图片指，买东西基本靠比划。。。旅游的地方基本也都会英语，靠英语玩一圈没什么问题。如果有一些关键的词不好解释的话，不要害羞，掏出你的手机 google 翻译一下，直接拿手机给人家看就是了。（然后对方也 google 翻译了一下中文，用笔抄在一张纸上给我看）。这里顺便提一句，感觉日本的服务人员的态度都超级好，超级有耐心。</p>
 <p>这里如果有认识的朋友会日语就更好了，不会的直接拍照问，不要吝啬你的好友资源。</p>
 <p>另外有一些翻译软件可以拍照翻译，这个功能也比较有用，推荐也备用一个。因为即使你学会了五十音也不见得能把字都正确的敲出来。</p>
 <p>（我在出去之前学了两句日语，一句是“这个多少钱？”，第二句是“能便宜点么？”</p>
-<p><img src="/assets/goto_japan_prepare/%E4%BA%8C%E5%B9%B4%E5%9D%82%E6%A8%B1%E8%8A%B1%E9%85%92.jpg" alt="二年坂的樱花酒"><br><strong><center>二年坂的樱花酒</center></strong></p>
+<p><img src="/assets/goto_japan_prepare/%E4%BA%8C%E5%B9%B4%E5%9D%82%E6%A8%B1%E8%8A%B1%E9%85%92.JPG" alt="二年坂的樱花酒"><br><strong><center>二年坂的樱花酒</center></strong></p>
 <h2 id="买买买"><a href="#买买买" class="headerlink" title="买买买"></a>买买买</h2><p>如果要买化妆品的话，一般化妆品在药妆店和高岛屋这两个地方都可以搞定，药妆店出示护照就可以免税了，高岛屋这种商场需要买完之后去免税柜台办理免税手续，另外还会多收取1.1%的手续费。购买的商品分类需要够5000日元才可以免税，有些比如唇膏壳会属于一般商品，也需要一般商品累计满足5000日元才可以免税。免税的商品会封起来，不允许在日本国内使用的，我们的袋子不小心弄破了，但是回来的时候也没有人检查。出于中国人去日本买化妆品的热度，基本我去的地方都有中文导购，放手买吧。。</p>
 <p>动漫周边的话，因为我没有去秋叶原（准备下次去！）所以也不太好推荐，只推荐一下大阪有一个日本桥，也是有很多东西的动漫街，在每年的三月份还有活动（虽然我们并没有赶上，只差了两三天）如果去大阪行程时间有富裕的话，去看看吧</p>
 <p>基本准备好上面说的这些东西之后，就可以放心地出去玩了，在外面用的东西都不会缺，这次出去玩我们安排的比较随意，所以景点也没有排的非常的满，只去了京都、奈良、大阪几个地方，下一次就来介绍介绍我们去的地方，提前多图预警啊~~</p>
@@ -1309,6 +792,16 @@ bottom: .4em;
       </tags>
   </entry>
   <entry>
+    <title>智能指针</title>
+    <url>/2019/07/23/intelligent_pointer/</url>
+    <content><![CDATA[<p><a href="https://www.cnblogs.com/TenosDoIt/p/3456704.html" target="_blank" rel="noopener">https://www.cnblogs.com/TenosDoIt/p/3456704.html</a></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>Conception</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode Contest No.130</title>
     <url>/2019/07/23/leetcode-contest-No130/</url>
     <content><![CDATA[<h2 id="Contest-130"><a href="#Contest-130" class="headerlink" title="Contest 130"></a>Contest 130</h2><p>通过：4/4  排名：59/1293  1:58:42  6WA<br>    <a id="more"></a></p>
@@ -1330,16 +823,6 @@ bottom: .4em;
       <tags>
         <tag>Algorithm</tag>
         <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>智能指针</title>
-    <url>/2019/07/23/intelligent_pointer/</url>
-    <content><![CDATA[<p><a href="https://www.cnblogs.com/TenosDoIt/p/3456704.html" target="_blank" rel="noopener">https://www.cnblogs.com/TenosDoIt/p/3456704.html</a></p>
-]]></content>
-      <tags>
-        <tag>Conception</tag>
-        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -1380,8 +863,8 @@ bottom: .4em;
 </ol>
 ]]></content>
       <tags>
-        <tag>Embedded</tag>
         <tag>Conception</tag>
+        <tag>Embedded</tag>
       </tags>
   </entry>
   <entry>
