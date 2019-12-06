@@ -58,7 +58,7 @@
 <meta property="og:image" content="http://blog.jassy.com/assets/Matlab_cluster_parfor/ClusterProfileManager.png">
 <meta property="og:image" content="http://blog.jassy.com/assets/Matlab_cluster_parfor/ValidationResults.png">
 <meta property="og:image" content="http://blog.jassy.com/assets/Matlab_cluster_parfor/parfor_vartypes.png">
-<meta property="og:updated_time" content="2019-11-27T10:12:26.312Z">
+<meta property="og:updated_time" content="2019-12-06T09:23:13.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MATLAB并行工具箱--parfor的使用">
 <meta name="twitter:description" content="最近在使用进行MATLAB进行一些计算的时候因为计算时间实在是太长了（五天。所以开始考虑进行算法优化，就在这时无意间看到了系统的CPU占用率，what？25%哈哈哈哈哈或或或或或或或或，matlab个ZZ。于是想起了parfor这回事，算法用的是动态规划算法，但是在每个递推过程中也要计算$2000 \times 2000$个循环，正好可以用并行计算，perfect，条件允许，直接开始！  要啥简">
@@ -229,10 +229,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-11-27 17:16:09 / Modified: 18:12:26" itemprop="dateCreated datePublished" datetime="2019-11-27T17:16:09+08:00">2019-11-27</time>
+              <time title="Created: 2019-11-27 17:16:09" itemprop="dateCreated datePublished" datetime="2019-11-27T17:16:09+08:00">2019-11-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-06 17:23:13" itemprop="dateModified" datetime="2019-12-06T17:23:13+08:00">2019-12-06</time>
+              </span>
 
           
             <span id="/2019/11/27/Matlab_cluster_parfor/" class="post-meta-item leancloud_visitors" data-flag-title="MATLAB并行工具箱--parfor的使用" title="Views">
@@ -256,14 +262,13 @@
 <p>最近在使用进行MATLAB进行一些计算的时候因为计算时间实在是太长了（五天。所以开始考虑进行算法优化，就在这时无意间看到了系统的CPU占用率，what？25%哈哈哈哈哈或或或或或或或或，matlab个ZZ。于是想起了parfor这回事，算法用的是动态规划算法，但是在每个递推过程中也要计算$2000 \times 2000$个循环，正好可以用并行计算，perfect，条件允许，直接开始！</p>
 </blockquote>
 <h2 id="要啥简介，直接开干"><a href="#要啥简介，直接开干" class="headerlink" title="要啥简介，直接开干"></a>要啥简介，直接开干</h2><p>来看一个简单的不能再简单的例子，我们用for将一个数组乘以2</p>
-<a id="more"></a>
-
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">1000</span>;</span><br><span class="line">a = <span class="built_in">rand</span>(n,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:n</span><br><span class="line">    a(<span class="built_in">i</span>) = a(<span class="built_in">i</span>) * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
 <p>试着跑一下，没什么问题（这要有啥问题可以不活了），看一下运行时间</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Elapsed time is <span class="number">0.000034</span> seconds.</span><br></pre></td></tr></table></figure>
 
 <p>一个n x 1大小的随机数组，然后把其中每个数乘以二，下面就是改成parfor并行计算的</p>
+<a id="more"></a>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">1000</span>;</span><br><span class="line">a = <span class="built_in">rand</span>(n,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">parfor</span> <span class="built_in">i</span>=<span class="number">1</span>:n</span><br><span class="line">    a(<span class="built_in">i</span>) = a(<span class="built_in">i</span>) * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
 <p>so easy。这样就改好了，matlab果然易用，同样看一下时间</p>

@@ -46,18 +46,18 @@
   };
 </script>
 
-  <meta name="description" content="每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆">
-<meta name="keywords" content="Conception,Embedded">
+  <meta name="description" content="每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆 内存空间静态存储区（全局变量）先说最简单的全局变量，包含全局变量和 static 修饰符修饰的静态变量，都是保存在静态存储区当中，并且分为未初始化区域和初始化区域。初始化的全局变量和静态变量保存在一块区域中，未初始化的">
+<meta name="keywords" content="Embedded,Conception">
 <meta property="og:type" content="article">
 <meta property="og:title" content="堆内存和栈内存">
 <meta property="og:url" content="http://blog.jassy.com/2019/07/23/heap_memory_and_stack_memory/index.html">
 <meta property="og:site_name" content="弱者">
-<meta property="og:description" content="每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆">
+<meta property="og:description" content="每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆 内存空间静态存储区（全局变量）先说最简单的全局变量，包含全局变量和 static 修饰符修饰的静态变量，都是保存在静态存储区当中，并且分为未初始化区域和初始化区域。初始化的全局变量和静态变量保存在一块区域中，未初始化的">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-06-03T16:04:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="堆内存和栈内存">
-<meta name="twitter:description" content="每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆">
+<meta name="twitter:description" content="每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆 内存空间静态存储区（全局变量）先说最简单的全局变量，包含全局变量和 static 修饰符修饰的静态变量，都是保存在静态存储区当中，并且分为未初始化区域和初始化区域。初始化的全局变量和静态变量保存在一块区域中，未初始化的">
 
 <link rel="canonical" href="http://blog.jassy.com/2019/07/23/heap_memory_and_stack_memory/">
 
@@ -257,10 +257,11 @@
 <p>每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心</p>
 </blockquote>
 <h2 id="今天的问题"><a href="#今天的问题" class="headerlink" title="今天的问题"></a>今天的问题</h2><p>局部变量存储在<strong>___</strong>，全局变量存储在<strong>__</strong>，动态申请数据存储在<strong>__</strong>。</p>
-<p>栈  静态存储区  堆<br>  <a id="more"></a></p>
+<p>栈  静态存储区  堆</p>
 <h2 id="内存空间"><a href="#内存空间" class="headerlink" title="内存空间"></a>内存空间</h2><h3 id="静态存储区（全局变量）"><a href="#静态存储区（全局变量）" class="headerlink" title="静态存储区（全局变量）"></a>静态存储区（全局变量）</h3><p>先说最简单的全局变量，包含全局变量和 static 修饰符修饰的静态变量，都是保存在静态存储区当中，并且分为未初始化区域和初始化区域。初始化的全局变量和静态变量保存在一块区域中，未初始化的全局变量和未初始化的静态变量保存在另一块相邻的区域中。</p>
 <p>全局变量的生命周期持续到整个程序结束，在程序结束后由系统释放。</p>
 <p>对于嵌入式程序来讲，在编译后的 map 文件中就已经确定了全局变量的存储地址位置，通过该 map 文件就可以进行全局变量的调试读取等操作。</p>
+  <a id="more"></a>
 <h3 id="栈区（局部变量）"><a href="#栈区（局部变量）" class="headerlink" title="栈区（局部变量）"></a>栈区（局部变量）</h3><p>局部变量定义在栈内存中，包括函数的参数值，局部变量定义等。栈区的分配和释放由系统自动进行，分配和释放的速度快，但内存空间也有限，栈区向地址减小的方向增长，分配失败会提示栈溢出错误。栈的内存空间是连续的。</p>
 <p>栈也可以手动进行空间分配，使用 alloca 函数进行，但无需程序员进行释放操作。</p>
 <p>栈区 windows 下默认在1M左右（VS2010），与编译器有关。</p>
@@ -316,8 +317,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Conception/" rel="tag"><i class="fa fa-tag"></i> Conception</a>
               <a href="/tags/Embedded/" rel="tag"><i class="fa fa-tag"></i> Embedded</a>
+              <a href="/tags/Conception/" rel="tag"><i class="fa fa-tag"></i> Conception</a>
           </div>
 
         
@@ -330,8 +331,8 @@
       <i class="fa fa-chevron-left"></i> Project Euler  题解：31~40
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/07/23/intelligent_pointer/index.html" rel="next" title="智能指针">
-      智能指针 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/07/23/leetcode-contest-No130/index.html" rel="next" title="LeetCode Contest No.130">
+      LeetCode Contest No.130 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

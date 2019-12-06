@@ -46,20 +46,20 @@
   };
 </script>
 
-  <meta name="description" content="Contest 130通过：4/4  排名：59/1293  1:58:42  6WA">
-<meta name="keywords" content="Algorithm,LeetCode">
+  <meta name="description" content="Contest 130通过：4/4  排名：59/1293  1:58:42  6WA No.1018 可被 5 整除的二进制前缀思考过多，还在想那样做对不对，做的太少所以对题目类型不熟悉。 No.1017 负二进制转换2WA emmmmmm，这道题怎么就过了呢。。。 思考过程：用几个数字尝试拼凑了一下，感觉上是要拼凑到最近的2的幂次上去，但是并没有找到绝对的规律。 然后发现某一位数字可以通过其他">
+<meta name="keywords" content="LeetCode,Algorithm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode Contest No.130">
 <meta property="og:url" content="http://blog.jassy.com/2019/07/23/leetcode-contest-No130/index.html">
 <meta property="og:site_name" content="弱者">
-<meta property="og:description" content="Contest 130通过：4/4  排名：59/1293  1:58:42  6WA">
+<meta property="og:description" content="Contest 130通过：4/4  排名：59/1293  1:58:42  6WA No.1018 可被 5 整除的二进制前缀思考过多，还在想那样做对不对，做的太少所以对题目类型不熟悉。 No.1017 负二进制转换2WA emmmmmm，这道题怎么就过了呢。。。 思考过程：用几个数字尝试拼凑了一下，感觉上是要拼凑到最近的2的幂次上去，但是并没有找到绝对的规律。 然后发现某一位数字可以通过其他">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://latex.codecogs.com/gif.latex?(2)^1=(-2)^2+(-2)^1">
 <meta property="og:image" content="https://latex.codecogs.com/gif.latex?9=1\times(-2)^0+2\times(-2)^2">
 <meta property="og:updated_time" content="2019-04-02T07:31:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode Contest No.130">
-<meta name="twitter:description" content="Contest 130通过：4/4  排名：59/1293  1:58:42  6WA">
+<meta name="twitter:description" content="Contest 130通过：4/4  排名：59/1293  1:58:42  6WA No.1018 可被 5 整除的二进制前缀思考过多，还在想那样做对不对，做的太少所以对题目类型不熟悉。 No.1017 负二进制转换2WA emmmmmm，这道题怎么就过了呢。。。 思考过程：用几个数字尝试拼凑了一下，感觉上是要拼凑到最近的2的幂次上去，但是并没有找到绝对的规律。 然后发现某一位数字可以通过其他">
 <meta name="twitter:image" content="https://latex.codecogs.com/gif.latex?(2)^1=(-2)^2+(-2)^1">
 
 <link rel="canonical" href="http://blog.jassy.com/2019/07/23/leetcode-contest-No130/">
@@ -256,13 +256,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Contest-130"><a href="#Contest-130" class="headerlink" title="Contest 130"></a>Contest 130</h2><p>通过：4/4  排名：59/1293  1:58:42  6WA<br>    <a id="more"></a></p>
+        <h2 id="Contest-130"><a href="#Contest-130" class="headerlink" title="Contest 130"></a>Contest 130</h2><p>通过：4/4  排名：59/1293  1:58:42  6WA</p>
 <h3 id="No-1018-可被-5-整除的二进制前缀"><a href="#No-1018-可被-5-整除的二进制前缀" class="headerlink" title="No.1018 可被 5 整除的二进制前缀"></a>No.1018 <a href="https://leetcode-cn.com/problems/binary-prefix-divisible-by-5/" target="_blank" rel="noopener">可被 5 整除的二进制前缀</a></h3><p>思考过多，还在想那样做对不对，做的太少所以对题目类型不熟悉。</p>
 <h3 id="No-1017-负二进制转换"><a href="#No-1017-负二进制转换" class="headerlink" title="No.1017 负二进制转换"></a>No.1017 <a href="https://leetcode-cn.com/problems/convert-to-base-2/" target="_blank" rel="noopener">负二进制转换</a></h3><p>2WA</p>
 <p>emmmmmm，这道题怎么就过了呢。。。</p>
 <p>思考过程：用几个数字尝试拼凑了一下，感觉上是要拼凑到最近的2的幂次上去，但是并没有找到绝对的规律。</p>
 <p>然后发现某一位数字可以通过其他位来拼凑，如<img src="https://latex.codecogs.com/gif.latex?(2)^1=(-2)^2+(-2)^1">，然后将原始数字以4进制做拆分，再由低位至高位依次处理大于1的情况。例如：<img src="https://latex.codecogs.com/gif.latex?9=1&#x5C;times(-2)^0+2&#x5C;times(-2)^2">，负二进制表示为<code>201</code>，然后从低位到高位，分别处理2、3、4的情况，<code>200</code> 和 <code>11000</code> 相等，<code>300</code> 和 <code>11100</code>相等， <code>400</code> 和 <code>10000</code> 相等。最后即可得到结果。（好麻烦啊）</p>
-<p>看了一下别人的回答，类似于二进制转换，得到 %2 后再进行 /2 的操作。区别只是在奇数位时+1而不是-1。不知道如何证明这样是正确的，但是感觉上是正确的，嗯。不懂得东西先记住就好了。</p>
+<pre><code>&lt;!-- more --&gt;</code></pre><p>看了一下别人的回答，类似于二进制转换，得到 %2 后再进行 /2 的操作。区别只是在奇数位时+1而不是-1。不知道如何证明这样是正确的，但是感觉上是正确的，嗯。不懂得东西先记住就好了。</p>
 <p>另外还有一点思考，如何证明负二进制是可以表示所有数字的呢，类似的，负三进制是否可以，负四进制是否可以，待求证。</p>
 <h3 id="No-1019-链表中的下一个更大节点"><a href="#No-1019-链表中的下一个更大节点" class="headerlink" title="No.1019 链表中的下一个更大节点"></a>No.1019 <a href="https://leetcode-cn.com/problems/next-greater-node-in-linked-list/" target="_blank" rel="noopener">链表中的下一个更大节点</a></h3><p>1WA</p>
 <p>以前做过一道类似的题，维护一个栈，当下一个数字比栈顶的数字大时，取出栈顶的数字并记录，否则将下一个数字入栈，全部循环后若栈内还有数字，均输出0。</p>
@@ -301,8 +301,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Algorithm/" rel="tag"><i class="fa fa-tag"></i> Algorithm</a>
               <a href="/tags/LeetCode/" rel="tag"><i class="fa fa-tag"></i> LeetCode</a>
+              <a href="/tags/Algorithm/" rel="tag"><i class="fa fa-tag"></i> Algorithm</a>
           </div>
 
         
@@ -311,12 +311,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/07/23/intelligent_pointer/index.html" rel="prev" title="智能指针">
-      <i class="fa fa-chevron-left"></i> 智能指针
+    <a href="/2019/07/23/heap_memory_and_stack_memory/index.html" rel="prev" title="堆内存和栈内存">
+      <i class="fa fa-chevron-left"></i> 堆内存和栈内存
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/07/23/leetcode-contest-No131/index.html" rel="next" title="LeetCode Contest No.131">
-      LeetCode Contest No.131 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/07/23/intelligent_pointer/index.html" rel="next" title="智能指针">
+      智能指针 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
