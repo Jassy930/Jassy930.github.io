@@ -141,12 +141,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">13</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">14</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">17</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">18</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -200,6 +200,143 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="default">
+    <link itemprop="mainEntityOfPage" href="http://blog.jassy.com/2019/12/06/C_Keyword/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jassy">
+      <meta itemprop="description" content="Little blog, Little think">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="弱者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/06/C_Keyword/index.html" class="post-title-link" itemprop="url">C补遗：C语言里不那么面熟的关键字</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-06 13:23:32 / Modified: 17:09:07" itemprop="dateCreated datePublished" datetime="2019-12-06T13:23:32+08:00">2019-12-06</time>
+            </span>
+
+          
+            <span id="/2019/12/06/C_Keyword/" class="post-meta-item leancloud_visitors" data-flag-title="C补遗：C语言里不那么面熟的关键字" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>C用了很久了，但是也没有说很系统平铺的整体看过，一直是用什么会什么，不用什么就过去了。既然C已经被我当做是一门已经掌握的语言，所以就重新扫一遍C里面不那么面熟的东西或者理解有偏差的东西，当做是个记录以备复习使用，也可以对C打个结了。</p>
+<h2 id="auto-amp-amp-register-amp-amp-static"><a href="#auto-amp-amp-register-amp-amp-static" class="headerlink" title="auto &amp;&amp; register &amp;&amp; static"></a>auto &amp;&amp; register &amp;&amp; static</h2><p>怎么也没想到会把这三个放在一起，一个是C++中常用的声明类型的关键字，一个没见过的，和一个还算常用的，这里主要理解的偏差还是在 <code>auto</code> 上。</p>
+<p>在C++中，auto作为一种自动判断变量类型的定义存在，比如当我使用 <code>auto c = 10;</code> 去定义 <code>c</code> 这个变量的时候，是和 <code>int c = 10;</code> 的作用是一样的，这样可以节省很多去考虑这个变量具体是什么类型以及大量的敲字母的时间，还可以避免一些打字错误，比如  <code>vector&lt;map&lt;int,string&gt;&gt;::iterator a =</code> 这种东西可以直接 <code>auto a =</code> 还是挺爽的。顺便这里提一嘴，C++中的 <code>auto</code> 后面必须赋值，否则编译器不知道到底要初始化成什么类型的。</p>
+<p>在C中，<code>auto</code> 关键字是用来指定变量的存储位置的。这也是为什么要和 <code>static</code> 和 <code>register</code> 一起讲。 <code>static</code> 说过很多遍也用过很多遍了，是存储在静态存储区的，而这个不太常见的 <code>register</code> 就是指的平时我们使用中的变量，是直接存储在堆或者栈中的，所以 <code>auto</code> 关键字就只是用来指定是用 <code>static</code> 修饰的还是用 <code>register</code> 修饰的，也就是新建变量的存储位置，举例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>; <span class="comment">//平时这样定义就相当于 auto in a = 10; auto相当于省略</span></span><br><span class="line"><span class="keyword">register</span> <span class="keyword">int</span> b = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> c = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+
+<p>注意的是，平时我们在 <code>int a = 10;</code> 这样定义的时候就相当于省略了 <code>auto</code> 关键字，上面这段在定义的时候就是 a 和 b 定义是在堆或者栈中的，c定义在静态存储区中。而且在使用了 <code>auto</code> <code>register</code> <code>static</code> 修饰后，仍然需要增加变量类型，因为他们并不是定义变量类型的，而是变量的存储区域。</p>
+<p>C中的 <code>auto</code> 并不是复杂，而是主要要注意一下与C++中的 <code>auto</code> 的区别。</p>
+<h2 id="C99-新增关键字"><a href="#C99-新增关键字" class="headerlink" title="C99 新增关键字"></a>C99 新增关键字</h2><p>后面这两个部分我定义为《很少见看上去很新但有可能我以后再也不会用到的关键字》，是新定义的关键字。随着时代发展社会进步，所以 C 的标准也在一直跟着更新，这两个部分就是在新的标准下引入的新的关键字。</p>
+<h3 id="Bool"><a href="#Bool" class="headerlink" title="_Bool"></a>_Bool</h3><p>这个挺明显的，就是补齐C中没有 <code>bool</code> 类型的缺憾了，不同程序员自己对 <code>bool</code> 类型的定义都不一样，所以可能会产生分歧，这个可以统一一下。定义的true为1，false为0，类型的具体大小由编译器去决定，标准只要求了大小要能够存放0和1这两个值，gcc是使用char实现的。需要引入 <code>&lt;stdbool.h&gt;</code></p>
+<p>另外，对bool类型赋0和1以外的值，gcc会强制赋值成1，所以 <code>bool</code> 类型的值只存在0和1两种可能</p>
+<p>另另外，C++中是 <code>bool</code> 类型，C中是 <code>_Bool</code> 类型。</p>
+<h3 id="Complex-amp-amp-Imaginary"><a href="#Complex-amp-amp-Imaginary" class="headerlink" title="_Complex &amp;&amp; _Imaginary"></a>_Complex &amp;&amp; _Imaginary</h3><p>复数！复数！复数你敢想？就在C里面，复数！</p>
+<p>需要引入 <code>&lt;complex.h&gt;</code> , <code>_Imaginary</code> 作为虚数，但是并没有强制要求编译器去实现虚数部，所以很多都是只实现了 <code>complex</code>。</p>
+<p><code>complex</code> 分三种类型:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> <span class="keyword">_Complex</span> fc = <span class="number">1.0f</span> + <span class="number">1.0</span><span class="keyword">if</span>;</span><br><span class="line"><span class="keyword">double</span> <span class="keyword">_Complex</span> fc = <span class="number">1.0</span> + <span class="number">1.0</span>i;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">double</span> <span class="keyword">_Complex</span> fc = <span class="number">1.0</span> + <span class="number">1.0</span>i;</span><br></pre></td></tr></table></figure>
+
+<h3 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h3><p>内联函数，与C++中的 <code>inline</code> 作用相同用来提高程序运行效率，减少函数调用开支。但是只是建议编译器这样去做，编译器可以选择性忽略（可配置）。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>内联函数中不能定义可改变的 <code>static</code> 变量，不能引用具有内部链接的变量。</p>
+<p>建议内联函数只用在函数体比较简单的情况下，否则代码展开太过庞大。</p>
+<h3 id="restrict"><a href="#restrict" class="headerlink" title="restrict"></a>restrict</h3><p>这是一个只对于指针的修饰符，被 <code>restrict</code> 修饰的指针所指向的内容的所有操作都是基于这个指针进行的，不会从其他地方进行修改，这样可以帮助编译器进行更好的代码优化提高代码效率。如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 某 restrict 指针 a</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> *<span class="keyword">restrict</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    *a++;</span><br><span class="line">    *a++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种情况下，编译器知道在f处理过程中不可能从别的地方对 <code>*a</code> 进行修改，所以可以直接将两句优化为 <code>*a+=2;</code></p>
+<p>并且两个不同的 <code>restrict</code> 指针必定是两个分别指向不同区域的指针，不会是相同的指针，可以因此对一些函数输入参数进行限定。如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> * <span class="title">memcpy</span><span class="params">(<span class="keyword">void</span> * <span class="keyword">restrict</span> s1, <span class="keyword">const</span> <span class="keyword">void</span> * <span class="keyword">restrict</span> s2, <span class="keyword">size_t</span> n)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> * <span class="title">memove</span><span class="params">(<span class="keyword">void</span> * s1, <span class="keyword">const</span> <span class="keyword">void</span> * s2, <span class="keyword">size_t</span> n)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>对于 <code>memcpy</code> 来讲，两个指针区域的重叠是存在危险的行为，所以需要使用 <code>restrict</code> 进行修饰。</p>
+<p>另外，这个关键字C++中并没有引入。</p>
+<p>另另外，在linux中 <code>restrict</code> 需要替换为 <code>_restrict</code></p>
+<h2 id="C11-新增关键字"><a href="#C11-新增关键字" class="headerlink" title="C11 新增关键字"></a>C11 新增关键字</h2><h3 id="Alignas-amp-amp-Alignof"><a href="#Alignas-amp-amp-Alignof" class="headerlink" title="_Alignas &amp;&amp; _Alignof"></a>_Alignas &amp;&amp; _Alignof</h3><p>加个 cppreference 的链接辅助：</p>
+<p><a href="https://zh.cppreference.com/w/c/language/_Alignas" target="_blank" rel="noopener">_Alignas</a></p>
+<p><a href="https://zh.cppreference.com/w/c/language/_Alignof" target="_blank" rel="noopener">_Alignof</a></p>
+<p>修改被声明对象的对齐说明，是的，这个对齐说明就是 <code>struct</code> 的那个对齐说明，后面可以放置数字或者一个类型，如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdalign.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">//  每一个 struct sse_t 类型的对象会在 16 字节边界对齐</span></span><br><span class="line"><span class="comment">// （注意：需要支持 DR 444 ）</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sse_t</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  alignas(<span class="number">16</span>) <span class="keyword">float</span> sse_data[<span class="number">4</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这种 struct data 的每一个对象都会在 128 字节边界对齐</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">data</span> &#123;</span></span><br><span class="line">  <span class="keyword">char</span> x;</span><br><span class="line">  alignas(<span class="number">128</span>) <span class="keyword">char</span> cacheline[<span class="number">128</span>]; <span class="comment">// 过对齐的 char 数组对象，</span></span><br><span class="line">                                    <span class="comment">// 不是过对齐的 char 对象的数组</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"sizeof(data) = %zu (1 byte + 127 bytes padding + 128-byte array)\n"</span>,</span><br><span class="line">           <span class="keyword">sizeof</span>(struct data));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"alignment of sse_t is %zu\n"</span>, <span class="keyword">alignof</span>(struct <span class="keyword">sse_t</span>));</span><br><span class="line">    alignas(<span class="number">2048</span>) <span class="class"><span class="keyword">struct</span> <span class="title">data</span> <span class="title">d</span>;</span> <span class="comment">// 此 struct data 的实例会更严格地对齐</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sizeof(data) = 256 (1 byte + 127 bytes padding + 128-byte array)</span><br><span class="line">alignment of sse_t is 16</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是如果 <code>alignas</code> 后面的表达式为0会被忽略，如果定义了多个会使用最严格的，这个最严格的描述包括无任何 <code>alignas</code> 描述的原始对齐方式。</p>
+<p><code>_Alignof</code> 就是获取这个类型的对齐要求。如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stddef.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdalign.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Alignment of char = %zu\n"</span>, <span class="keyword">alignof</span>(<span class="keyword">char</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Alignment of max_align_t = %zu\n"</span>, <span class="keyword">alignof</span>(<span class="keyword">max_align_t</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"alignof(float[10]) = %zu\n"</span>, <span class="keyword">alignof</span>(<span class="keyword">float</span>[<span class="number">10</span>]));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"alignof(struct&#123;char c; int n;&#125;) = %zu\n"</span>,</span><br><span class="line">            <span class="keyword">alignof</span>(struct &#123;<span class="keyword">char</span> c; <span class="keyword">int</span> n;&#125;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Alignment of char = 1</span><br><span class="line">Alignment of max_align_t = 16</span><br><span class="line">alignof(float[10]) = 4</span><br><span class="line">alignof(struct&#123;char c; int n;&#125;) = 4</span><br></pre></td></tr></table></figure>
+
+<h3 id="Atomic"><a href="#Atomic" class="headerlink" title="_Atomic"></a>_Atomic</h3><p>是用于多线程的玩意，用这个修饰符限定的变量的操作只能是<strong>原子性</strong>的，类似于互锁，同一时间只能有一个线程访问这个参数，类似于线程锁。定义方式：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_Atomic <span class="keyword">int</span> c = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Generic"><a href="#Generic" class="headerlink" title="_Generic"></a>_Generic</h3><p>泛型。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GENERAL_ABS(x) _Generic((x),int:abs,float:fabsf,double:fabs)(x)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"intabs:%d\n"</span>,GENERAL_ABS(<span class="number">-12</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"floatabs:%f\n"</span>,GENERAL_ABS(<span class="number">-12.04f</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"doubleabs:%f\n"</span>,GENERAL_ABS(<span class="number">-13.09876</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> b=<span class="number">0</span>,c=<span class="number">0</span>;</span><br><span class="line">    _Generic(a+<span class="number">0.1f</span>,<span class="keyword">int</span>:b,<span class="keyword">float</span>:c,<span class="keyword">default</span>:b)++;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"b=%d,c=%d\n"</span>,b,c);</span><br><span class="line">    _Generic(a+=<span class="number">1.1f</span>,<span class="keyword">int</span>:b,<span class="keyword">float</span>:c,<span class="keyword">default</span>:b)++;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"a=%d,b=%d,c=%d\n"</span>,a,b,c);</span><br></pre></td></tr></table></figure>
+
+<p>对不同的输入参数的类型执行不同的函数，x为函数的输入参数，后面是对应不同输入参数类型的操作，最后可以加一个 <code>defalut</code> 用于其他的输出结果。</p>
+<h3 id="Noreturn"><a href="#Noreturn" class="headerlink" title="_Noreturn"></a>_Noreturn</h3><p><a href="https://en.cppreference.com/w/c/language/_Noreturn" target="_blank" rel="noopener">cppreference</a></p>
+<p>这是一个描述函数的关键词，用于表示该函数执行完毕后不会返回，请注意这里是<strong>不会返回</strong>，而不是像 <code>void</code> 一样是返回空，而是根本不会返回，编译器也会因此对代码进行优化。例如:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">noreturn <span class="keyword">void</span> <span class="title">stop_now</span><span class="params">(<span class="keyword">int</span> i)</span> <span class="comment">// or _Noreturn void stop_now(int i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i &gt; <span class="number">0</span>) <span class="built_in">exit</span>(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是这个说明符并没有什么<strong>实际</strong>的作用，这个实际体现在，他是程序员对编译器的一种承诺，我不会让这个函数返回的，你也别让他返回，只是一个提示、通知的作用，但是你要在函数里非要返回，编译器也不会在你返回的时候强行停止掉。that’s it.</p>
+<h3 id="Static-assert"><a href="#Static-assert" class="headerlink" title="_Static_assert"></a>_Static_assert</h3><p><a href="https://en.cppreference.com/w/c/error/static_assert" target="_blank" rel="noopener">cppreference</a></p>
+<p>静态断言，如果第一个参数的值为false（可以输入一个表达式或者string），那么编译器会报出第二个string的错误，同时编译失败，如果第一个表达式的值为true的话没有任何影响。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static_assert</span>(<span class="number">2</span> + <span class="number">2</span> == <span class="number">4</span>, <span class="string">"2+2 isn't 4"</span>);      <span class="comment">// well-formed</span></span><br><span class="line">    <span class="keyword">static_assert</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) &lt; <span class="keyword">sizeof</span>(<span class="keyword">char</span>),</span><br><span class="line">                 <span class="string">"this program requires that int is less than char"</span>); <span class="comment">// compile-time error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Thread-local"><a href="#Thread-local" class="headerlink" title="_Thread_local"></a>_Thread_local</h3><blockquote>
+<p>便捷宏，可用于指定对象具有线程本地存储持续时间。</p>
+</blockquote>
+<p>大家都是这么说的，但是没找到 C 的很确切的定义和说明。但是它是一个描述变量的，是用来描述变量的生命周期为线程存储期，可以和 <code>static</code> 和 <code>extern</code> 结合来指定内部或者外部链接，具体的声明周期描述如下：</p>
+<blockquote>
+<p><strong><em>线程（thread）</em></strong>存储期。对象的存储在线程开始时分配，而在线程结束时解分配。每个线程拥有其自身的对象实例。唯有声明为 <code>thread_local</code> 的对象拥有此存储期。 <code>thread_local</code> 能与 <code>static</code> 或 <code>extern</code> 一同出现，以调整连接。关于具有此存储期的对象的初始化的细节。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实这样顺下来，不清楚不了解的东西还很多。主要原因还是因为在做项目的过程中很多东西没有很高的要求和需求，那么也不需要用到，这样的话没有动力不会去了解去理解，一直只是在嵌入式中使用的C，所以很多东西比如线程复数等等根本没有想到会出现，也更加没有用过了，这边只是一个对C语言知识的补遗，我不能通过一个补遗就了解这些知识，但是可以通过这个补遗知道有这样一回事，提前有准备，不会突然被一棒子打到。嗯。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="default">
     <link itemprop="mainEntityOfPage" href="http://blog.jassy.com/2019/11/28/goto_japan_prepare/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -214,7 +351,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/11/28/goto_japan_prepare/" class="post-title-link" itemprop="url">想出去玩？去日本吧！——准备工作篇</a>
+            <a href="/2019/11/28/goto_japan_prepare/index.html" class="post-title-link" itemprop="url">想出去玩？去日本吧！——准备工作篇</a>
         </h1>
 
         <div class="post-meta">
@@ -297,7 +434,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/11/27/Matlab_cluster_parfor/" class="post-title-link" itemprop="url">MATLAB并行工具箱--parfor的使用</a>
+            <a href="/2019/11/27/Matlab_cluster_parfor/index.html" class="post-title-link" itemprop="url">MATLAB并行工具箱--parfor的使用</a>
         </h1>
 
         <div class="post-meta">
@@ -373,7 +510,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/11/27/Hamming_Code/" class="post-title-link" itemprop="url">汉明码——纠错与校验</a>
+            <a href="/2019/11/27/Hamming_Code/index.html" class="post-title-link" itemprop="url">汉明码——纠错与校验</a>
         </h1>
 
         <div class="post-meta">
@@ -455,7 +592,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/08/12/leetcode_1155/" class="post-title-link" itemprop="url">LeetCode 1155</a>
+            <a href="/2019/08/12/leetcode_1155/index.html" class="post-title-link" itemprop="url">LeetCode 1155</a>
         </h1>
 
         <div class="post-meta">
@@ -799,7 +936,7 @@ bottom: .4em;
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/23/leetcode-contest-No132/" class="post-title-link" itemprop="url">LeetCode Contest No.132</a>
+            <a href="/2019/07/23/leetcode-contest-No132/index.html" class="post-title-link" itemprop="url">LeetCode Contest No.132</a>
         </h1>
 
         <div class="post-meta">
@@ -880,7 +1017,7 @@ bottom: .4em;
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/23/leetcode-contest-No131/" class="post-title-link" itemprop="url">LeetCode Contest No.131</a>
+            <a href="/2019/07/23/leetcode-contest-No131/index.html" class="post-title-link" itemprop="url">LeetCode Contest No.131</a>
         </h1>
 
         <div class="post-meta">
@@ -960,7 +1097,7 @@ bottom: .4em;
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/23/leetcode-contest-No130/" class="post-title-link" itemprop="url">LeetCode Contest No.130</a>
+            <a href="/2019/07/23/leetcode-contest-No130/index.html" class="post-title-link" itemprop="url">LeetCode Contest No.130</a>
         </h1>
 
         <div class="post-meta">
@@ -1039,7 +1176,7 @@ bottom: .4em;
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/23/intelligent_pointer/" class="post-title-link" itemprop="url">智能指针</a>
+            <a href="/2019/07/23/intelligent_pointer/index.html" class="post-title-link" itemprop="url">智能指针</a>
         </h1>
 
         <div class="post-meta">
@@ -1111,7 +1248,7 @@ bottom: .4em;
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/23/heap_memory_and_stack_memory/" class="post-title-link" itemprop="url">堆内存和栈内存</a>
+            <a href="/2019/07/23/heap_memory_and_stack_memory/index.html" class="post-title-link" itemprop="url">堆内存和栈内存</a>
         </h1>
 
         <div class="post-meta">
@@ -1176,361 +1313,11 @@ bottom: .4em;
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="default">
-    <link itemprop="mainEntityOfPage" href="http://blog.jassy.com/2019/07/23/ProjectEuler_Solution_31_40/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Jassy">
-      <meta itemprop="description" content="Little blog, Little think">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="弱者">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/23/ProjectEuler_Solution_31_40/" class="post-title-link" itemprop="url">Project Euler  题解：31~40</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-07-23 22:07:37" itemprop="dateCreated datePublished" datetime="2019-07-23T22:07:37+08:00">2019-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-07-01 10:51:26" itemprop="dateModified" datetime="2019-07-01T10:51:26+08:00">2019-07-01</time>
-              </span>
-
-          
-            <span id="/2019/07/23/ProjectEuler_Solution_31_40/" class="post-meta-item leancloud_visitors" data-flag-title="Project Euler  题解：31~40" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0">
-      <title>ProjectEuler_Solution_31_40</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      
-      <link rel="stylesheet" href="/js/src/katex/katex.min.css">
-      
-      
-
-      
-      
-      
-      
-      
-      
-
-      <style>
-      /**
- * prism.js Github theme based on GitHub's theme.
- * @author Sam Clarke
- */
-code[class*="language-"],
-pre[class*="language-"] {
-  color: #333;
-  background: none;
-  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  line-height: 1.4;
-
-  -moz-tab-size: 8;
-  -o-tab-size: 8;
-  tab-size: 8;
-
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-}
-
-/* Code blocks */
-pre[class*="language-"] {
-  padding: .8em;
-  overflow: auto;
-  /* border: 1px solid #ddd; */
-  border-radius: 3px;
-  /* background: #fff; */
-  background: #f5f5f5;
-}
-
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-  padding: .1em;
-  border-radius: .3em;
-  white-space: normal;
-  background: #f5f5f5;
-}
-
-.token.comment,
-.token.blockquote {
-  color: #969896;
-}
-
-.token.cdata {
-  color: #183691;
-}
-
-.token.doctype,
-.token.punctuation,
-.token.variable,
-.token.macro.property {
-  color: #333;
-}
-
-.token.operator,
-.token.important,
-.token.keyword,
-.token.rule,
-.token.builtin {
-  color: #a71d5d;
-}
-
-.token.string,
-.token.url,
-.token.regex,
-.token.attr-value {
-  color: #183691;
-}
-
-.token.property,
-.token.number,
-.token.boolean,
-.token.entity,
-.token.atrule,
-.token.constant,
-.token.symbol,
-.token.command,
-.token.code {
-  color: #0086b3;
-}
-
-.token.tag,
-.token.selector,
-.token.prolog {
-  color: #63a35c;
-}
-
-.token.function,
-.token.namespace,
-.token.pseudo-element,
-.token.class,
-.token.class-name,
-.token.pseudo-class,
-.token.id,
-.token.url-reference .token.variable,
-.token.attr-name {
-  color: #795da3;
-}
-
-.token.entity {
-  cursor: help;
-}
-
-.token.title,
-.token.title .token.punctuation {
-  font-weight: bold;
-  color: #1d3e81;
-}
-
-.token.list {
-  color: #ed6a43;
-}
-
-.token.inserted {
-  background-color: #eaffea;
-  color: #55a532;
-}
-
-.token.deleted {
-  background-color: #ffecec;
-  color: #bd2c00;
-}
-
-.token.bold {
-  font-weight: bold;
-}
-
-.token.italic {
-  font-style: italic;
-}
-
-
-/* JSON */
-.language-json .token.property {
-  color: #183691;
-}
-
-.language-markup .token.tag .token.punctuation {
-  color: #333;
-}
-
-/* CSS */
-code.language-css,
-.language-css .token.function {
-  color: #0086b3;
-}
-
-/* YAML */
-.language-yaml .token.atrule {
-  color: #63a35c;
-}
-
-code.language-yaml {
-  color: #183691;
-}
-
-/* Ruby */
-.language-ruby .token.function {
-  color: #333;
-}
-
-/* Markdown */
-.language-markdown .token.url {
-  color: #795da3;
-}
-
-/* Makefile */
-.language-makefile .token.symbol {
-  color: #795da3;
-}
-
-.language-makefile .token.variable {
-  color: #183691;
-}
-
-.language-makefile .token.builtin {
-  color: #0086b3;
-}
-
-/* Bash */
-.language-bash .token.keyword {
-  color: #0086b3;
-}
-
-/* highlight */
-pre[data-line] {
-  position: relative;
-  padding: 1em 0 1em 3em;
-}
-pre[data-line] .line-highlight-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: transparent;
-  display: block;
-  width: 100%;
-}
-
-pre[data-line] .line-highlight {
-  position: absolute;
-  left: 0;
-  right: 0;
-  padding: inherit 0;
-  margin-top: 1em;
-  background: hsla(24, 20%, 50%,.08);
-  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
-  pointer-events: none;
-  line-height: inherit;
-  white-space: pre;
-}
-
-pre[data-line] .line-highlight:before, 
-pre[data-line] .line-highlight[data-end]:after {
-  content: attr(data-start);
-  position: absolute;
-  top: .4em;
-  left: .6em;
-  min-width: 1em;
-  padding: 0 .5em;
-  background-color: hsla(24, 20%, 50%,.4);
-  color: hsl(24, 20%, 95%);
-  font: bold 65%/1.5 sans-serif;
-  text-align: center;
-  vertical-align: .3em;
-  border-radius: 999px;
-  text-shadow: none;
-  box-shadow: 0 1px white;
-}
-
-pre[data-line] .line-highlight[data-end]:after {
-  content: attr(data-end);
-  top: auto;
-  bottom: .4em;
-}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
-/* Please visit the URL below for more information: */
-/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
-
-      </style>
-    </head>
-    <body for="html-export">
-      <div class="mume markdown-preview  ">
-
-<blockquote>
-<p>&#x7F57;&#x9A6C;&#x4E0D;&#x662F;&#x4E00;&#x5929;&#x5EFA;&#x6210;&#x7684;&#xFF0C;&#x4F60;&#x4E5F;&#x4E0D;&#x4F1A;&#x4E00;&#x4E0B;&#x6210;&#x4E3A;&#x68A6;&#x60F3;&#x4E2D;&#x7684;&#x4EBA;&#xFF0C;&#x4F46;&#x662F;&#x53EA;&#x8981;&#x5728;&#x5B66;&#x4E60;&#x5728;&#x52AA;&#x529B;&#xFF0C;&#x5C31;&#x662F;&#x8D8A;&#x6765;&#x8D8A;&#x63A5;&#x8FD1;&#x7684;&#x3002;</p>
-</blockquote>
-
-<p>&#x7EE7;&#x7EED;&#x4E0A;&#x4E00;&#x6B21;&#x7684;Project Euler&#x7684;&#x9898;&#x89E3;&#xFF0C;&#x4E0D;&#x89C1;&#x5F97;&#x6700;&#x4F18;&#xFF0C;&#x4E5F;&#x4E0D;&#x89C1;&#x5F97;&#x4F18;&#x96C5;&#xFF0C;&#x4F46;&#x662F;&#x7B54;&#x6848;&#x662F;&#x5BF9;&#x7684;&#xFF0C;&#x601D;&#x8DEF;&#x4E5F;&#x662F;&#x6CA1;&#x95EE;&#x9898;&#x7684;&#x3002;&#x8FD9;&#x6B21;&#x662F;31~40&#x9898;&#x3002;</p>
-
-<p>(&#x5947;&#x602A;&#xFF0C;&#x8FD9;&#x4EBA;&#x600E;&#x4E48;&#x53C8;&#x5F00;&#x59CB;&#x7528;python&#x5199;&#x4E86;</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/07/23/ProjectEuler_Solution_31_40/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/"+"index.html">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1576,14 +1363,14 @@ pre[data-line] .line-highlight[data-end]:after {
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1650,7 +1437,7 @@ pre[data-line] .line-highlight[data-end]:after {
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> |  Total 35.4k</span>
+  <span class="post-count"> |  Total 38k</span>
 </div>
 
         
