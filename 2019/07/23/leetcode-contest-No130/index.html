@@ -47,7 +47,7 @@
 </script>
 
   <meta name="description" content="Contest 130通过：4/4  排名：59/1293  1:58:42  6WA No.1018 可被 5 整除的二进制前缀思考过多，还在想那样做对不对，做的太少所以对题目类型不熟悉。 No.1017 负二进制转换2WA emmmmmm，这道题怎么就过了呢。。。 思考过程：用几个数字尝试拼凑了一下，感觉上是要拼凑到最近的2的幂次上去，但是并没有找到绝对的规律。 然后发现某一位数字可以通过其他">
-<meta name="keywords" content="LeetCode,Algorithm">
+<meta name="keywords" content="Algorithm,LeetCode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode Contest No.130">
 <meta property="og:url" content="http://blog.jassy.com/2019/07/23/leetcode-contest-No130/index.html">
@@ -301,8 +301,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/LeetCode/" rel="tag"><i class="fa fa-tag"></i> LeetCode</a>
               <a href="/tags/Algorithm/" rel="tag"><i class="fa fa-tag"></i> Algorithm</a>
+              <a href="/tags/LeetCode/" rel="tag"><i class="fa fa-tag"></i> LeetCode</a>
           </div>
 
         
@@ -480,9 +480,14 @@
                 console.log('Failed to save visitor count', error);
               })
           } else {
-              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
-              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
-            
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.log('Failed to create', error);
+                });
           }
         })
         .catch(error => {
