@@ -1,6 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>LeetCode Contest No.15 Biweekly</title>
+    <url>/2019/12/15/leetcode-contest-No15-biweekly/</url>
+    <content><![CDATA[<h2 id="Contest-No-15-Biweekly"><a href="#Contest-No-15-Biweekly" class="headerlink" title="Contest No.15 Biweekly"></a>Contest No.15 Biweekly</h2><p>通过：4/4  排名：43 / 797  0:46:11  1WA</p>
+<h3 id="No-5126-有序数组中出现次数超过25-的元素"><a href="#No-5126-有序数组中出现次数超过25-的元素" class="headerlink" title="No.5126 有序数组中出现次数超过25%的元素"></a>No.5126 <a href="https://leetcode-cn.com/problems/element-appearing-more-than-25-in-sorted-array/" target="_blank" rel="noopener">有序数组中出现次数超过25%的元素</a></h3><blockquote>
+<p>给你一个非递减的 有序 整数数组，已知这个数组中恰好有一个整数，它的出现次数超过数组元素总数的 25%。<br>请你找到并返回这个整数</p>
+<p>示例：</p>
+<blockquote>
+<p>输入：arr = [1,2,2,6,6,6,6,7,10]<br>输出：6</p>
+</blockquote>
+<p>提示：</p>
+<blockquote>
+<ul>
+<li>1 &lt;= arr.length &lt;= 10^4</li>
+<li>0 &lt;= arr[i] &lt;= 10^5</li>
+</ul>
+</blockquote>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findSpecialInteger</span><span class="params">(self, arr: List[int])</span> -&gt; int:</span></span><br><span class="line">        a = len(arr)//<span class="number">4</span></span><br><span class="line">        ln = <span class="number">9999999999</span></span><br><span class="line">        n = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> arr:</span><br><span class="line">            <span class="keyword">if</span> ln == num:</span><br><span class="line">                n+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ln = num</span><br><span class="line">                n = <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> n&gt;a:</span><br><span class="line">                <span class="keyword">return</span> ln</span><br></pre></td></tr></table></figure>
+
+<h3 id="No-5127-删除被覆盖区间"><a href="#No-5127-删除被覆盖区间" class="headerlink" title="No.5127 删除被覆盖区间"></a>No.5127 <a href="https://leetcode-cn.com/problems/remove-covered-intervals/" target="_blank" rel="noopener">删除被覆盖区间</a></h3><blockquote>
+<p>给你一个区间列表，请你删除列表中被其他区间所覆盖的区间。</p>
+<p>只有当 c &lt;= a 且 b &lt;= d 时，我们才认为区间 [a,b) 被区间 [c,d) 覆盖。</p>
+<p>在完成所有删除操作后，请你返回列表中剩余区间的数目。</p>
+<p>示例：</p>
+<blockquote>
+<p>输入：intervals = [[1,4],[3,6],[2,8]]<br>输出：2<br>解释：区间 [3,6] 被区间 [2,8] 覆盖，所以它被删除了。</p>
+</blockquote>
+<p>提示：​​​​​​</p>
+<blockquote>
+<ul>
+<li>1 &lt;= intervals.length &lt;= 1000</li>
+<li>0 &lt;= intervals[i][0] &lt; intervals[i][1] &lt;= 10^5</li>
+<li>对于所有的 i != j：intervals[i] != intervals[j]</li>
+</ul>
+</blockquote>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeCoveredIntervals</span><span class="params">(self, intervals: List[List[int]])</span> -&gt; int:</span></span><br><span class="line">        intervals.sort()</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i&lt;len(intervals)<span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">if</span> intervals[i][<span class="number">0</span>]&lt;=intervals[i+<span class="number">1</span>][<span class="number">0</span>] <span class="keyword">and</span> intervals[i][<span class="number">1</span>]&gt;=intervals[i+<span class="number">1</span>][<span class="number">1</span>]:</span><br><span class="line">                intervals.pop(i+<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> intervals[i][<span class="number">0</span>]&gt;=intervals[i+<span class="number">1</span>][<span class="number">0</span>] <span class="keyword">and</span> intervals[i][<span class="number">1</span>]&lt;=intervals[i+<span class="number">1</span>][<span class="number">1</span>]:</span><br><span class="line">                intervals.pop(i)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                i+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> i+<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="No-5123-字母组合迭代器"><a href="#No-5123-字母组合迭代器" class="headerlink" title="No.5123 字母组合迭代器"></a>No.5123 <a href="https://leetcode-cn.com/problems/iterator-for-combination/" target="_blank" rel="noopener">字母组合迭代器</a></h3><blockquote>
+<p>请你设计一个迭代器类，包括以下内容：</p>
+<p>一个构造函数，输入参数包括：一个 有序且字符唯一 的字符串 characters（该字符串只包含小写英文字母）和一个数字 combinationLength 。<br>函数 next() ，按 字典序 返回长度为 combinationLength 的下一个字母组合。<br>函数 hasNext() ，只有存在长度为 combinationLength 的下一个字母组合时，才返回 True；否则，返回 False。</p>
+<p>示例：</p>
+<blockquote>
+<p>CombinationIterator iterator = new CombinationIterator(“abc”, 2); // 创建迭代器 iterator</p>
+<p>iterator.next(); // 返回 “ab”<br>iterator.hasNext(); // 返回 true<br>iterator.next(); // 返回 “ac”<br>iterator.hasNext(); // 返回 true<br>iterator.next(); // 返回 “bc”<br>iterator.hasNext(); // 返回 false</p>
+</blockquote>
+<p>提示：</p>
+<blockquote>
+<ul>
+<li>1 &lt;= combinationLength &lt;= characters.length &lt;= 15</li>
+<li>每组测试数据最多包含 10^4 次函数调用。</li>
+<li>题目保证每次调用函数 next 时都存在下一个字母组合。</li>
+</ul>
+</blockquote>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CombinationIterator</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, characters: str, combinationLength: int)</span>:</span></span><br><span class="line">        cc = characters</span><br><span class="line">        ll = combinationLength</span><br><span class="line">        self.gen = itertools.combinations(characters, combinationLength)</span><br><span class="line">        self.l = math.factorial(len(cc))//math.factorial(len(cc)-ll)//math.factorial(ll)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next</span><span class="params">(self)</span> -&gt; str:</span></span><br><span class="line">        self.l-=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>.join(next(self.gen))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hasNext</span><span class="params">(self)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">return</span> self.l&gt;<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="No-5129-下降路径最小和-II"><a href="#No-5129-下降路径最小和-II" class="headerlink" title="No.5129 下降路径最小和  II"></a>No.5129 <a href="https://leetcode-cn.com/problems/minimum-falling-path-sum-ii/" target="_blank" rel="noopener">下降路径最小和  II</a></h3><blockquote>
+<p>给你一个整数方阵 arr ，定义「非零偏移下降路径」为：从 arr 数组中的每一行选择一个数字，且按顺序选出来的数字中，相邻数字不在原数组的同一列。<br>请你返回非零偏移下降路径数字和的最小值。</p>
+<p>示例 1：</p>
+<blockquote>
+<p>输入：arr = [[1,2,3],[4,5,6],[7,8,9]]<br>输出：13<br>解释：<br>所有非零偏移下降路径包括：<br>[1,5,9], [1,5,7], [1,6,7], [1,6,8],<br>[2,4,8], [2,4,9], [2,6,7], [2,6,8],<br>[3,4,8], [3,4,9], [3,5,7], [3,5,9]<br>下降路径中数字和最小的是 [1,5,7] ，所以答案是 13 。</p>
+</blockquote>
+<p>提示：</p>
+<blockquote>
+<ul>
+<li>1 &lt;= arr.length == arr[i].length &lt;= 200</li>
+<li>-99 &lt;= arr[i][j] &lt;= 99</li>
+</ul>
+</blockquote>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minFallingPathSum</span><span class="params">(self, arr: List[List[int]])</span> -&gt; int:</span></span><br><span class="line">        dp = [[<span class="number">0</span>]*len(arr) <span class="keyword">for</span> _ <span class="keyword">in</span> range(len(arr))]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(arr)):</span><br><span class="line">            dp[<span class="number">0</span>][i] = arr[<span class="number">0</span>][i]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(arr)):</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> range(len(arr)):</span><br><span class="line">                dp[i][k] = arr[i][k]+min(dp[i<span class="number">-1</span>][:k]+dp[i<span class="number">-1</span>][k+<span class="number">1</span>:])</span><br><span class="line">        <span class="keyword">return</span> min(dp[<span class="number">-1</span>])</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode Contest No.167</title>
+    <url>/2019/12/15/leetcode-contest-No167/</url>
+    <content><![CDATA[<h2 id="Contest-167"><a href="#Contest-167" class="headerlink" title="Contest 167"></a>Contest 167</h2><p>通过：4/4  排名：107 / 1534  1:43:12  5WA</p>
+<h3 id="No-5283-二进制链表转整数"><a href="#No-5283-二进制链表转整数" class="headerlink" title="No.5283 二进制链表转整数"></a>No.5283 <a href="https://leetcode-cn.com/problems/convert-binary-number-in-a-linked-list-to-integer/" target="_blank" rel="noopener">二进制链表转整数</a></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getDecimalValue</span><span class="params">(self, head: ListNode)</span> -&gt; int:</span></span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> head!=<span class="literal">None</span>:</span><br><span class="line">            ans = ans*<span class="number">2</span>+head.val</span><br><span class="line">            head = head.next</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<h3 id="No-5124-顺次数"><a href="#No-5124-顺次数" class="headerlink" title="No.5124 顺次数"></a>No.5124 <a href="https://leetcode-cn.com/problems/sequential-digits/" target="_blank" rel="noopener">顺次数</a></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sequentialDigits</span><span class="params">(self, low: int, high: int)</span> -&gt; List[int]:</span></span><br><span class="line">        ans = []</span><br><span class="line">        num = [<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>,<span class="string">'4'</span>,<span class="string">'5'</span>,<span class="string">'6'</span>,<span class="string">'7'</span>,<span class="string">'8'</span>,<span class="string">'9'</span>]</span><br><span class="line">        lc = <span class="number">0</span></span><br><span class="line">        hc = <span class="number">0</span></span><br><span class="line">        ll = low</span><br><span class="line">        hh = high</span><br><span class="line">        <span class="keyword">while</span> low&gt;<span class="number">0</span>:</span><br><span class="line">            lc+=<span class="number">1</span></span><br><span class="line">            low = low//<span class="number">10</span></span><br><span class="line">        <span class="keyword">while</span> high&gt;<span class="number">0</span>:</span><br><span class="line">            hc+=<span class="number">1</span></span><br><span class="line">            high = high//<span class="number">10</span></span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> range(lc,hc+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">9</span>-k+<span class="number">1</span>):</span><br><span class="line">                ans.append(int(<span class="string">''</span>.join(num[i:i+k])))</span><br><span class="line">        o = []</span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> ans:</span><br><span class="line">            <span class="keyword">if</span> a &gt;=ll <span class="keyword">and</span> a&lt;=hh:</span><br><span class="line">                o.append(a)</span><br><span class="line">        <span class="keyword">return</span> o</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="No-5285-元素和小于等于阈值的正方形的最大边长"><a href="#No-5285-元素和小于等于阈值的正方形的最大边长" class="headerlink" title="No.5285 元素和小于等于阈值的正方形的最大边长"></a>No.5285 <a href="https://leetcode-cn.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/" target="_blank" rel="noopener">元素和小于等于阈值的正方形的最大边长</a></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSideLength</span><span class="params">(self, mat: List[List[int]], threshold: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(mat)):</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">1</span>,len(mat[<span class="number">0</span>])):</span><br><span class="line">                mat[i][k] += mat[i][k<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> range(len(mat[<span class="number">0</span>])):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(mat)):</span><br><span class="line">                mat[i][k] += mat[i<span class="number">-1</span>][k]</span><br><span class="line">        m = [[<span class="number">0</span>]*(len(mat[<span class="number">0</span>])+<span class="number">1</span>)] +[[<span class="number">0</span>]+mat[x] <span class="keyword">for</span> x <span class="keyword">in</span> range(len(mat))]</span><br><span class="line">        mat = m</span><br><span class="line">        ans = <span class="number">-1</span></span><br><span class="line">        lans = ans</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(min(len(mat),len(mat[<span class="number">0</span>]))):</span><br><span class="line">            m = <span class="number">0</span></span><br><span class="line">            <span class="keyword">while</span> m&lt;len(mat)-i:</span><br><span class="line">                n = <span class="number">0</span></span><br><span class="line">                <span class="keyword">while</span> n&lt;len(mat[<span class="number">0</span>])-i:</span><br><span class="line">                    sm = mat[m+i][n+i] + mat[m][n] - mat[m][n+i] - mat[m+i][n]</span><br><span class="line">                    <span class="keyword">if</span> sm &lt;= threshold <span class="keyword">and</span> i&gt;ans:</span><br><span class="line">                        ans = i</span><br><span class="line">                        m = len(mat)</span><br><span class="line">                        n = len(mat[<span class="number">0</span>])</span><br><span class="line">                    n+=<span class="number">1</span></span><br><span class="line">                m+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> ans == lans:</span><br><span class="line">                <span class="keyword">return</span> ans</span><br><span class="line">            lans = ans</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="No-5286-网格中的最短路径"><a href="#No-5286-网格中的最短路径" class="headerlink" title="No.5286 网格中的最短路径"></a>No.5286 <a href="https://leetcode-cn.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/" target="_blank" rel="noopener">网格中的最短路径</a></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">shortestPath</span><span class="params">(self, grid: List[List[int]], k: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> len(grid) == <span class="number">1</span> <span class="keyword">and</span> len(grid[<span class="number">0</span>]) == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        ans = <span class="number">99999999999</span></span><br><span class="line">        stats = [(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)]</span><br><span class="line">        sts = &#123;(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>):<span class="number">0</span>&#125;</span><br><span class="line">        moves = [[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">-1</span>],[<span class="number">1</span>,<span class="number">0</span>],[<span class="number">-1</span>,<span class="number">0</span>]]</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i&lt;len(stats):</span><br><span class="line">            <span class="keyword">for</span> dx,dy <span class="keyword">in</span> moves:</span><br><span class="line">                x = stats[i][<span class="number">0</span>] + dx</span><br><span class="line">                y = stats[i][<span class="number">1</span>] + dy</span><br><span class="line">                <span class="keyword">if</span> x&gt;=<span class="number">0</span> <span class="keyword">and</span> x&lt;len(grid) <span class="keyword">and</span> y&gt;=<span class="number">0</span> <span class="keyword">and</span> y&lt;len(grid[<span class="number">0</span>]):</span><br><span class="line">                    step = stats[i][<span class="number">2</span>]+<span class="number">1</span></span><br><span class="line">                    ks = stats[i][<span class="number">3</span>]+(<span class="number">1</span> <span class="keyword">if</span> grid[x][y] == <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span>)</span><br><span class="line">                    <span class="keyword">if</span> ks&lt;=k:</span><br><span class="line">                        <span class="keyword">if</span> ((x,y,ks) <span class="keyword">in</span> sts <span class="keyword">and</span> step&lt;sts[(x,y,ks)]) <span class="keyword">or</span> (x,y,ks) <span class="keyword">not</span> <span class="keyword">in</span> sts:</span><br><span class="line">                            sts[(x,y,ks)] = step </span><br><span class="line">                            <span class="keyword">if</span> x == len(grid)<span class="number">-1</span> <span class="keyword">and</span> y == len(grid[<span class="number">0</span>])<span class="number">-1</span>:</span><br><span class="line">                                ans = min(ans,step)</span><br><span class="line">                                <span class="keyword">if</span> ans == len(grid)+len(grid[<span class="number">0</span>]) - <span class="number">2</span>:</span><br><span class="line">                                    <span class="keyword">return</span> ans</span><br><span class="line">                            stats.append((x,y,step,ks))</span><br><span class="line">            i+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span> <span class="keyword">if</span> ans == <span class="number">99999999999</span> <span class="keyword">else</span> ans</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C补遗：C语言里不那么面熟的关键字</title>
     <url>/2019/12/06/C_Keyword/</url>
     <content><![CDATA[<p>C用了很久了，但是也没有说很系统平铺的整体看过，一直是用什么会什么，不用什么就过去了。既然C已经被我当做是一门已经掌握的语言，所以就重新扫一遍C里面不那么面熟的东西或者理解有偏差的东西，当做是个记录以备复习使用，也可以对C打个结了。</p>
@@ -823,27 +925,6 @@ bottom: .4em;
       </tags>
   </entry>
   <entry>
-    <title>LeetCode Contest No.131</title>
-    <url>/2019/07/23/leetcode-contest-No131/</url>
-    <content><![CDATA[<h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
-<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧<del>~</del>错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。</p>
-<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" target="_blank" rel="noopener">删除最外层的括号</a></h3><p>1WA</p>
-<p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
-  <a id="more"></a>
-<h3 id="No-5017-从根到叶的二进制数之和"><a href="#No-5017-从根到叶的二进制数之和" class="headerlink" title="No.5017 从根到叶的二进制数之和"></a>No.5017 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/sum-of-root-to-leaf-binary-numbers/" target="_blank" rel="noopener">从根到叶的二进制数之和</a></h3><p>一开始初始值给错了，没有大问题。</p>
-<h3 id="No-5018-驼峰式匹配"><a href="#No-5018-驼峰式匹配" class="headerlink" title="No.5018 驼峰式匹配"></a>No.5018 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/camelcase-matching/" target="_blank" rel="noopener">驼峰式匹配</a></h3><p>居然，做到一半的时候，忘记题目了！！！</p>
-<p>做到一半的时候只记得要匹配对了就可以了，完全忘记了是只能插入小写字母，但是还好还好这道题给的测试用例比较全面，才通过了。</p>
-<p>另外可以多接触一下库啊，isupper这种函数的用法，多知道一些总是好事。</p>
-<h3 id="No-5019-视频拼接"><a href="#No-5019-视频拼接" class="headerlink" title="No.5019 视频拼接"></a>No.5019 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/video-stitching/" target="_blank" rel="noopener">视频拼接</a></h3><p>1WA</p>
-<p>完完全全忘记了那次错误提交是为什么，明明是昨天刚做过的题……</p>
-<p>嗯，那就没啥说的了</p>
-]]></content>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode Contest No.132</title>
     <url>/2019/07/23/leetcode-contest-No132/</url>
     <content><![CDATA[<h2 id="Contest-132"><a href="#Contest-132" class="headerlink" title="Contest 132"></a>Contest 132</h2><p>通过：3/4  排名：99/1047  0:59:44  1WA</p>
@@ -869,18 +950,29 @@ bottom: .4em;
 <p>PS: 再碎碎念一下，过年的时候报名的比赛，居然忘记比了！居然忘记比了！！！简直了，当时就感觉这么久以后的事情到时候可能会忘记吧，果然不假。</p>
 ]]></content>
       <tags>
-        <tag>Algorithm</tag>
         <tag>LeetCode</tag>
+        <tag>Algorithm</tag>
       </tags>
   </entry>
   <entry>
-    <title>智能指针</title>
-    <url>/2019/07/23/intelligent_pointer/</url>
-    <content><![CDATA[<p><a href="https://www.cnblogs.com/TenosDoIt/p/3456704.html" target="_blank" rel="noopener">https://www.cnblogs.com/TenosDoIt/p/3456704.html</a></p>
+    <title>LeetCode Contest No.131</title>
+    <url>/2019/07/23/leetcode-contest-No131/</url>
+    <content><![CDATA[<h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
+<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧<del>~</del>错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。</p>
+<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" target="_blank" rel="noopener">删除最外层的括号</a></h3><p>1WA</p>
+<p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
+  <a id="more"></a>
+<h3 id="No-5017-从根到叶的二进制数之和"><a href="#No-5017-从根到叶的二进制数之和" class="headerlink" title="No.5017 从根到叶的二进制数之和"></a>No.5017 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/sum-of-root-to-leaf-binary-numbers/" target="_blank" rel="noopener">从根到叶的二进制数之和</a></h3><p>一开始初始值给错了，没有大问题。</p>
+<h3 id="No-5018-驼峰式匹配"><a href="#No-5018-驼峰式匹配" class="headerlink" title="No.5018 驼峰式匹配"></a>No.5018 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/camelcase-matching/" target="_blank" rel="noopener">驼峰式匹配</a></h3><p>居然，做到一半的时候，忘记题目了！！！</p>
+<p>做到一半的时候只记得要匹配对了就可以了，完全忘记了是只能插入小写字母，但是还好还好这道题给的测试用例比较全面，才通过了。</p>
+<p>另外可以多接触一下库啊，isupper这种函数的用法，多知道一些总是好事。</p>
+<h3 id="No-5019-视频拼接"><a href="#No-5019-视频拼接" class="headerlink" title="No.5019 视频拼接"></a>No.5019 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/video-stitching/" target="_blank" rel="noopener">视频拼接</a></h3><p>1WA</p>
+<p>完完全全忘记了那次错误提交是为什么，明明是昨天刚做过的题……</p>
+<p>嗯，那就没啥说的了</p>
 ]]></content>
       <tags>
-        <tag>Conception</tag>
-        <tag>C++</tag>
+        <tag>LeetCode</tag>
+        <tag>Algorithm</tag>
       </tags>
   </entry>
   <entry>
@@ -903,8 +995,18 @@ bottom: .4em;
 <p>另外一个是搜索上下左右四个方向的时候，建立一个数组 <code>[[0,1],[0,-1],[1,0],[-1,0]]</code>，然后对每个点循环加这四个变量即可，这种方法在前面做题过程中有见到提过，但是自己仍然没有用过，后面遇到一样的题也是需要尝试一下使用这种方法实现。</p>
 ]]></content>
       <tags>
-        <tag>Algorithm</tag>
         <tag>LeetCode</tag>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>智能指针</title>
+    <url>/2019/07/23/intelligent_pointer/</url>
+    <content><![CDATA[<p><a href="https://www.cnblogs.com/TenosDoIt/p/3456704.html" target="_blank" rel="noopener">https://www.cnblogs.com/TenosDoIt/p/3456704.html</a></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>Conception</tag>
       </tags>
   </entry>
   <entry>
@@ -946,8 +1048,8 @@ bottom: .4em;
 </ol>
 ]]></content>
       <tags>
-        <tag>Embedded</tag>
         <tag>Conception</tag>
+        <tag>Embedded</tag>
       </tags>
   </entry>
   <entry>
@@ -3218,8 +3320,8 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
   
     </body></html>]]></content>
       <tags>
-        <tag>Project Euler</tag>
         <tag>Algorithm</tag>
+        <tag>Project Euler</tag>
       </tags>
   </entry>
   <entry>

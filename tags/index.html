@@ -148,7 +148,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">18</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">20</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -225,7 +225,7 @@
               14 tags in total
             </div>
             <div class="tag-cloud-tags">
-              <a href="/tags/Algorithm/index.html" style="font-size: 24px; color: #4f4f4f">Algorithm</a> <a href="/tags/C/index.html" style="font-size: 12px; color: #ccc">C</a> <a href="/tags/C/index.html" style="font-size: 12px; color: #ccc">C++</a> <a href="/tags/Caffe/index.html" style="font-size: 12px; color: #ccc">Caffe</a> <a href="/tags/Communication/index.html" style="font-size: 18px; color: #8e8e8e">Communication</a> <a href="/tags/Conception/index.html" style="font-size: 18px; color: #8e8e8e">Conception</a> <a href="/tags/DP/index.html" style="font-size: 12px; color: #ccc">DP</a> <a href="/tags/Embedded/index.html" style="font-size: 12px; color: #ccc">Embedded</a> <a href="/tags/Jetson-TX1/index.html" style="font-size: 12px; color: #ccc">Jetson TX1</a> <a href="/tags/LeetCode/index.html" style="font-size: 24px; color: #4f4f4f">LeetCode</a> <a href="/tags/Lessons/index.html" style="font-size: 12px; color: #ccc">Lessons</a> <a href="/tags/Life/index.html" style="font-size: 12px; color: #ccc">Life</a> <a href="/tags/NLP/index.html" style="font-size: 12px; color: #ccc">NLP</a> <a href="/tags/Project-Euler/index.html" style="font-size: 30px; color: #111">Project Euler</a>
+              <a href="/tags/Algorithm/index.html" style="font-size: 30px; color: #111">Algorithm</a> <a href="/tags/C/index.html" style="font-size: 12px; color: #ccc">C</a> <a href="/tags/C/index.html" style="font-size: 12px; color: #ccc">C++</a> <a href="/tags/Caffe/index.html" style="font-size: 12px; color: #ccc">Caffe</a> <a href="/tags/Communication/index.html" style="font-size: 18px; color: #8e8e8e">Communication</a> <a href="/tags/Conception/index.html" style="font-size: 18px; color: #8e8e8e">Conception</a> <a href="/tags/DP/index.html" style="font-size: 12px; color: #ccc">DP</a> <a href="/tags/Embedded/index.html" style="font-size: 12px; color: #ccc">Embedded</a> <a href="/tags/Jetson-TX1/index.html" style="font-size: 12px; color: #ccc">Jetson TX1</a> <a href="/tags/LeetCode/index.html" style="font-size: 30px; color: #111">LeetCode</a> <a href="/tags/Lessons/index.html" style="font-size: 12px; color: #ccc">Lessons</a> <a href="/tags/Life/index.html" style="font-size: 12px; color: #ccc">Life</a> <a href="/tags/NLP/index.html" style="font-size: 12px; color: #ccc">NLP</a> <a href="/tags/Project-Euler/index.html" style="font-size: 24px; color: #4f4f4f">Project Euler</a>
             </div>
           </div>
         
@@ -246,15 +246,15 @@
           
       <div class="tabs tabs-comment">
         <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
             <li class="tab"><a href="#comment-valine">valine</a></li>
+            <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane gitalk" id="comment-gitalk">
-              <div class="comments" id="gitalk-container"></div>
-            </div>
             <div class="tab-pane valine" id="comment-valine">
               <div class="comments" id="comments"></div>
+            </div>
+            <div class="tab-pane gitalk" id="comment-gitalk">
+              <div class="comments" id="gitalk-container"></div>
             </div>
         </div>
       </div>
@@ -313,7 +313,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -387,7 +387,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> |  Total 38k</span>
+  <span class="post-count"> |  Total 39.4k</span>
 </div>
 
         
@@ -441,24 +441,6 @@
 
   
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '5dc1438e00012d02d483',
-      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
-      repo: 'Jassy930.github.io',
-      owner: 'Jassy930',
-      admin: ['Jassy930'],
-      id: 'f47af1d1eda4d807b02bba32be15120b',
-        language: 'zh-CN',
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-</script>
-
 
 <script>
 NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
@@ -480,10 +462,28 @@ NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     visitor: true,
     lang: '' || 'zh-cn',
     path: location.pathname,
-    recordIP: false,
+    recordIP: true,
     serverURLs: ''
   });
 }, window.Valine);
+</script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5dc1438e00012d02d483',
+      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
+      repo: 'Jassy930.github.io',
+      owner: 'Jassy930',
+      admin: ['Jassy930'],
+      id: 'f47af1d1eda4d807b02bba32be15120b',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
 </script>
 
 </body>
