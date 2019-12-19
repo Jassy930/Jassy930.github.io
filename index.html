@@ -400,87 +400,14 @@
 </blockquote>
 <p>嗯，水题。<br>时间复杂度：$O(n)$</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getDecimalValue</span><span class="params">(self, head: ListNode)</span> -&gt; int:</span></span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> head!=<span class="literal">None</span>:</span><br><span class="line">            ans = ans*<span class="number">2</span>+head.val</span><br><span class="line">            head = head.next</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
-
-<h3 id="No-5124-顺次数"><a href="#No-5124-顺次数" class="headerlink" title="No.5124 顺次数"></a>No.5124 <a href="https://leetcode-cn.com/problems/sequential-digits/" target="_blank" rel="noopener">顺次数</a></h3><blockquote>
-<p>我们定义「顺次数」为：每一位上的数字都比前一位上的数字大 1 的整数。<br>请你返回由 [low, high] 范围内所有顺次数组成的 有序 列表（从小到大排序）。</p>
-<p>示例 1：</p>
-<blockquote>
-<p>输出：low = 100, high = 300<br>输出：[123,234]</p>
-</blockquote>
-<p>示例 2：</p>
-<blockquote>
-<p>输出：low = 1000, high = 13000<br>输出：[1234,2345,3456,4567,5678,6789,12345]</p>
-</blockquote>
-<p>提示：</p>
-<blockquote>
-<ul>
-<li>10 &lt;= low &lt;= high &lt;= 10^9</li>
-</ul>
-</blockquote>
-</blockquote>
-<p>这个题经过了一点点思考，本来的想法还是从low遍历到high的，后来想不对啊，这数字只要第一个数字定了就都定了，所以大概定了个范围，把范围内的所有可能的数列出来，选出来low到high之间的数就可以了<br>后来发现大佬们的眼睛更尖一些，所有可能组出来的数字，最多只有36种可能性，所以最快的方法是将36个数在本地打表写在一个数组里，然后判断在low和high中间的就完事了，具体代码不写了</p>
-<p>时间复杂度（大佬版）： $O(1)$</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sequentialDigits</span><span class="params">(self, low: int, high: int)</span> -&gt; List[int]:</span></span><br><span class="line">        ans = []</span><br><span class="line">        num = [<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>,<span class="string">'4'</span>,<span class="string">'5'</span>,<span class="string">'6'</span>,<span class="string">'7'</span>,<span class="string">'8'</span>,<span class="string">'9'</span>]</span><br><span class="line">        lc = <span class="number">0</span></span><br><span class="line">        hc = <span class="number">0</span></span><br><span class="line">        ll = low</span><br><span class="line">        hh = high</span><br><span class="line">        <span class="keyword">while</span> low&gt;<span class="number">0</span>:</span><br><span class="line">            lc+=<span class="number">1</span></span><br><span class="line">            low = low//<span class="number">10</span></span><br><span class="line">        <span class="keyword">while</span> high&gt;<span class="number">0</span>:</span><br><span class="line">            hc+=<span class="number">1</span></span><br><span class="line">            high = high//<span class="number">10</span></span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> range(lc,hc+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">9</span>-k+<span class="number">1</span>):</span><br><span class="line">                ans.append(int(<span class="string">''</span>.join(num[i:i+k])))</span><br><span class="line">        o = []</span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> ans:</span><br><span class="line">            <span class="keyword">if</span> a &gt;=ll <span class="keyword">and</span> a&lt;=hh:</span><br><span class="line">                o.append(a)</span><br><span class="line">        <span class="keyword">return</span> o</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="No-5285-元素和小于等于阈值的正方形的最大边长"><a href="#No-5285-元素和小于等于阈值的正方形的最大边长" class="headerlink" title="No.5285 元素和小于等于阈值的正方形的最大边长"></a>No.5285 <a href="https://leetcode-cn.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/" target="_blank" rel="noopener">元素和小于等于阈值的正方形的最大边长</a></h3><blockquote>
-<p>给你一个大小为 m x n 的矩阵 mat 和一个整数阈值 threshold。<br>请你返回元素总和小于或等于阈值的正方形区域的最大边长；如果没有这样的正方形区域，则返回 0 。</p>
-<p>示例 1：</p>
-<blockquote>
-<p>输入：mat = [[1,1,3,2,4,3,2],[1,1,3,2,4,3,2],[1,1,3,2,4,3,2]], threshold = 4<br>输出：2<br>解释：总和小于 4 的正方形的最大边长为 2。</p>
-</blockquote>
-<p>示例 2：</p>
-<blockquote>
-<p>输入：mat = [[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2]], threshold = 1<br>输出：0</p>
-</blockquote>
-<p>示例 3：</p>
-<blockquote>
-<p>输入：mat = [[1,1,1,1],[1,0,0,0],[1,0,0,0],[1,0,0,0]], threshold = 6<br>输出：3</p>
-</blockquote>
-<p>示例 4：</p>
-<blockquote>
-<p>输入：mat = [[18,70],[61,1],[25,85],[14,40],[11,96],[97,96],[63,45]], threshold = 40184<br>输出：2</p>
-</blockquote>
-<p>提示：</p>
-<blockquote>
-<ul>
-<li>1 &lt;= m, n &lt;= 300</li>
-<li>m == mat.length</li>
-<li>n == mat[i].length</li>
-<li>0 &lt;= mat[i][j] &lt;= 10000</li>
-<li>0 &lt;= threshold &lt;= 10^5</li>
-</ul>
-</blockquote>
-</blockquote>
-<p>第一次写写了五层循环。。。头太铁了，然后想到之前</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSideLength</span><span class="params">(self, mat: List[List[int]], threshold: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(mat)):</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">1</span>,len(mat[<span class="number">0</span>])):</span><br><span class="line">                mat[i][k] += mat[i][k<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> range(len(mat[<span class="number">0</span>])):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(mat)):</span><br><span class="line">                mat[i][k] += mat[i<span class="number">-1</span>][k]</span><br><span class="line">        m = [[<span class="number">0</span>]*(len(mat[<span class="number">0</span>])+<span class="number">1</span>)] +[[<span class="number">0</span>]+mat[x] <span class="keyword">for</span> x <span class="keyword">in</span> range(len(mat))]</span><br><span class="line">        mat = m</span><br><span class="line">        ans = <span class="number">-1</span></span><br><span class="line">        lans = ans</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(min(len(mat),len(mat[<span class="number">0</span>]))):</span><br><span class="line">            m = <span class="number">0</span></span><br><span class="line">            <span class="keyword">while</span> m&lt;len(mat)-i:</span><br><span class="line">                n = <span class="number">0</span></span><br><span class="line">                <span class="keyword">while</span> n&lt;len(mat[<span class="number">0</span>])-i:</span><br><span class="line">                    sm = mat[m+i][n+i] + mat[m][n] - mat[m][n+i] - mat[m+i][n]</span><br><span class="line">                    <span class="keyword">if</span> sm &lt;= threshold <span class="keyword">and</span> i&gt;ans:</span><br><span class="line">                        ans = i</span><br><span class="line">                        m = len(mat)</span><br><span class="line">                        n = len(mat[<span class="number">0</span>])</span><br><span class="line">                    n+=<span class="number">1</span></span><br><span class="line">                m+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> ans == lans:</span><br><span class="line">                <span class="keyword">return</span> ans</span><br><span class="line">            lans = ans</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="No-5286-网格中的最短路径"><a href="#No-5286-网格中的最短路径" class="headerlink" title="No.5286 网格中的最短路径"></a>No.5286 <a href="https://leetcode-cn.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/" target="_blank" rel="noopener">网格中的最短路径</a></h3><blockquote>
-<p>给你一个 m * n 的网格，其中每个单元格不是 0（空）就是 1（障碍物）。每一步，您都可以在空白单元格中上、下、左、右移动。<br>如果您 最多 可以消除 k 个障碍物，请找出从左上角 (0, 0) 到右下角 (m-1, n-1) 的最短路径，并返回通过该路径所&gt;需的步数。如果找不到这样的路径，则返回 -1。</p>
-<p>示例 1：</p>
-<blockquote>
-<p>输入：<br>grid =<br>[[0,0,0],<br>[1,1,0],<br>[0,0,0],<br>[0,1,1],<br>[0,0,0]],<br>k = 1<br>输出：6<br>解释：<br>不消除任何障碍的最短路径是 10。<br>消除位置 (3,2) 处的障碍后，最短路径是 6 。该路径是 (0,0) -&gt; (0,1) -&gt; (0,2) -&gt; (1,2) -&gt; (2,2) -&gt; (3,2)&gt; -&gt; (4,2).</p>
-</blockquote>
-<p>示例 2：</p>
-<blockquote>
-<p>输入：<br>grid =<br>[[0,1,1],<br>[1,1,1],<br>[1,0,0]],<br>k = 1<br>输出：-1<br>解释：<br>我们至少需要消除两个障碍才能找到这样的路径。</p>
-</blockquote>
-<p>提示：</p>
-<blockquote>
-<ul>
-<li>grid.length == m</li>
-<li>grid[0].length == n</li>
-<li>1 &lt;= m, n &lt;= 40</li>
-<li>1 &lt;= k &lt;= m*n</li>
-<li>grid[i][j] == 0 or 1</li>
-<li>grid[0][0] == grid[m-1][n-1] == 0</li>
-</ul>
-</blockquote>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">shortestPath</span><span class="params">(self, grid: List[List[int]], k: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> len(grid) == <span class="number">1</span> <span class="keyword">and</span> len(grid[<span class="number">0</span>]) == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        ans = <span class="number">99999999999</span></span><br><span class="line">        stats = [(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)]</span><br><span class="line">        sts = &#123;(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>):<span class="number">0</span>&#125;</span><br><span class="line">        moves = [[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">-1</span>],[<span class="number">1</span>,<span class="number">0</span>],[<span class="number">-1</span>,<span class="number">0</span>]]</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i&lt;len(stats):</span><br><span class="line">            <span class="keyword">for</span> dx,dy <span class="keyword">in</span> moves:</span><br><span class="line">                x = stats[i][<span class="number">0</span>] + dx</span><br><span class="line">                y = stats[i][<span class="number">1</span>] + dy</span><br><span class="line">                <span class="keyword">if</span> x&gt;=<span class="number">0</span> <span class="keyword">and</span> x&lt;len(grid) <span class="keyword">and</span> y&gt;=<span class="number">0</span> <span class="keyword">and</span> y&lt;len(grid[<span class="number">0</span>]):</span><br><span class="line">                    step = stats[i][<span class="number">2</span>]+<span class="number">1</span></span><br><span class="line">                    ks = stats[i][<span class="number">3</span>]+(<span class="number">1</span> <span class="keyword">if</span> grid[x][y] == <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span>)</span><br><span class="line">                    <span class="keyword">if</span> ks&lt;=k:</span><br><span class="line">                        <span class="keyword">if</span> ((x,y,ks) <span class="keyword">in</span> sts <span class="keyword">and</span> step&lt;sts[(x,y,ks)]) <span class="keyword">or</span> (x,y,ks) <span class="keyword">not</span> <span class="keyword">in</span> sts:</span><br><span class="line">                            sts[(x,y,ks)] = step</span><br><span class="line">                            <span class="keyword">if</span> x == len(grid)<span class="number">-1</span> <span class="keyword">and</span> y == len(grid[<span class="number">0</span>])<span class="number">-1</span>:</span><br><span class="line">                                ans = min(ans,step)</span><br><span class="line">                                <span class="keyword">if</span> ans == len(grid)+len(grid[<span class="number">0</span>]) - <span class="number">2</span>:</span><br><span class="line">                                    <span class="keyword">return</span> ans</span><br><span class="line">                            stats.append((x,y,step,ks))</span><br><span class="line">            i+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span> <span class="keyword">if</span> ans == <span class="number">99999999999</span> <span class="keyword">else</span> ans</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/12/15/leetcode-contest-No167/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1243,6 +1170,102 @@ bottom: .4em;
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="default">
+    <link itemprop="mainEntityOfPage" href="http://blog.jassy.com/2019/07/23/leetcode-contest-No131/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jassy">
+      <meta itemprop="description" content="Little blog, Little think">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="弱者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/23/leetcode-contest-No131/index.html" class="post-title-link" itemprop="url">LeetCode Contest No.131</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-23 22:07:37" itemprop="dateCreated datePublished" datetime="2019-07-23T22:07:37+08:00">2019-07-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-04-08 14:27:39" itemprop="dateModified" datetime="2019-04-08T14:27:39+08:00">2019-04-08</time>
+              </span>
+
+          
+            <span id="/2019/07/23/leetcode-contest-No131/" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode Contest No.131" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/07/23/leetcode-contest-No131/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/23/leetcode-contest-No131/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
+<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧<del>~</del>错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。</p>
+<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" target="_blank" rel="noopener">删除最外层的括号</a></h3><p>1WA</p>
+<p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/07/23/leetcode-contest-No131/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="default">
     <link itemprop="mainEntityOfPage" href="http://blog.jassy.com/2019/07/23/leetcode-contest-No132/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1342,7 +1365,7 @@ bottom: .4em;
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="default">
-    <link itemprop="mainEntityOfPage" href="http://blog.jassy.com/2019/07/23/leetcode-contest-No131/">
+    <link itemprop="mainEntityOfPage" href="http://blog.jassy.com/2019/07/23/leetcode-contest-No130/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1356,7 +1379,7 @@ bottom: .4em;
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2019/07/23/leetcode-contest-No131/index.html" class="post-title-link" itemprop="url">LeetCode Contest No.131</a>
+            <a href="/2019/07/23/leetcode-contest-No130/index.html" class="post-title-link" itemprop="url">LeetCode Contest No.130</a>
         </h1>
 
         <div class="post-meta">
@@ -1373,11 +1396,11 @@ bottom: .4em;
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-04-08 14:27:39" itemprop="dateModified" datetime="2019-04-08T14:27:39+08:00">2019-04-08</time>
+                <time title="Modified: 2019-04-02 15:31:23" itemprop="dateModified" datetime="2019-04-02T15:31:23+08:00">2019-04-02</time>
               </span>
 
           
-            <span id="/2019/07/23/leetcode-contest-No131/" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode Contest No.131" title="Views">
+            <span id="/2019/07/23/leetcode-contest-No130/" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode Contest No.130" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -1392,8 +1415,8 @@ bottom: .4em;
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2019/07/23/leetcode-contest-No131/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/23/leetcode-contest-No131/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/07/23/leetcode-contest-No130/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/23/leetcode-contest-No130/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1408,103 +1431,21 @@ bottom: .4em;
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
-<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧<del>~</del>错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。</p>
-<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" target="_blank" rel="noopener">删除最外层的括号</a></h3><p>1WA</p>
-<p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/07/23/leetcode-contest-No131/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="default">
-    <link itemprop="mainEntityOfPage" href="http://blog.jassy.com/2019/07/23/intelligent_pointer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Jassy">
-      <meta itemprop="description" content="Little blog, Little think">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="弱者">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/23/intelligent_pointer/index.html" class="post-title-link" itemprop="url">智能指针</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-07-23 22:07:37" itemprop="dateCreated datePublished" datetime="2019-07-23T22:07:37+08:00">2019-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-06-05 14:25:35" itemprop="dateModified" datetime="2019-06-05T14:25:35+08:00">2019-06-05</time>
-              </span>
-
-          
-            <span id="/2019/07/23/intelligent_pointer/" class="post-meta-item leancloud_visitors" data-flag-title="智能指针" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/07/23/intelligent_pointer/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/23/intelligent_pointer/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a href="https://www.cnblogs.com/TenosDoIt/p/3456704.html" target="_blank" rel="noopener">https://www.cnblogs.com/TenosDoIt/p/3456704.html</a></p>
+          <h2 id="Contest-130"><a href="#Contest-130" class="headerlink" title="Contest 130"></a>Contest 130</h2><p>通过：4/4  排名：59/1293  1:58:42  6WA</p>
+<h3 id="No-1018-可被-5-整除的二进制前缀"><a href="#No-1018-可被-5-整除的二进制前缀" class="headerlink" title="No.1018 可被 5 整除的二进制前缀"></a>No.1018 <a href="https://leetcode-cn.com/problems/binary-prefix-divisible-by-5/" target="_blank" rel="noopener">可被 5 整除的二进制前缀</a></h3><p>思考过多，还在想那样做对不对，做的太少所以对题目类型不熟悉。</p>
+<h3 id="No-1017-负二进制转换"><a href="#No-1017-负二进制转换" class="headerlink" title="No.1017 负二进制转换"></a>No.1017 <a href="https://leetcode-cn.com/problems/convert-to-base-2/" target="_blank" rel="noopener">负二进制转换</a></h3><p>2WA</p>
+<p>emmmmmm，这道题怎么就过了呢。。。</p>
+<p>思考过程：用几个数字尝试拼凑了一下，感觉上是要拼凑到最近的2的幂次上去，但是并没有找到绝对的规律。</p>
+<p>然后发现某一位数字可以通过其他位来拼凑，如<img src="https://latex.codecogs.com/gif.latex?(2)^1=(-2)^2+(-2)^1">，然后将原始数字以4进制做拆分，再由低位至高位依次处理大于1的情况。例如：<img src="https://latex.codecogs.com/gif.latex?9=1&#x5C;times(-2)^0+2&#x5C;times(-2)^2">，负二进制表示为<code>201</code>，然后从低位到高位，分别处理2、3、4的情况，<code>200</code> 和 <code>11000</code> 相等，<code>300</code> 和 <code>11100</code>相等， <code>400</code> 和 <code>10000</code> 相等。最后即可得到结果。（好麻烦啊）</p>
+<pre><code>&lt;!-- more --&gt;</code></pre><p>看了一下别人的回答，类似于二进制转换，得到 %2 后再进行 /2 的操作。区别只是在奇数位时+1而不是-1。不知道如何证明这样是正确的，但是感觉上是正确的，嗯。不懂得东西先记住就好了。</p>
+<p>另外还有一点思考，如何证明负二进制是可以表示所有数字的呢，类似的，负三进制是否可以，负四进制是否可以，待求证。</p>
+<h3 id="No-1019-链表中的下一个更大节点"><a href="#No-1019-链表中的下一个更大节点" class="headerlink" title="No.1019 链表中的下一个更大节点"></a>No.1019 <a href="https://leetcode-cn.com/problems/next-greater-node-in-linked-list/" target="_blank" rel="noopener">链表中的下一个更大节点</a></h3><p>1WA</p>
+<p>以前做过一道类似的题，维护一个栈，当下一个数字比栈顶的数字大时，取出栈顶的数字并记录，否则将下一个数字入栈，全部循环后若栈内还有数字，均输出0。</p>
+<p>这道题对比了一下我的做法和别人的，思路是一样的，但是代码量差距很大，自己在这种问题的边界条件和条件分类处理上有点死板和脑袋不清楚，所以代码量大，代码思路也不是十分清晰，还需要多多练习。</p>
+<h3 id="No-1020-飞地的数量"><a href="#No-1020-飞地的数量" class="headerlink" title="No.1020 飞地的数量"></a>No.1020 <a href="https://leetcode-cn.com/problems/number-of-enclaves/" target="_blank" rel="noopener">飞地的数量</a></h3><p>3WA</p>
+<p>前面大量时间浪费在了一个错误的思路上，第一反应是和做过的类似，进行一个DFS的遍历，遍历每一个“陆地”，然后向四个方向去搜索，看是否能够找到依然是陆地并接触到边界，如果能，那么不是飞地，如果不能，是飞地，然后标记，进行计数。后来发现越做思路越乱，且复杂，在进行深度搜索的时候还需要维护一个表去标记该地是否是已经搜索过的，极度复杂。然后转回去做第二题，做第二题的途中想到，应该反向去搜索，从接触边界的陆地进行深度搜索，每个搜索过的陆地都进行标记，为不是飞地的陆地，全部搜索遍历结束后，再进行遍历计数。</p>
+<p>两个可优化的点：一个是根据看别人的代码发现，我是使用迭代进行深度搜索的，有人是使用一个 queue，需要进行搜索的陆地都推入 queue 中，在搜索过程中新搜索到的相邻的不是飞地的地也推入 queue 中，直至整个 queue 清空为止，感觉这种方法思路更加清晰一些，下次做到类似的题需要尝试一下。</p>
+<p>另外一个是搜索上下左右四个方向的时候，建立一个数组 <code>[[0,1],[0,-1],[1,0],[-1,0]]</code>，然后对每个点循环加这四个变量即可，这种方法在前面做题过程中有见到提过，但是自己仍然没有用过，后面遇到一样的题也是需要尝试一下使用这种方法实现。</p>
 
       
     </div>
@@ -1524,7 +1465,7 @@ bottom: .4em;
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/"+"index.html">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1644,7 +1585,7 @@ bottom: .4em;
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> |  Total 41k</span>
+  <span class="post-count"> |  Total 41.5k</span>
 </div>
 
         
