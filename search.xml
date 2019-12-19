@@ -1061,8 +1061,8 @@ bottom: .4em;
 <p>嗯，那就没啥说的了</p>
 ]]></content>
       <tags>
-        <tag>LeetCode</tag>
         <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -1091,8 +1091,8 @@ bottom: .4em;
 <p>PS: 再碎碎念一下，过年的时候报名的比赛，居然忘记比了！居然忘记比了！！！简直了，当时就感觉这么久以后的事情到时候可能会忘记吧，果然不假。</p>
 ]]></content>
       <tags>
-        <tag>LeetCode</tag>
         <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -1125,8 +1125,8 @@ bottom: .4em;
 <p>另外一个是搜索上下左右四个方向的时候，建立一个数组 <code>[[0,1],[0,-1],[1,0],[-1,0]]</code>，然后对每个点循环加这四个变量即可，这种方法在前面做题过程中有见到提过，但是自己仍然没有用过，后面遇到一样的题也是需要尝试一下使用这种方法实现。</p>
 ]]></content>
       <tags>
-        <tag>LeetCode</tag>
         <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>

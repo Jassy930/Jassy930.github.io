@@ -19,7 +19,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://blog.jassy.com').hostname,
+    hostname: new URL('http://blog.jassy.wang').hostname,
     root: '/',
     scheme: 'Pisces',
     version: '7.5.0',
@@ -50,7 +50,7 @@
 <meta name="keywords" content="Jetson TX1,Caffe">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在Jetson TX1上安装Caffe--安装与问题排除">
-<meta property="og:url" content="http://blog.jassy.com/2017/03/11/JetsonTX1_caffe_problem/index.html">
+<meta property="og:url" content="http://blog.jassy.wang/2017/03/11/JetsonTX1_caffe_problem/index.html">
 <meta property="og:site_name" content="弱者">
 <meta property="og:description" content="&amp;#x5728;Jetson TX1&amp;#x4E0A;&amp;#x5B89;&amp;#x88C5;Caffe--&amp;#x5B89;&amp;#x88C5;&amp;#x4E0E;&amp;#x95EE;&amp;#x9898;&amp;#x6392;&amp;#x9664;">
 <meta property="og:locale" content="default">
@@ -59,7 +59,7 @@
 <meta name="twitter:title" content="在Jetson TX1上安装Caffe--安装与问题排除">
 <meta name="twitter:description" content="&amp;#x5728;Jetson TX1&amp;#x4E0A;&amp;#x5B89;&amp;#x88C5;Caffe--&amp;#x5B89;&amp;#x88C5;&amp;#x4E0E;&amp;#x95EE;&amp;#x9898;&amp;#x6392;&amp;#x9664;">
 
-<link rel="canonical" href="http://blog.jassy.com/2017/03/11/JetsonTX1_caffe_problem/">
+<link rel="canonical" href="http://blog.jassy.wang/2017/03/11/JetsonTX1_caffe_problem/">
 
 
 <script id="page-configurations">
@@ -220,7 +220,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="default">
-    <link itemprop="mainEntityOfPage" href="http://blog.jassy.com/2017/03/11/JetsonTX1_caffe_problem/">
+    <link itemprop="mainEntityOfPage" href="http://blog.jassy.wang/2017/03/11/JetsonTX1_caffe_problem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -723,15 +723,15 @@ sidebarTOCBtn.addEventListener('click', function(event) {
           
       <div class="tabs tabs-comment">
         <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-valine">valine</a></li>
             <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
+            <li class="tab"><a href="#comment-valine">valine</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane valine" id="comment-valine">
-              <div class="comments" id="comments"></div>
-            </div>
             <div class="tab-pane gitalk" id="comment-gitalk">
               <div class="comments" id="gitalk-container"></div>
+            </div>
+            <div class="tab-pane valine" id="comment-valine">
+              <div class="comments" id="comments"></div>
             </div>
         </div>
       </div>
@@ -919,6 +919,24 @@ sidebarTOCBtn.addEventListener('click', function(event) {
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5dc1438e00012d02d483',
+      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
+      repo: 'Jassy930.github.io',
+      owner: 'Jassy930',
+      admin: ['Jassy930'],
+      id: 'b7550da3d3140da7595acbeb59b407af',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
 
 <script>
 NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
@@ -944,24 +962,6 @@ NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     serverURLs: ''
   });
 }, window.Valine);
-</script>
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '5dc1438e00012d02d483',
-      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
-      repo: 'Jassy930.github.io',
-      owner: 'Jassy930',
-      admin: ['Jassy930'],
-      id: 'b7550da3d3140da7595acbeb59b407af',
-        language: 'zh-CN',
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
 </script>
 
 </body>
