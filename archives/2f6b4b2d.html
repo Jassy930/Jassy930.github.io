@@ -906,11 +906,11 @@ pre[data-line] .line-highlight[data-end]:after {
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/archives/6deb531b.htmlindex.html" rel="prev" title="Stanford CS224n Lecture.1">
+    <a href="/archives/6deb531b.html" rel="prev" title="Stanford CS224n Lecture.1">
       <i class="fa fa-chevron-left"></i> Stanford CS224n Lecture.1
     </a></div>
       <div class="post-nav-item">
-    <a href="/archives/71d000bc.htmlindex.html" rel="next" title="Project Euler  题解：21~30">
+    <a href="/archives/71d000bc.html" rel="next" title="Project Euler  题解：21~30">
       Project Euler  题解：21~30 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -928,15 +928,15 @@ pre[data-line] .line-highlight[data-end]:after {
           
       <div class="tabs tabs-comment">
         <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
             <li class="tab"><a href="#comment-valine">valine</a></li>
+            <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane gitalk" id="comment-gitalk">
-              <div class="comments" id="gitalk-container"></div>
-            </div>
             <div class="tab-pane valine" id="comment-valine">
               <div class="comments" id="comments"></div>
+            </div>
+            <div class="tab-pane gitalk" id="comment-gitalk">
+              <div class="comments" id="gitalk-container"></div>
             </div>
         </div>
       </div>
@@ -1124,24 +1124,6 @@ pre[data-line] .line-highlight[data-end]:after {
 
   
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '5dc1438e00012d02d483',
-      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
-      repo: 'Jassy930.github.io',
-      owner: 'Jassy930',
-      admin: ['Jassy930'],
-      id: '13f597a22e895bcd83d6f020c2333dc2',
-        language: 'zh-CN',
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-</script>
-
 
 <script>
 NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
@@ -1167,6 +1149,24 @@ NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     serverURLs: ''
   });
 }, window.Valine);
+</script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5dc1438e00012d02d483',
+      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
+      repo: 'Jassy930.github.io',
+      owner: 'Jassy930',
+      admin: ['Jassy930'],
+      id: '13f597a22e895bcd83d6f020c2333dc2',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
 </script>
 
 </body>

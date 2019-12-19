@@ -47,7 +47,7 @@
 </script>
 
   <meta name="description" content="每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆 内存空间静态存储区（全局变量）先说最简单的全局变量，包含全局变量和 static 修饰符修饰的静态变量，都是保存在静态存储区当中，并且分为未初始化区域和初始化区域。初始化的全局变量和静态变量保存在一块区域中，未初始化的">
-<meta name="keywords" content="Embedded,Conception">
+<meta name="keywords" content="Conception,Embedded">
 <meta property="og:type" content="article">
 <meta property="og:title" content="堆内存和栈内存">
 <meta property="og:url" content="http://blog.jassy.wang/archives/e896e76f.html">
@@ -349,8 +349,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Embedded/" rel="tag"><i class="fa fa-tag"></i> Embedded</a>
               <a href="/tags/Conception/" rel="tag"><i class="fa fa-tag"></i> Conception</a>
+              <a href="/tags/Embedded/" rel="tag"><i class="fa fa-tag"></i> Embedded</a>
           </div>
 
         
@@ -359,12 +359,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/archives/3f1bfcb.htmlindex.html" rel="prev" title="Project Euler  题解：31~40">
+    <a href="/archives/3f1bfcb.html" rel="prev" title="Project Euler  题解：31~40">
       <i class="fa fa-chevron-left"></i> Project Euler  题解：31~40
     </a></div>
       <div class="post-nav-item">
-    <a href="/archives/3e6a825d.htmlindex.html" rel="next" title="LeetCode Contest No.130">
-      LeetCode Contest No.130 <i class="fa fa-chevron-right"></i>
+    <a href="/archives/38a918c7.html" rel="next" title="智能指针">
+      智能指针 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -381,15 +381,15 @@
           
       <div class="tabs tabs-comment">
         <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
             <li class="tab"><a href="#comment-valine">valine</a></li>
+            <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane gitalk" id="comment-gitalk">
-              <div class="comments" id="gitalk-container"></div>
-            </div>
             <div class="tab-pane valine" id="comment-valine">
               <div class="comments" id="comments"></div>
+            </div>
+            <div class="tab-pane gitalk" id="comment-gitalk">
+              <div class="comments" id="gitalk-container"></div>
             </div>
         </div>
       </div>
@@ -577,24 +577,6 @@
 
   
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '5dc1438e00012d02d483',
-      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
-      repo: 'Jassy930.github.io',
-      owner: 'Jassy930',
-      admin: ['Jassy930'],
-      id: '65fc3508de5cb79e54b737499b60ec70',
-        language: 'zh-CN',
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-</script>
-
 
 <script>
 NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
@@ -620,6 +602,24 @@ NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     serverURLs: ''
   });
 }, window.Valine);
+</script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5dc1438e00012d02d483',
+      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
+      repo: 'Jassy930.github.io',
+      owner: 'Jassy930',
+      admin: ['Jassy930'],
+      id: '65fc3508de5cb79e54b737499b60ec70',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
 </script>
 
 </body>
