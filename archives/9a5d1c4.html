@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/witch_128px.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/witch_128px.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/witch_128px.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://blog.jassy.wang').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="最近在使用进行MATLAB进行一些计算的时候因为计算时间实在是太长了（五天。所以开始考虑进行算法优化，就在这时无意间看到了系统的CPU占用率，what？25%哈哈哈哈哈或或或或或或或或，matlab个ZZ。于是想起了parfor这回事，算法用的是动态规划算法，但是在每个递推过程中也要计算$2000 \times 2000$个循环，正好可以用并行计算，perfect，条件允许，直接开始！  要啥简">
+<meta name="keywords" content="Communication">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MATLAB并行工具箱--parfor的使用">
+<meta property="og:url" content="http://blog.jassy.wang/archives/9a5d1c4.html">
+<meta property="og:site_name" content="弱者">
+<meta property="og:description" content="最近在使用进行MATLAB进行一些计算的时候因为计算时间实在是太长了（五天。所以开始考虑进行算法优化，就在这时无意间看到了系统的CPU占用率，what？25%哈哈哈哈哈或或或或或或或或，matlab个ZZ。于是想起了parfor这回事，算法用的是动态规划算法，但是在每个递推过程中也要计算$2000 \times 2000$个循环，正好可以用并行计算，perfect，条件允许，直接开始！  要啥简">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://blog.jassy.wang/assets/Matlab_cluster_parfor/%E5%B9%B6%E8%A1%8C%E5%B7%A5%E5%85%B7%E7%AE%B1%E8%AE%BE%E7%BD%AE.png">
+<meta property="og:image" content="http://blog.jassy.wang/assets/Matlab_cluster_parfor/ClusterProfileManager.png">
+<meta property="og:image" content="http://blog.jassy.wang/assets/Matlab_cluster_parfor/ValidationResults.png">
+<meta property="og:image" content="http://blog.jassy.wang/assets/Matlab_cluster_parfor/parfor_vartypes.png">
+<meta property="og:updated_time" content="2019-12-06T09:23:13.824Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MATLAB并行工具箱--parfor的使用">
+<meta name="twitter:description" content="最近在使用进行MATLAB进行一些计算的时候因为计算时间实在是太长了（五天。所以开始考虑进行算法优化，就在这时无意间看到了系统的CPU占用率，what？25%哈哈哈哈哈或或或或或或或或，matlab个ZZ。于是想起了parfor这回事，算法用的是动态规划算法，但是在每个递推过程中也要计算$2000 \times 2000$个循环，正好可以用并行计算，perfect，条件允许，直接开始！  要啥简">
+<meta name="twitter:image" content="http://blog.jassy.wang/assets/Matlab_cluster_parfor/%E5%B9%B6%E8%A1%8C%E5%B7%A5%E5%85%B7%E7%AE%B1%E8%AE%BE%E7%BD%AE.png">
+
+<link rel="canonical" href="http://blog.jassy.wang/archives/9a5d1c4.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>MATLAB并行工具箱--parfor的使用 | 弱者</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154771641-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-154771641-1');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2cde5fc3e525b8ac3c86c6bd41fdb0f1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">弱者</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">20</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="default">
+    <link itemprop="mainEntityOfPage" href="http://blog.jassy.wang/archives/9a5d1c4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jassy">
+      <meta itemprop="description" content="Little blog, Little think">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="弱者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MATLAB并行工具箱--parfor的使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-27 17:16:09" itemprop="dateCreated datePublished" datetime="2019-11-27T17:16:09+08:00">2019-11-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-06 17:23:13" itemprop="dateModified" datetime="2019-12-06T17:23:13+08:00">2019-12-06</time>
+              </span>
+
+          
+            <span id="/archives/9a5d1c4.html" class="post-meta-item leancloud_visitors" data-flag-title="MATLAB并行工具箱--parfor的使用" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/archives/9a5d1c4.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/9a5d1c4.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>最近在使用进行MATLAB进行一些计算的时候因为计算时间实在是太长了（五天。所以开始考虑进行算法优化，就在这时无意间看到了系统的CPU占用率，what？25%哈哈哈哈哈或或或或或或或或，matlab个ZZ。于是想起了parfor这回事，算法用的是动态规划算法，但是在每个递推过程中也要计算$2000 \times 2000$个循环，正好可以用并行计算，perfect，条件允许，直接开始！</p>
+</blockquote>
+<h2 id="要啥简介，直接开干"><a href="#要啥简介，直接开干" class="headerlink" title="要啥简介，直接开干"></a>要啥简介，直接开干</h2><p>来看一个简单的不能再简单的例子，我们用for将一个数组乘以2</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">1000</span>;</span><br><span class="line">a = <span class="built_in">rand</span>(n,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:n</span><br><span class="line">    a(<span class="built_in">i</span>) = a(<span class="built_in">i</span>) * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>试着跑一下，没什么问题（这要有啥问题可以不活了），看一下运行时间</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Elapsed time is <span class="number">0.000034</span> seconds.</span><br></pre></td></tr></table></figure>
+
+<p>一个n x 1大小的随机数组，然后把其中每个数乘以二，下面就是改成parfor并行计算的</p>
+<a id="more"></a>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">1000</span>;</span><br><span class="line">a = <span class="built_in">rand</span>(n,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">parfor</span> <span class="built_in">i</span>=<span class="number">1</span>:n</span><br><span class="line">    a(<span class="built_in">i</span>) = a(<span class="built_in">i</span>) * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>so easy。这样就改好了，matlab果然易用，同样看一下时间</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Starting parallel pool (parpool) using the <span class="string">'local'</span> profile ... connected to <span class="number">4</span> workers.</span><br><span class="line">Elapsed time is <span class="number">32.119578</span> seconds.</span><br></pre></td></tr></table></figure>
+
+<p>WTF，本来想要提高效率的，怎么会变得这么慢，不过看说明似乎干了些别的，再跑一遍试试？</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Elapsed time is <span class="number">0.183769</span> seconds.</span><br></pre></td></tr></table></figure>
+
+<p>看上去时间正常多了嘛不过还是比正常跑慢，怎么回事？首先如果看到上面这些，恭喜，这就是已经开始多核心并行计算了，后面我们来具体分析及使用MATLAB的并行计算。</p>
+<h2 id="MATLAB并行计算解释及分析"><a href="#MATLAB并行计算解释及分析" class="headerlink" title="MATLAB并行计算解释及分析"></a>MATLAB并行计算解释及分析</h2><p>首先通俗解释一下我们做的事情，比如我们有一堆砖要搬，从A搬到B再搬到C结束。正常情况下，我们有一个小伙子来做这件事，他一次一次把所有砖从A搬到B再搬到C。这就是正常情况下的计算。</p>
+<p>但是我们的CPU是多核心的，例如我们是有四个小伙子的，但是在搬砖过程中，这四个小伙子只有一个小伙子在搬砖，另外三个小伙子在围观。。。这怎么可能快嘛，但是我们的小伙子很能干，只要砖不是非常多，工作都能很快完成，时间差距不大，所以也就不需要所有人都上了。</p>
+<p>并行计算就是让这几个小伙子都动起来，一起去做这件事，这样才能更加效率的解决工作量比较大的问题。在上面的例子中我们就是这样去做的。</p>
+<p><strong>但是</strong></p>
+<p><strong>为什么第一次运行这么慢</strong>：因为matlab开始并行计算之前，需要进行一些预备工作，这些工作默认是没有开启的，所以在第一次进行并行计算的时候，需要首先进行预备工作，花费一些时间，这样时间长也是理所当然的了。</p>
+<p><strong>为什么第二次还是这么慢</strong>：虽然在工作中有更多的小伙子来干活，但是在干活中，还需要有一个人去给这些小伙子分配工作，这个分配工作的动作也是需要耗费时间的，这样在工作量非常小的情况下（如上例）这个分配工作的时间可能比做这项工作消耗的时间都要长，这样最终反而计算时间更长。</p>
+<h3 id="Parallel-Pool-的设置"><a href="#Parallel-Pool-的设置" class="headerlink" title="Parallel Pool 的设置"></a>Parallel Pool 的设置</h3><p>然后我们来看一下 MATLAB 中关于并行工具箱相关的设置：</p>
+<p>（matlab版本使用2015a，其他版本请找相关设置</p>
+<p>matlab 中去做这项工作的部分叫做 Parallel pool。在 matlab 的设置界面中或者主界面的左下角的图标处可以进入并行计算工具箱的设置。大概长这样：</p>
+<p><img src="/assets/Matlab_cluster_parfor/%E5%B9%B6%E8%A1%8C%E5%B7%A5%E5%85%B7%E7%AE%B1%E8%AE%BE%E7%BD%AE.png" alt="并行工具箱设置"></p>
+<p>最上面的 Clusters 是关于计算的集群的设置，请选择 local （后面看我努力程度是否出个搭建集群的教程吧，非常简单）</p>
+<p><img src="/assets/Matlab_cluster_parfor/ClusterProfileManager.png" alt="Cluster Profile Manager"></p>
+<p>点击蓝色文字处 Cluster Profile Manager 就可以对本地的这个 Cluster 进行配置了，中间最重要的配置是 <strong>Number of workers to start on your local machine</strong> 这个决定了有多少个小伙子给你干活，默认情况下，CPU 是几核的就填几。（这一步在实际运行中有一些疑问，核心数or线程数，等待后续进一步验证。）修改后可以顺手点击 <strong>Validate</strong> 进行验证，几项测试都通过的话就说明配置没有问题，退出设置后点击同样在主界面中左下角菜单中的另外一项 <strong>Start parallel pool</strong> 就可以打开了，或者在程序中运行到 parfor 时 MATLAB 也会自动开启。</p>
+<p>开启之后可以开启系统的任务管理器，查看一下 matlab.exe 有几个，如果 worker 数量为4，那么应该有五个进程在运行，一个是用来进行调度管理的，另外四个是干活的小伙子。可以通过占用内存的不同来区别这两种进程，会有一个占用的内存大小与其他有较大的区别。</p>
+<p><img src="/assets/Matlab_cluster_parfor/ValidationResults.png" alt="Validation Relusts"></p>
+<p>在并行工具箱的设置中还有两个设置，一个是在遇到需要进行并行计算的语句时自动开启这个 Parallel Pool ，另一个是在一定时间内没有使用并行计算的时候，自动关闭，时间可以自己进行设置。</p>
+<h2 id="适用范围-amp-变量说明-amp-技巧"><a href="#适用范围-amp-变量说明-amp-技巧" class="headerlink" title="适用范围&amp;变量说明&amp;技巧"></a>适用范围&amp;变量说明&amp;技巧</h2><p>基本使用方法介绍的差不多了，但是哪里有程序第一次能跑起来的。哪种情况才适合使用 parfor 进行并行计算，使用时需要注意哪些问题，怎样才能进一步提高计算速度，我们接着往后看。</p>
+<h3 id="适用范围"><a href="#适用范围" class="headerlink" title="适用范围"></a>适用范围</h3><ul>
+<li><p>各部分计算独立：既然是并行计算，所以最基本的要求是 <strong>各个部分计算独立</strong> ，也就是说不同小伙子做的工作能独立开，不能互相依赖。你可以让小伙子们同时把砖从A点搬到B点，但是不能让一部分从A搬到B，一部分从B搬到C，因为从B搬到C的工作依赖于另一部分工作，有可能出现没有砖可以搬的情况。</p>
+</li>
+<li><p>计算量足够大：就如同第一个例子一样，可以看到在进行并行计算的过程中，不管是多个小伙子的工作分配或者是和工作分配者和小伙子之间的数据发送与接收，都需要消耗一定量的时间，这样情况下如果工作量本身规模不大，这些消耗已经比并行计算带来的时间优势完全抹杀掉了，所以只有在计算量极大的情况下才适用。并且计算量越大，并行计算带来的时间优势越明显。</p>
+</li>
+</ul>
+<h3 id="变量分类"><a href="#变量分类" class="headerlink" title="变量分类"></a>变量分类</h3><p>MATLAB 对 parfor 使用中的变量分为五类，如下图：</p>
+<p><img src="/assets/Matlab_cluster_parfor/parfor_vartypes.png" alt="parfor_vartypes"></p>
+<ul>
+<li>loop Variable ： 循环变量，就是简单的 for 循环中的变量，上图中的 i。</li>
+<li>Sliced Variable ： 某数组中分发给每个 worker 的变量，或者多个 worker 存储到同一个数组中的变量，要求不同 worker 接触的变量不能重复交叉的现象，并且下标连续，不能使用例如 2*i 这类下标。</li>
+<li>Broadcast Variable ： 需要分发给每个 worker 使用的同一个数据，这个数据对于每个 worker 来说是只读不写的。</li>
+<li>Reduction Variable ： 在不同循环中对同一个变量进行叠加的计算，注意这个叠加的意思不仅仅代表加法，任何符合交换律的运算都可以，比如加减乘除，当然不能混用，因为混用之后就不符合交换律了，这样才能在不同 worker 计算完成时间不确定的情况下保证计算的正确性。也即，计算顺序不影响计算结果。</li>
+<li>Temporary Variable ： 临时变量，在每个 worker 运行过程中创建并销毁的变量，不同 worker 之间使用自己的临时变量，互相独立。</li>
+</ul>
+<p>如果在使用过程中报错无法运算，可以查看一下自己使用的变量和上面五类对应一下属于哪类。所有涉及到的变量 <strong>必须</strong> 属于这五类中的某一类，并符合相关的规则。所以如果出错不能运行的话，慢慢对照查一下吧。</p>
+<h3 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h3><blockquote>
+<p>如何进一步提高计算速度</p>
+</blockquote>
+<ul>
+<li><p>影响速度的主要因素：计算依旧是使用 CPU 去跑的，经过不同电脑的几次试验，主要影响因素是 <strong>核心数量</strong> ，主频当然是有影响的，但是差距不大，核心数越多速度越快。所以尽可能的发动你的交际技巧去找个多核电脑吧。</p>
+</li>
+<li><p>尽量减少 worker 传输的数据量：在进行计算时，管理这些小伙子工作的人要把工作内容一项一项分配下去，例如工作需要的数据，这样不可避免的会出现很多数据交换，在 MATLAB 中这些数据被称为 <strong>Broadcast Variables</strong> ，非常形象的一个名字，这些数据需要分发到每个 worker 的手中。这里我们需要尽量减少这类变量的大小，只传必要的数据过去，看上去似乎不多，但是在巨量的循环次数面前，浪费的每一点时间都可以被放大到很大的程度。</p>
+</li>
+</ul>
+<h3 id="关于worker数量"><a href="#关于worker数量" class="headerlink" title="关于worker数量"></a>关于worker数量</h3><p>根据我自己查到的各种资料，都是说 worker 数量与 CPU 核心数量相同，但是在我多个电脑多次实际运行过程中发现这样 CPU 占用率一直不是100%，所以目前我在本机运行的时候使用的 worker 数量都是线程数，这点有待进行进一步考证。因为占用率是一方面，也要考虑计算的实际速度。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/weixin.png" alt="Jassy WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Jassy Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Communication/" rel="tag"><i class="fa fa-tag"></i> Communication</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/f726f61d.htmlindex.html" rel="prev" title="汉明码——纠错与校验">
+      <i class="fa fa-chevron-left"></i> 汉明码——纠错与校验
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/9e937ad5.htmlindex.html" rel="next" title="想出去玩？去日本吧！——准备工作篇">
+      想出去玩？去日本吧！——准备工作篇 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
+            <li class="tab"><a href="#comment-valine">valine</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane gitalk" id="comment-gitalk">
+              <div class="comments" id="gitalk-container"></div>
+            </div>
+            <div class="tab-pane valine" id="comment-valine">
+              <div class="comments" id="comments"></div>
+            </div>
+        </div>
+      </div>
+      <script>
+        window.addEventListener('tabs:register', () => {
+          let activeClass = '';
+            activeClass = localStorage.getItem('comments_active') || activeClass;
+          if (activeClass) {
+            let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+            if (activeTab) {
+              activeTab.click();
+            }
+          }
+        });
+        window.addEventListener('tabs:click', event => {
+          let commentClass = event.target.classList[1];
+          localStorage.setItem('comments_active', commentClass);
+        });
+      </script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#要啥简介，直接开干"><span class="nav-number">1.</span> <span class="nav-text">要啥简介，直接开干</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MATLAB并行计算解释及分析"><span class="nav-number">2.</span> <span class="nav-text">MATLAB并行计算解释及分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Parallel-Pool-的设置"><span class="nav-number">2.1.</span> <span class="nav-text">Parallel Pool 的设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适用范围-amp-变量说明-amp-技巧"><span class="nav-number">3.</span> <span class="nav-text">适用范围&amp;变量说明&amp;技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#适用范围"><span class="nav-number">3.1.</span> <span class="nav-text">适用范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量分类"><span class="nav-number">3.2.</span> <span class="nav-text">变量分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#技巧"><span class="nav-number">3.3.</span> <span class="nav-text">技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于worker数量"><span class="nav-number">3.4.</span> <span class="nav-text">关于worker数量</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jassy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Jassy</p>
+  <div class="site-description" itemprop="description">Little blog, Little think</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jassy930" title="GitHub → https://github.com/Jassy930" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fengw930@163.com" title="E-Mail → mailto:fengw930@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.jassy.wang" title="Weibo → https://weibo.jassy.wang" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Link
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.hetty.today/" title="https://blog.hetty.today/" rel="noopener" target="_blank">Hetty</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://chenpy.com/" title="https://chenpy.com/" rel="noopener" target="_blank">Cpy</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">京ICP备16009867号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;">
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-shower"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jassy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> |  Total 41.5k</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5dc1438e00012d02d483',
+      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
+      repo: 'Jassy930.github.io',
+      owner: 'Jassy930',
+      admin: ['Jassy930'],
+      id: '14514b1b07606658ccdd57ccb90191dd',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'gvQsnIBkcSU2IDQ4t3qP0B2U-gzGzoHsz',
+    appKey: 'WrMn9MyGJfJasftbSH6doEVs',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: true,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

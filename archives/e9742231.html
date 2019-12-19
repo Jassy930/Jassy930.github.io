@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/witch_128px.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/witch_128px.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/witch_128px.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://blog.jassy.wang').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Working is not boring, Earning money is boring.  自己做的Project Euler的题解，不见得最优，也不见得优雅，但是答案是对的。基本上可以暴力求解的都是直接暴力求的。 Problem 1:Multiples of 3 and 5暴力遍历，能整除3或者5的话累加 12345678910int problem1()&amp;#123;	long num">
+<meta name="keywords" content="Project Euler">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Project Euler  题解：1~10">
+<meta property="og:url" content="http://blog.jassy.wang/archives/e9742231.html">
+<meta property="og:site_name" content="弱者">
+<meta property="og:description" content="Working is not boring, Earning money is boring.  自己做的Project Euler的题解，不见得最优，也不见得优雅，但是答案是对的。基本上可以暴力求解的都是直接暴力求的。 Problem 1:Multiples of 3 and 5暴力遍历，能整除3或者5的话累加 12345678910int problem1()&amp;#123;	long num">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-12T08:51:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Project Euler  题解：1~10">
+<meta name="twitter:description" content="Working is not boring, Earning money is boring.  自己做的Project Euler的题解，不见得最优，也不见得优雅，但是答案是对的。基本上可以暴力求解的都是直接暴力求的。 Problem 1:Multiples of 3 and 5暴力遍历，能整除3或者5的话累加 12345678910int problem1()&amp;#123;	long num">
+
+<link rel="canonical" href="http://blog.jassy.wang/archives/e9742231.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Project Euler  题解：1~10 | 弱者</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154771641-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-154771641-1');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2cde5fc3e525b8ac3c86c6bd41fdb0f1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">弱者</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">20</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="default">
+    <link itemprop="mainEntityOfPage" href="http://blog.jassy.wang/archives/e9742231.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jassy">
+      <meta itemprop="description" content="Little blog, Little think">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="弱者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Project Euler  题解：1~10
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-12 16:51:05" itemprop="dateCreated datePublished" datetime="2019-06-12T16:51:05+08:00">2019-06-12</time>
+            </span>
+
+          
+            <span id="/archives/e9742231.html" class="post-meta-item leancloud_visitors" data-flag-title="Project Euler  题解：1~10" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/archives/e9742231.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/e9742231.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>Working is not boring, Earning money is boring.</p>
+</blockquote>
+<p>自己做的Project Euler的题解，不见得最优，也不见得优雅，但是答案是对的。基本上可以暴力求解的都是直接暴力求的。</p>
+<h2 id="Problem-1-Multiples-of-3-and-5"><a href="#Problem-1-Multiples-of-3-and-5" class="headerlink" title="Problem 1:Multiples of 3 and 5"></a><a href="https://projecteuler.net/problem=1" target="_blank" rel="noopener">Problem 1:Multiples of 3 and 5</a></h2><p>暴力遍历，能整除3或者5的话累加</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (i % <span class="number">3</span> == <span class="number">0</span> || i % <span class="number">5</span> == <span class="number">0</span>)</span><br><span class="line">			num += i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  <a id="more"></a>
+<h2 id="Problem-2-Even-Fibonacci-numbers"><a href="#Problem-2-Even-Fibonacci-numbers" class="headerlink" title="Problem 2:Even Fibonacci numbers"></a><a href="https://projecteuler.net/problem=2" target="_blank" rel="noopener">Problem 2:Even Fibonacci numbers</a></h2><p>把4000000以下的 fib 数列都求出来，再遍历一般累加奇数。</p>
+<p>这里其实 fib 数列的奇偶性是有规律的，按照 奇-奇-偶 的形式无限循环，所以也可以用数列的第几项是否能被3整除来判断。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; fib;</span><br><span class="line">	fib.push_back(<span class="number">1</span>);</span><br><span class="line">	fib.push_back(<span class="number">2</span>);</span><br><span class="line">	<span class="keyword">while</span> (fib.back() &lt; (<span class="number">4000000</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		fib.push_back(fib.at(fib.<span class="built_in">size</span>() - <span class="number">1</span>) + fib.at(fib.<span class="built_in">size</span>() - <span class="number">2</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> f : fib)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (f &lt; <span class="number">4000000</span>) &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; f &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">if</span> (f % <span class="number">2</span> == <span class="number">0</span>) num += f;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Problem-3-Largest-prime-factor"><a href="#Problem-3-Largest-prime-factor" class="headerlink" title="Problem 3:Largest prime factor"></a><a href="https://projecteuler.net/problem=3" target="_blank" rel="noopener">Problem 3:Largest prime factor</a></h2><p>从小打到大找因数，当找到一个因数之后将原始数字除以这个因数，再继续判断。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">problem3</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span> &gt; nums;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> num = <span class="number">600851475143</span>;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> n = <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">while</span> (n &lt;= num)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (num % n == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			nums.push_back(n);</span><br><span class="line">			num = num / n;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			n++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; n &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> i : nums)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> nums.back();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Problem-4-Largest-palindrome-product"><a href="#Problem-4-Largest-palindrome-product" class="headerlink" title="Problem 4:Largest palindrome product"></a><a href="https://projecteuler.net/problem=4" target="_blank" rel="noopener">Problem 4:Largest palindrome product</a></h2><p>暴力遍历，判断是回文数后记录最大值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem4</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">100</span>;</span><br><span class="line">	<span class="keyword">int</span> m = <span class="number">100</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> m = <span class="number">100</span>; m &lt;= <span class="number">999</span>; m++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> n = <span class="number">100</span>; n &lt;= <span class="number">999</span>; n++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">stringstream</span> ss;</span><br><span class="line">			<span class="keyword">int</span> nn = n * m;</span><br><span class="line">			ss &lt;&lt; nn;</span><br><span class="line">			<span class="built_in">string</span> aa = ss.str();</span><br><span class="line">			<span class="built_in">string</span> bb = aa;</span><br><span class="line">			reverse(bb.<span class="built_in">begin</span>(), bb.<span class="built_in">end</span>());</span><br><span class="line"><span class="comment">//			cout &lt;&lt; aa &lt;&lt; "  " &lt;&lt; bb;</span></span><br><span class="line">			<span class="keyword">if</span> (aa.compare(bb) == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				num = MAX(num, n * m);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; m &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Problem-5-Smallest-multiple"><a href="#Problem-5-Smallest-multiple" class="headerlink" title="Problem 5:Smallest multiple"></a><a href="https://projecteuler.net/problem=5" target="_blank" rel="noopener">Problem 5:Smallest multiple</a></h2><p>这个没写程序，直接在计算器里乘了一下。。。</p>
+<h2 id="Problem-6-Sum-square-difference"><a href="#Problem-6-Sum-square-difference" class="headerlink" title="Problem 6:Sum square difference"></a><a href="https://projecteuler.net/problem=6" target="_blank" rel="noopener">Problem 6:Sum square difference</a></h2><p>嗯，算数题，算就对了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem6</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num1=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> num2 = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">100</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		num1 += i * i;</span><br><span class="line">		num2 += i;</span><br><span class="line">	&#125;</span><br><span class="line">	num2 = num2 * num2;</span><br><span class="line">	<span class="keyword">return</span> num2 - num1;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Problem-7-10001st-prime"><a href="#Problem-7-10001st-prime" class="headerlink" title="Problem 7:10001st prime"></a><a href="https://projecteuler.net/problem=7" target="_blank" rel="noopener">Problem 7:10001st prime</a></h2><p>判断素数，前面有一篇文章有详细解释。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem7</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prime;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; ; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">2</span>; k &lt; i; k++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i % k == <span class="number">0</span>) &#123;</span><br><span class="line">				n++; <span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (n == <span class="number">0</span>) &#123; prime.push_back(i); <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">		<span class="keyword">if</span> (prime.<span class="built_in">size</span>() == <span class="number">10001</span>) <span class="keyword">return</span> prime.back();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Problem-8-Largest-product-in-a-series"><a href="#Problem-8-Largest-product-in-a-series" class="headerlink" title="Problem 8:Largest product in a series"></a><a href="https://projecteuler.net/problem=8" target="_blank" rel="noopener">Problem 8:Largest product in a series</a></h2><p>暴力遍历</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem8</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> out = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">string</span> number = <span class="string">"7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450"</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; numbers;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> i : number)</span><br><span class="line">	&#123;</span><br><span class="line">		numbers.push_back(i - <span class="number">48</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numbers.<span class="built_in">size</span>() - <span class="number">13</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">long</span> <span class="keyword">long</span> num = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = i; k &lt; i + <span class="number">13</span>; k++)</span><br><span class="line">		&#123;</span><br><span class="line">			num = num * numbers.at(k);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i &lt;&lt;<span class="string">"  "</span>&lt;&lt;out&lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		out = MAX(out, num);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*for (int i = 0; i &lt; 13; i++)</span></span><br><span class="line"><span class="comment">	&#123;</span></span><br><span class="line"><span class="comment">		num = num * numbers.at(i);</span></span><br><span class="line"><span class="comment">		out = num;</span></span><br><span class="line"><span class="comment">	&#125;</span></span><br><span class="line"><span class="comment">	for (int i = 13; i &lt; numbers.size(); i++)</span></span><br><span class="line"><span class="comment">	&#123;</span></span><br><span class="line"><span class="comment">		num = num * numbers.at(i);</span></span><br><span class="line"><span class="comment">		num = num / numbers.at(i - 13);</span></span><br><span class="line"><span class="comment">		out = MAX(out, num);</span></span><br><span class="line"><span class="comment">	&#125;*/</span></span><br><span class="line">	<span class="keyword">return</span> out;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Problem-9-Special-Pythagorean-triplet"><a href="#Problem-9-Special-Pythagorean-triplet" class="headerlink" title="Problem 9:Special Pythagorean triplet"></a><a href="https://projecteuler.net/problem=9" target="_blank" rel="noopener">Problem 9:Special Pythagorean triplet</a></h2><p>暴力遍历</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">problem9</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (a = <span class="number">1</span>; a &lt; <span class="number">1000</span>; a++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (b = <span class="number">1</span>; b &lt; <span class="number">1000</span>; b++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> cc = a * a + b * b;</span><br><span class="line">			<span class="keyword">int</span> c = <span class="number">1000</span> - a - b;</span><br><span class="line">			<span class="keyword">if</span> (c * c == cc)</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; <span class="string">"a"</span> &lt;&lt; a &lt;&lt; <span class="string">"b"</span> &lt;&lt; b &lt;&lt; <span class="string">"c"</span> &lt;&lt; c &lt;&lt; <span class="string">"out:"</span>&lt;&lt;a*b*c&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Problem-10-Summation-of-primes"><a href="#Problem-10-Summation-of-primes" class="headerlink" title="Problem 10:Summation of primes"></a><a href="https://projecteuler.net/problem=10" target="_blank" rel="noopener">Problem 10:Summation of primes</a></h2><p>同 Problem 7 看之前的文章。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">problem10</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prime;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> sum=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i&lt;<span class="number">2000000</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> ss = <span class="built_in">sqrt</span>(i);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; prime.<span class="built_in">size</span>(); k++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i % prime.at(k) == <span class="number">0</span>) &#123;</span><br><span class="line">				n++; <span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (prime.at(k) &gt; ss) <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//for (int k = 2; k &lt; i; k++)</span></span><br><span class="line">		<span class="comment">//&#123;</span></span><br><span class="line">		<span class="comment">//	if (i % k == 0) &#123;</span></span><br><span class="line">		<span class="comment">//		n++; break;</span></span><br><span class="line">		<span class="comment">//	&#125;</span></span><br><span class="line">		<span class="comment">//&#125;</span></span><br><span class="line">		<span class="keyword">if</span> (n == <span class="number">0</span>) &#123; prime.push_back(i); sum += i; <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;; &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/weixin.png" alt="Jassy WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Jassy Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Project-Euler/" rel="tag"><i class="fa fa-tag"></i> Project Euler</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/b2990560.htmlindex.html" rel="prev" title="大整数加法和大整数乘法">
+      <i class="fa fa-chevron-left"></i> 大整数加法和大整数乘法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/6deb531b.htmlindex.html" rel="next" title="Stanford CS224n Lecture.1">
+      Stanford CS224n Lecture.1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
+            <li class="tab"><a href="#comment-valine">valine</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane gitalk" id="comment-gitalk">
+              <div class="comments" id="gitalk-container"></div>
+            </div>
+            <div class="tab-pane valine" id="comment-valine">
+              <div class="comments" id="comments"></div>
+            </div>
+        </div>
+      </div>
+      <script>
+        window.addEventListener('tabs:register', () => {
+          let activeClass = '';
+            activeClass = localStorage.getItem('comments_active') || activeClass;
+          if (activeClass) {
+            let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+            if (activeTab) {
+              activeTab.click();
+            }
+          }
+        });
+        window.addEventListener('tabs:click', event => {
+          let commentClass = event.target.classList[1];
+          localStorage.setItem('comments_active', commentClass);
+        });
+      </script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-1-Multiples-of-3-and-5"><span class="nav-number">1.</span> <span class="nav-text">Problem 1:Multiples of 3 and 5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-2-Even-Fibonacci-numbers"><span class="nav-number">2.</span> <span class="nav-text">Problem 2:Even Fibonacci numbers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-3-Largest-prime-factor"><span class="nav-number">3.</span> <span class="nav-text">Problem 3:Largest prime factor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-4-Largest-palindrome-product"><span class="nav-number">4.</span> <span class="nav-text">Problem 4:Largest palindrome product</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-5-Smallest-multiple"><span class="nav-number">5.</span> <span class="nav-text">Problem 5:Smallest multiple</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-6-Sum-square-difference"><span class="nav-number">6.</span> <span class="nav-text">Problem 6:Sum square difference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-7-10001st-prime"><span class="nav-number">7.</span> <span class="nav-text">Problem 7:10001st prime</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-8-Largest-product-in-a-series"><span class="nav-number">8.</span> <span class="nav-text">Problem 8:Largest product in a series</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-9-Special-Pythagorean-triplet"><span class="nav-number">9.</span> <span class="nav-text">Problem 9:Special Pythagorean triplet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-10-Summation-of-primes"><span class="nav-number">10.</span> <span class="nav-text">Problem 10:Summation of primes</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jassy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Jassy</p>
+  <div class="site-description" itemprop="description">Little blog, Little think</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jassy930" title="GitHub → https://github.com/Jassy930" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fengw930@163.com" title="E-Mail → mailto:fengw930@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.jassy.wang" title="Weibo → https://weibo.jassy.wang" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Link
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.hetty.today/" title="https://blog.hetty.today/" rel="noopener" target="_blank">Hetty</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://chenpy.com/" title="https://chenpy.com/" rel="noopener" target="_blank">Cpy</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">京ICP备16009867号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;">
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-shower"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jassy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> |  Total 41.5k</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5dc1438e00012d02d483',
+      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
+      repo: 'Jassy930.github.io',
+      owner: 'Jassy930',
+      admin: ['Jassy930'],
+      id: '2d7b3e42f221e3ca379e9570dfad717d',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'gvQsnIBkcSU2IDQ4t3qP0B2U-gzGzoHsz',
+    appKey: 'WrMn9MyGJfJasftbSH6doEVs',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: true,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>LeetCode Contest No.15 Biweekly</title>
-    <url>/2019/12/15/leetcode-contest-No15-biweekly/</url>
+    <url>/archives/38a01d69.html</url>
     <content><![CDATA[<h2 id="Contest-No-15-Biweekly"><a href="#Contest-No-15-Biweekly" class="headerlink" title="Contest No.15 Biweekly"></a>Contest No.15 Biweekly</h2><p>通过：4/4  排名：43 / 797  0:46:11  1WA</p>
 <h3 id="No-5126-有序数组中出现次数超过25-的元素"><a href="#No-5126-有序数组中出现次数超过25-的元素" class="headerlink" title="No.5126 有序数组中出现次数超过25%的元素"></a>No.5126 <a href="https://leetcode-cn.com/problems/element-appearing-more-than-25-in-sorted-array/" target="_blank" rel="noopener">有序数组中出现次数超过25%的元素</a></h3><blockquote>
 <p>给你一个非递减的 有序 整数数组，已知这个数组中恰好有一个整数，它的出现次数超过数组元素总数的 25%。<br>请你找到并返回这个整数</p>
@@ -96,7 +96,7 @@
   </entry>
   <entry>
     <title>LeetCode Contest No.167</title>
-    <url>/2019/12/15/leetcode-contest-No167/</url>
+    <url>/archives/dd79e3bb.html</url>
     <content><![CDATA[<h2 id="Contest-167"><a href="#Contest-167" class="headerlink" title="Contest 167"></a>Contest 167</h2><p>通过：4/4  排名：107 / 1534  1:43:12  5WA</p>
 <h3 id="No-5283-二进制链表转整数"><a href="#No-5283-二进制链表转整数" class="headerlink" title="No.5283 二进制链表转整数"></a>No.5283 <a href="https://leetcode-cn.com/problems/convert-binary-number-in-a-linked-list-to-integer/" target="_blank" rel="noopener">二进制链表转整数</a></h3><blockquote>
 <p>给你一个单链表的引用结点 head。链表中每个结点的值不是 0 就是 1。已知此链表是一个整数数字的二进制表示形式。<br>请你返回该链表所表示数字的 十进制值 。</p>
@@ -224,7 +224,7 @@
   </entry>
   <entry>
     <title>C补遗：C语言里不那么面熟的关键字</title>
-    <url>/2019/12/06/C_Keyword/</url>
+    <url>/archives/f3b58568.html</url>
     <content><![CDATA[<p>C用了很久了，但是也没有说很系统平铺的整体看过，一直是用什么会什么，不用什么就过去了。既然C已经被我当做是一门已经掌握的语言，所以就重新扫一遍C里面不那么面熟的东西或者理解有偏差的东西，当做是个记录以备复习使用，也可以对C打个结了。</p>
 <h2 id="auto-amp-amp-register-amp-amp-static"><a href="#auto-amp-amp-register-amp-amp-static" class="headerlink" title="auto &amp;&amp; register &amp;&amp; static"></a>auto &amp;&amp; register &amp;&amp; static</h2><p>怎么也没想到会把这三个放在一起，一个是C++中常用的声明类型的关键字，一个没见过的，和一个还算常用的，这里主要理解的偏差还是在 <code>auto</code> 上。</p>
 <p>在C++中，auto作为一种自动判断变量类型的定义存在，比如当我使用 <code>auto c = 10;</code> 去定义 <code>c</code> 这个变量的时候，是和 <code>int c = 10;</code> 的作用是一样的，这样可以节省很多去考虑这个变量具体是什么类型以及大量的敲字母的时间，还可以避免一些打字错误，比如  <code>vector&lt;map&lt;int,string&gt;&gt;::iterator a =</code> 这种东西可以直接 <code>auto a =</code> 还是挺爽的。顺便这里提一嘴，C++中的 <code>auto</code> 后面必须赋值，否则编译器不知道到底要初始化成什么类型的。</p>
@@ -305,7 +305,7 @@
   </entry>
   <entry>
     <title>想出去玩？去日本吧！——准备工作篇</title>
-    <url>/2019/11/28/goto_japan_prepare/</url>
+    <url>/archives/9e937ad5.html</url>
     <content><![CDATA[<blockquote>
 <p>很早之前就想去日本转一转，前一段时间终于算是忙中偷闲出去玩了一圈，回来之后也来整理整理出去游玩的过程，也给小伙伴们一个参考。我也是第一次出国玩，所以有没有说明好的地方也希望小伙伴们能提出来~~</p>
 </blockquote>
@@ -355,7 +355,7 @@
   </entry>
   <entry>
     <title>MATLAB并行工具箱--parfor的使用</title>
-    <url>/2019/11/27/Matlab_cluster_parfor/</url>
+    <url>/archives/9a5d1c4.html</url>
     <content><![CDATA[<blockquote>
 <p>最近在使用进行MATLAB进行一些计算的时候因为计算时间实在是太长了（五天。所以开始考虑进行算法优化，就在这时无意间看到了系统的CPU占用率，what？25%哈哈哈哈哈或或或或或或或或，matlab个ZZ。于是想起了parfor这回事，算法用的是动态规划算法，但是在每个递推过程中也要计算$2000 \times 2000$个循环，正好可以用并行计算，perfect，条件允许，直接开始！</p>
 </blockquote>
@@ -426,7 +426,7 @@
   </entry>
   <entry>
     <title>汉明码——纠错与校验</title>
-    <url>/2019/11/27/Hamming_Code/</url>
+    <url>/archives/f726f61d.html</url>
     <content><![CDATA[<blockquote>
 <p>忘记前一段时间某个时候提到某个事情了，想起来纠错这回事，大概回忆了一下是一个挺有意思的过程，索性重新搜索了一下复习了一遍，把大概原理在这里写一写，权当记录</p>
 </blockquote>
@@ -697,7 +697,7 @@
   </entry>
   <entry>
     <title>LeetCode 1155</title>
-    <url>/2019/08/12/leetcode_1155/</url>
+    <url>/archives/d7fa286a.html</url>
     <content><![CDATA[<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0">
   <title>leetcode_1155</title>
   <meta charset="utf-8">
@@ -1045,29 +1045,8 @@ bottom: .4em;
       </tags>
   </entry>
   <entry>
-    <title>LeetCode Contest No.131</title>
-    <url>/2019/07/23/leetcode-contest-No131/</url>
-    <content><![CDATA[<h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
-<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧<del>~</del>错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。</p>
-<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" target="_blank" rel="noopener">删除最外层的括号</a></h3><p>1WA</p>
-<p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
-  <a id="more"></a>
-<h3 id="No-5017-从根到叶的二进制数之和"><a href="#No-5017-从根到叶的二进制数之和" class="headerlink" title="No.5017 从根到叶的二进制数之和"></a>No.5017 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/sum-of-root-to-leaf-binary-numbers/" target="_blank" rel="noopener">从根到叶的二进制数之和</a></h3><p>一开始初始值给错了，没有大问题。</p>
-<h3 id="No-5018-驼峰式匹配"><a href="#No-5018-驼峰式匹配" class="headerlink" title="No.5018 驼峰式匹配"></a>No.5018 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/camelcase-matching/" target="_blank" rel="noopener">驼峰式匹配</a></h3><p>居然，做到一半的时候，忘记题目了！！！</p>
-<p>做到一半的时候只记得要匹配对了就可以了，完全忘记了是只能插入小写字母，但是还好还好这道题给的测试用例比较全面，才通过了。</p>
-<p>另外可以多接触一下库啊，isupper这种函数的用法，多知道一些总是好事。</p>
-<h3 id="No-5019-视频拼接"><a href="#No-5019-视频拼接" class="headerlink" title="No.5019 视频拼接"></a>No.5019 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/video-stitching/" target="_blank" rel="noopener">视频拼接</a></h3><p>1WA</p>
-<p>完完全全忘记了那次错误提交是为什么，明明是昨天刚做过的题……</p>
-<p>嗯，那就没啥说的了</p>
-]]></content>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode Contest No.132</title>
-    <url>/2019/07/23/leetcode-contest-No132/</url>
+    <url>/archives/d064e371.html</url>
     <content><![CDATA[<h2 id="Contest-132"><a href="#Contest-132" class="headerlink" title="Contest 132"></a>Contest 132</h2><p>通过：3/4  排名：99/1047  0:59:44  1WA</p>
 <p>最后一道题规定时间内没有做出来，超时7分钟做出来的，无错误提交（似乎）。</p>
 <p>这次竞赛感觉看完题都比较虚，但是其实做题之后的效果比预想的好，虽然最后一道题规定时间内没有做出来，但是感觉可以接受，也是很久没有出过 hard 的题目了，这次的 hard 题目实现的相当的。。。。复杂且乱，但是能做出来就是好事。</p>
@@ -1096,8 +1075,39 @@ bottom: .4em;
       </tags>
   </entry>
   <entry>
+    <title>LeetCode Contest No.131</title>
+    <url>/archives/496db2cb.html</url>
+    <content><![CDATA[<h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
+<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧<del>~</del>错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。</p>
+<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" target="_blank" rel="noopener">删除最外层的括号</a></h3><p>1WA</p>
+<p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
+  <a id="more"></a>
+<h3 id="No-5017-从根到叶的二进制数之和"><a href="#No-5017-从根到叶的二进制数之和" class="headerlink" title="No.5017 从根到叶的二进制数之和"></a>No.5017 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/sum-of-root-to-leaf-binary-numbers/" target="_blank" rel="noopener">从根到叶的二进制数之和</a></h3><p>一开始初始值给错了，没有大问题。</p>
+<h3 id="No-5018-驼峰式匹配"><a href="#No-5018-驼峰式匹配" class="headerlink" title="No.5018 驼峰式匹配"></a>No.5018 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/camelcase-matching/" target="_blank" rel="noopener">驼峰式匹配</a></h3><p>居然，做到一半的时候，忘记题目了！！！</p>
+<p>做到一半的时候只记得要匹配对了就可以了，完全忘记了是只能插入小写字母，但是还好还好这道题给的测试用例比较全面，才通过了。</p>
+<p>另外可以多接触一下库啊，isupper这种函数的用法，多知道一些总是好事。</p>
+<h3 id="No-5019-视频拼接"><a href="#No-5019-视频拼接" class="headerlink" title="No.5019 视频拼接"></a>No.5019 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/video-stitching/" target="_blank" rel="noopener">视频拼接</a></h3><p>1WA</p>
+<p>完完全全忘记了那次错误提交是为什么，明明是昨天刚做过的题……</p>
+<p>嗯，那就没啥说的了</p>
+]]></content>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>智能指针</title>
+    <url>/archives/38a918c7.html</url>
+    <content><![CDATA[<p><a href="https://www.cnblogs.com/TenosDoIt/p/3456704.html" target="_blank" rel="noopener">https://www.cnblogs.com/TenosDoIt/p/3456704.html</a></p>
+]]></content>
+      <tags>
+        <tag>Conception</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode Contest No.130</title>
-    <url>/2019/07/23/leetcode-contest-No130/</url>
+    <url>/archives/3e6a825d.html</url>
     <content><![CDATA[<h2 id="Contest-130"><a href="#Contest-130" class="headerlink" title="Contest 130"></a>Contest 130</h2><p>通过：4/4  排名：59/1293  1:58:42  6WA</p>
 <h3 id="No-1018-可被-5-整除的二进制前缀"><a href="#No-1018-可被-5-整除的二进制前缀" class="headerlink" title="No.1018 可被 5 整除的二进制前缀"></a>No.1018 <a href="https://leetcode-cn.com/problems/binary-prefix-divisible-by-5/" target="_blank" rel="noopener">可被 5 整除的二进制前缀</a></h3><p>思考过多，还在想那样做对不对，做的太少所以对题目类型不熟悉。</p>
 <h3 id="No-1017-负二进制转换"><a href="#No-1017-负二进制转换" class="headerlink" title="No.1017 负二进制转换"></a>No.1017 <a href="https://leetcode-cn.com/problems/convert-to-base-2/" target="_blank" rel="noopener">负二进制转换</a></h3><p>2WA</p>
@@ -1120,18 +1130,8 @@ bottom: .4em;
       </tags>
   </entry>
   <entry>
-    <title>智能指针</title>
-    <url>/2019/07/23/intelligent_pointer/</url>
-    <content><![CDATA[<p><a href="https://www.cnblogs.com/TenosDoIt/p/3456704.html" target="_blank" rel="noopener">https://www.cnblogs.com/TenosDoIt/p/3456704.html</a></p>
-]]></content>
-      <tags>
-        <tag>Conception</tag>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>堆内存和栈内存</title>
-    <url>/2019/07/23/heap_memory_and_stack_memory/</url>
+    <url>/archives/e896e76f.html</url>
     <content><![CDATA[<blockquote>
 <p>每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心</p>
 </blockquote>
@@ -1174,7 +1174,7 @@ bottom: .4em;
   </entry>
   <entry>
     <title>Project Euler  题解：31~40</title>
-    <url>/2019/07/23/ProjectEuler_Solution_31_40/</url>
+    <url>/archives/3f1bfcb.html</url>
     <content><![CDATA[
 <!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0">
       <title>ProjectEuler_Solution_31_40</title>
@@ -1696,7 +1696,7 @@ pre[data-line] .line-highlight[data-end]:after {
   </entry>
   <entry>
     <title>Project Euler  题解：21~30</title>
-    <url>/2019/07/23/ProjectEuler_Solution_21_30/</url>
+    <url>/archives/71d000bc.html</url>
     <content><![CDATA[
 <!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0">
       <title>Project Euler  &#x9898;&#x89E3;&#xFF1A;21~30</title>
@@ -2276,7 +2276,7 @@ deficient&#xFF0C;&#x56E0;&#x6570;&#x548C;&#x5C0F;&#x4E8E;&#x81EA;&#x8EAB;&#xFF1B
   </entry>
   <entry>
     <title>Project Euler  题解：11~20</title>
-    <url>/2019/07/23/ProjectEuler_Solution_11_20/</url>
+    <url>/archives/2f6b4b2d.html</url>
     <content><![CDATA[<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0">
       <title>Project Euler  &#x9898;&#x89E3;&#xFF1A;11~20</title>
       <meta charset="utf-8">
@@ -2866,7 +2866,7 @@ pre[data-line] .line-highlight[data-end]:after {
   </entry>
   <entry>
     <title>Stanford CS224n Lecture.1</title>
-    <url>/2019/07/23/CS224N_Lec1/</url>
+    <url>/archives/6deb531b.html</url>
     <content><![CDATA[<h1 id="Lecture-1-Introduction-to-NLP-and-Deep-Learning"><a href="#Lecture-1-Introduction-to-NLP-and-Deep-Learning" class="headerlink" title="Lecture 1: Introduction to NLP and Deep Learning"></a>Lecture 1: Introduction to NLP and Deep Learning</h1><h2 id="What-is-Natural-Language-Processing"><a href="#What-is-Natural-Language-Processing" class="headerlink" title="What is Natural Language Processing"></a>What is Natural Language Processing</h2><h3 id="Intersecting-of"><a href="#Intersecting-of" class="headerlink" title="Intersecting of"></a>Intersecting of</h3><ul>
 <li>computer science </li>
 <li>artificial intelligence</li>
@@ -2971,7 +2971,7 @@ pre[data-line] .line-highlight[data-end]:after {
   </entry>
   <entry>
     <title>Project Euler  题解：1~10</title>
-    <url>/2019/06/12/ProjectEuler_Solution_1_10/</url>
+    <url>/archives/e9742231.html</url>
     <content><![CDATA[<blockquote>
 <p>Working is not boring, Earning money is boring.</p>
 </blockquote>
@@ -3013,7 +3013,7 @@ pre[data-line] .line-highlight[data-end]:after {
   </entry>
   <entry>
     <title>大整数加法和大整数乘法</title>
-    <url>/2019/06/11/BIG_add_BIG_times/</url>
+    <url>/archives/b2990560.html</url>
     <content><![CDATA[<blockquote>
 <p>有时候会在问自己，是不够爱，还是缺少爱的能力。</p>
 </blockquote>
@@ -3029,7 +3029,7 @@ pre[data-line] .line-highlight[data-end]:after {
   </entry>
   <entry>
     <title>验证质数</title>
-    <url>/2019/06/05/fast_prime_number/</url>
+    <url>/archives/undefined.html</url>
     <content><![CDATA[
 
 <!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0">
@@ -3446,7 +3446,7 @@ vector<span class="token operator">&lt;</span><span class="token keyword">int</s
   </entry>
   <entry>
     <title>在Jetson TX1上安装Caffe--安装与问题排除</title>
-    <url>/2017/03/11/JetsonTX1_caffe_problem/</url>
+    <url>/archives/a0ba0a2e.html</url>
     <content><![CDATA[<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0">
       <title>&#x5728;Jetson TX1&#x4E0A;&#x5B89;&#x88C5;Caffe--&#x5B89;&#x88C5;&#x4E0E;&#x95EE;&#x9898;&#x6392;&#x9664;</title>
       <meta charset="utf-8">
