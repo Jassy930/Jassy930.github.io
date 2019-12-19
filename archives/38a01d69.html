@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang>
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -14,6 +14,7 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 
 <script id="hexo-configurations">
@@ -28,7 +29,7 @@
     copycode: {"enable":false,"show_result":false,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
+    fancybox: true,
     mediumzoom: false,
     lazyload: false,
     pangu: false,
@@ -183,9 +184,7 @@
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocorrect="off" autocapitalize="none"
-           placeholder="Searching..." spellcheck="false"
-           type="text" id="search-input">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Searching..." spellcheck="false" type="text" id="search-input">
   </div>
   <span class="popup-btn-close">
     <i class="fa fa-times-circle"></i>
@@ -280,7 +279,7 @@
 
       
         <h2 id="Contest-No-15-Biweekly"><a href="#Contest-No-15-Biweekly" class="headerlink" title="Contest No.15 Biweekly"></a>Contest No.15 Biweekly</h2><p>通过：4/4  排名：43 / 797  0:46:11  1WA</p>
-<h3 id="No-5126-有序数组中出现次数超过25-的元素"><a href="#No-5126-有序数组中出现次数超过25-的元素" class="headerlink" title="No.5126 有序数组中出现次数超过25%的元素"></a>No.5126 <a href="https://leetcode-cn.com/problems/element-appearing-more-than-25-in-sorted-array/" target="_blank" rel="noopener">有序数组中出现次数超过25%的元素</a></h3><blockquote>
+<h3 id="No-5126-有序数组中出现次数超过25-的元素"><a href="#No-5126-有序数组中出现次数超过25-的元素" class="headerlink" title="No.5126 有序数组中出现次数超过25%的元素"></a>No.5126 <a href="https://leetcode-cn.com/problems/element-appearing-more-than-25-in-sorted-array/" target="_blank" rel="external nofollow noopener noreferrer">有序数组中出现次数超过25%的元素</a></h3><blockquote>
 <p>给你一个非递减的 有序 整数数组，已知这个数组中恰好有一个整数，它的出现次数超过数组元素总数的 25%。<br>请你找到并返回这个整数</p>
 <p>示例：</p>
 <blockquote>
@@ -302,7 +301,7 @@
 
 <a id="more"></a>
 
-<h3 id="No-5127-删除被覆盖区间"><a href="#No-5127-删除被覆盖区间" class="headerlink" title="No.5127 删除被覆盖区间"></a>No.5127 <a href="https://leetcode-cn.com/problems/remove-covered-intervals/" target="_blank" rel="noopener">删除被覆盖区间</a></h3><blockquote>
+<h3 id="No-5127-删除被覆盖区间"><a href="#No-5127-删除被覆盖区间" class="headerlink" title="No.5127 删除被覆盖区间"></a>No.5127 <a href="https://leetcode-cn.com/problems/remove-covered-intervals/" target="_blank" rel="external nofollow noopener noreferrer">删除被覆盖区间</a></h3><blockquote>
 <p>给你一个区间列表，请你删除列表中被其他区间所覆盖的区间。</p>
 <p>只有当 c &lt;= a 且 b &lt;= d 时，我们才认为区间 [a,b) 被区间 [c,d) 覆盖。</p>
 <p>在完成所有删除操作后，请你返回列表中剩余区间的数目。</p>
@@ -324,7 +323,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeCoveredIntervals</span><span class="params">(self, intervals: List[List[int]])</span> -&gt; int:</span></span><br><span class="line">        intervals.sort()</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i&lt;len(intervals)<span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">if</span> intervals[i][<span class="number">0</span>]&lt;=intervals[i+<span class="number">1</span>][<span class="number">0</span>] <span class="keyword">and</span> intervals[i][<span class="number">1</span>]&gt;=intervals[i+<span class="number">1</span>][<span class="number">1</span>]:</span><br><span class="line">                intervals.pop(i+<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> intervals[i][<span class="number">0</span>]&gt;=intervals[i+<span class="number">1</span>][<span class="number">0</span>] <span class="keyword">and</span> intervals[i][<span class="number">1</span>]&lt;=intervals[i+<span class="number">1</span>][<span class="number">1</span>]:</span><br><span class="line">                intervals.pop(i)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                i+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> i+<span class="number">1</span></span><br></pre></td></tr></table></figure>
 
 
-<h3 id="No-5123-字母组合迭代器"><a href="#No-5123-字母组合迭代器" class="headerlink" title="No.5123 字母组合迭代器"></a>No.5123 <a href="https://leetcode-cn.com/problems/iterator-for-combination/" target="_blank" rel="noopener">字母组合迭代器</a></h3><blockquote>
+<h3 id="No-5123-字母组合迭代器"><a href="#No-5123-字母组合迭代器" class="headerlink" title="No.5123 字母组合迭代器"></a>No.5123 <a href="https://leetcode-cn.com/problems/iterator-for-combination/" target="_blank" rel="external nofollow noopener noreferrer">字母组合迭代器</a></h3><blockquote>
 <p>请你设计一个迭代器类，包括以下内容：</p>
 <p>一个构造函数，输入参数包括：一个 有序且字符唯一 的字符串 characters（该字符串只包含小写英文字母）和一个数字 combinationLength 。<br>函数 next() ，按 字典序 返回长度为 combinationLength 的下一个字母组合。<br>函数 hasNext() ，只有存在长度为 combinationLength 的下一个字母组合时，才返回 True；否则，返回 False。</p>
 <p>示例：</p>
@@ -348,7 +347,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CombinationIterator</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, characters: str, combinationLength: int)</span>:</span></span><br><span class="line">        self.cc = characters</span><br><span class="line">        self.ll = combinationLength</span><br><span class="line">        self.cur = list(range(self.ll))</span><br><span class="line">        self.last = list(range(len(self.cc) - self.ll,len(self.cc)))</span><br><span class="line">        self.last[<span class="number">0</span>] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next</span><span class="params">(self)</span> -&gt; str:</span></span><br><span class="line">        a = <span class="string">""</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> self.cur:</span><br><span class="line">            a+=self.cc[i]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(self.ll)[::<span class="number">-1</span>]:</span><br><span class="line">            <span class="keyword">if</span> self.cur[i] != self.last[i]:</span><br><span class="line">                self.cur[i] += <span class="number">1</span></span><br><span class="line">                <span class="keyword">for</span> k <span class="keyword">in</span> range(i+<span class="number">1</span>,len(self.cur)):</span><br><span class="line">                    self.cur[k] = self.cur[k<span class="number">-1</span>]+<span class="number">1</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hasNext</span><span class="params">(self)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">return</span> self.cur[<span class="number">0</span>] &lt;= len(self.cc) - self.ll</span><br></pre></td></tr></table></figure>
 
 
-<h3 id="No-5129-下降路径最小和-II"><a href="#No-5129-下降路径最小和-II" class="headerlink" title="No.5129 下降路径最小和  II"></a>No.5129 <a href="https://leetcode-cn.com/problems/minimum-falling-path-sum-ii/" target="_blank" rel="noopener">下降路径最小和  II</a></h3><blockquote>
+<h3 id="No-5129-下降路径最小和-II"><a href="#No-5129-下降路径最小和-II" class="headerlink" title="No.5129 下降路径最小和  II"></a>No.5129 <a href="https://leetcode-cn.com/problems/minimum-falling-path-sum-ii/" target="_blank" rel="external nofollow noopener noreferrer">下降路径最小和  II</a></h3><blockquote>
 <p>给你一个整数方阵 arr ，定义「非零偏移下降路径」为：从 arr 数组中的每一行选择一个数字，且按顺序选出来的数字中，相邻数字不在原数组的同一列。<br>请你返回非零偏移下降路径数字和的最小值。</p>
 <p>示例 1：</p>
 <blockquote>
@@ -423,15 +422,15 @@
           
       <div class="tabs tabs-comment">
         <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-valine">valine</a></li>
             <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
+            <li class="tab"><a href="#comment-valine">valine</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane valine" id="comment-valine">
-              <div class="comments" id="comments"></div>
-            </div>
             <div class="tab-pane gitalk" id="comment-gitalk">
               <div class="comments" id="gitalk-container"></div>
+            </div>
+            <div class="tab-pane valine" id="comment-valine">
+              <div class="comments" id="comments"></div>
             </div>
         </div>
       </div>
@@ -481,8 +480,7 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Jassy"
-      src="/images/avatar.jpg">
+    <img class="site-author-image" itemprop="image" alt="Jassy" src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Jassy</p>
   <div class="site-description" itemprop="description">Little blog, Little think</div>
 </div>
@@ -505,13 +503,13 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/Jassy930" title="GitHub → https://github.com/Jassy930" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/Jassy930" title="GitHub → https://github.com/Jassy930" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-github"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:fengw930@163.com" title="E-Mail → mailto:fengw930@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+        <a href="mailto:fengw930@163.com" title="E-Mail → mailto:fengw930@163.com" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.jassy.wang" title="Weibo → https://weibo.jassy.wang" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+        <a href="https://weibo.jassy.wang" title="Weibo → https://weibo.jassy.wang" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
       </span>
   </div>
 
@@ -523,10 +521,10 @@
     </div>
     <ul class="links-of-blogroll-list">
         <li class="links-of-blogroll-item">
-          <a href="https://blog.hetty.today/" title="https://blog.hetty.today/" rel="noopener" target="_blank">Hetty</a>
+          <a href="https://blog.hetty.today/" title="https://blog.hetty.today/" rel="external nofollow noopener noreferrer" target="_blank">Hetty</a>
         </li>
         <li class="links-of-blogroll-item">
-          <a href="https://chenpy.com/" title="https://chenpy.com/" rel="noopener" target="_blank">Cpy</a>
+          <a href="https://chenpy.com/" title="https://chenpy.com/" rel="external nofollow noopener noreferrer" target="_blank">Cpy</a>
         </li>
     </ul>
   </div>
@@ -544,7 +542,7 @@
     <footer class="footer">
       <div class="footer-inner">
         
-  <div class="beian"><a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">京ICP备16009867号-1 </a>
+  <div class="beian"><a href="http://www.beian.miit.gov.cn" rel="external nofollow noopener noreferrer" target="_blank">京ICP备16009867号-1 </a>
       <img src="/images/beian.png" style="display: inline-block;">
   </div>
 
@@ -557,10 +555,10 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Jassy</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Pisces</a> v7.5.0
   </div>
 
 <div class="theme-info">
@@ -584,8 +582,10 @@
 
   
   
-  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script>
@@ -667,6 +667,24 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5dc1438e00012d02d483',
+      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
+      repo: 'Jassy930.github.io',
+      owner: 'Jassy930',
+      admin: ['Jassy930'],
+      id: 'cb54a8048a6ef874cb6570539d8e65ed',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
 
 <script>
 NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
@@ -692,24 +710,6 @@ NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     serverURLs: ''
   });
 }, window.Valine);
-</script>
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '5dc1438e00012d02d483',
-      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
-      repo: 'Jassy930.github.io',
-      owner: 'Jassy930',
-      admin: ['Jassy930'],
-      id: 'cb54a8048a6ef874cb6570539d8e65ed',
-        language: 'zh-CN',
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
 </script>
 
 </body>

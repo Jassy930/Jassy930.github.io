@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang>
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -14,6 +14,7 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 
 <script id="hexo-configurations">
@@ -28,7 +29,7 @@
     copycode: {"enable":false,"show_result":false,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
+    fancybox: true,
     mediumzoom: false,
     lazyload: false,
     pangu: false,
@@ -183,9 +184,7 @@
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocorrect="off" autocapitalize="none"
-           placeholder="Searching..." spellcheck="false"
-           type="text" id="search-input">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Searching..." spellcheck="false" type="text" id="search-input">
   </div>
   <span class="popup-btn-close">
     <i class="fa fa-times-circle"></i>
@@ -559,11 +558,11 @@ pre[data-line] .line-highlight[data-end]:after {
 
 <p>(&#x5947;&#x602A;&#xFF0C;&#x8FD9;&#x4EBA;&#x600E;&#x4E48;&#x53C8;&#x5F00;&#x59CB;&#x7528;python&#x5199;&#x4E86;</p>
 
-<h2 class="mume-header" id="problem-31-coin-sumshttpsprojecteulernetproblem31"><a href="https://projecteuler.net/problem=31" target="_blank" rel="noopener">Problem 31: Coin sums</a></h2>
+<h2 class="mume-header" id="problem-31-coin-sumshttpsprojecteulernetproblem31"><a href="https://projecteuler.net/problem=31" target="_blank" rel="external nofollow noopener noreferrer">Problem 31: Coin sums</a></h2>
 
 <p>&#x55EF;&#x3002;&#x3002;&#x633A;&#x7ECF;&#x5178;&#x633A;&#x5E38;&#x89C1;&#x7684;&#x5B8C;&#x5168;&#x80CC;&#x5305;DP&#x95EE;&#x9898;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x6EE1;&#x8111;&#x5B50;&#x4E0D;&#x77E5;&#x9053;&#x5728;&#x60F3;&#x4EC0;&#x4E48;&#xFF0C;&#x6123;&#x662F;&#x6CA1;&#x505A;&#x51FA;&#x6765;&#xFF0C;&#x540E;&#x6765;&#x770B;&#x4E86;&#x770B;&#x522B;&#x4EBA;&#x7684;&#x63D0;&#x793A;&#x624D;&#x60F3;&#x5230;&#x5E94;&#x8BE5;&#x6309;&#x7167;&#x786C;&#x5E01;&#x79CD;&#x7C7B;&#x53BB;&#x5FAA;&#x73AF;&#x3002;&#x4E00;&#x76F4;&#x5728;&#x60F3;&#x600E;&#x4E48;&#x53BB;&#x5904;&#x7406;&#x91CD;&#x590D;&#x7684;&#x60C5;&#x51B5;&#x3002;</p>
-<p><a href="https://projecteuler.net/overview=031" target="_blank" rel="noopener">&#x8FD9;&#x91CC;</a>&#x662F;&#x8FD9;&#x9053;&#x9898;&#x7684;&#x8BE6;&#x7EC6;&#x89E3;&#x91CA;<br>
-<a href="https://blog.csdn.net/na_beginning/article/details/62884939" target="_blank" rel="noopener">&#x8FD9;&#x91CC;</a>&#x662F;&#x5B8C;&#x5168;&#x80CC;&#x5305;&#x3001;01&#x80CC;&#x5305;&#x3001;&#x591A;&#x91CD;&#x80CC;&#x5305;&#x7684;&#x6BD4;&#x8F83;&#x7684;&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF08;&#x6211;&#x6CA1;&#x770B;</p>
+<p><a href="https://projecteuler.net/overview=031" target="_blank" rel="external nofollow noopener noreferrer">&#x8FD9;&#x91CC;</a>&#x662F;&#x8FD9;&#x9053;&#x9898;&#x7684;&#x8BE6;&#x7EC6;&#x89E3;&#x91CA;<br>
+<a href="https://blog.csdn.net/na_beginning/article/details/62884939" target="_blank" rel="external nofollow noopener noreferrer">&#x8FD9;&#x91CC;</a>&#x662F;&#x5B8C;&#x5168;&#x80CC;&#x5305;&#x3001;01&#x80CC;&#x5305;&#x3001;&#x591A;&#x91CD;&#x80CC;&#x5305;&#x7684;&#x6BD4;&#x8F83;&#x7684;&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF08;&#x6211;&#x6CA1;&#x770B;</p>
   <a id="more"></a>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro31</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token comment"># &#x5B8C;&#x5168;&#x80CC;&#x5305;DP</span>
@@ -575,7 +574,7 @@ pre[data-line] .line-highlight[data-end]:after {
             <span class="token keyword">if</span> i <span class="token operator">&gt;=</span> k<span class="token punctuation">:</span>
                 methods<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+=</span> methods<span class="token punctuation">[</span>i<span class="token operator">-</span>k<span class="token punctuation">]</span>
     <span class="token keyword">print</span><span class="token punctuation">(</span>methods<span class="token punctuation">[</span><span class="token number">200</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-32-pandigital-productshttpsprojecteulernetproblem32"><a href="https://projecteuler.net/problem=32" target="_blank" rel="noopener">Problem 32: Pandigital products</a></h2>
+</pre><h2 class="mume-header" id="problem-32-pandigital-productshttpsprojecteulernetproblem32"><a href="https://projecteuler.net/problem=32" target="_blank" rel="external nofollow noopener noreferrer">Problem 32: Pandigital products</a></h2>
 
 <p>&#x5F88;&#x8822;&#x7684;&#x4E00;&#x4E2A;&#x505A;&#x6CD5;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x53BB;&#x904D;&#x5386;&#x5224;&#x65AD;&#x7684;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro32</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -613,7 +612,7 @@ pre[data-line] .line-highlight[data-end]:after {
                             <span class="token keyword">if</span> i <span class="token keyword">not</span> <span class="token keyword">in</span> out<span class="token punctuation">:</span>
                                 out <span class="token operator">+=</span> <span class="token punctuation">[</span>i<span class="token punctuation">]</span>
     <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">sum</span><span class="token punctuation">(</span>out<span class="token punctuation">)</span><span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-33-digit-cancelling-fractionshttpsprojecteulernetproblem3"><a href="https://projecteuler.net/problem=3" target="_blank" rel="noopener">Problem 33: Digit cancelling fractions</a></h2>
+</pre><h2 class="mume-header" id="problem-33-digit-cancelling-fractionshttpsprojecteulernetproblem3"><a href="https://projecteuler.net/problem=3" target="_blank" rel="external nofollow noopener noreferrer">Problem 33: Digit cancelling fractions</a></h2>
 
 <p>&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x7B2C;&#x4E00;&#x6B21;&#x8003;&#x8651;&#x7684;&#x65F6;&#x5019;&#x8003;&#x8651;&#x9519;&#x4E86;&#xFF0C;&#x4EE5;&#x4E3A;&#x5206;&#x5B50;&#x548C;&#x5206;&#x6BCD;&#x76F8;&#x540C;&#x7684;&#x6570;&#x5B57;&#x80AF;&#x5B9A;&#x4E00;&#x4E2A;&#x5728;&#x5341;&#x4F4D;&#x4E00;&#x4E2A;&#x5728;&#x4E2A;&#x4F4D;&#x7684;&#xFF0C;&#x5BFC;&#x81F4;&#x4E00;&#x5F00;&#x59CB;&#x7B54;&#x6848;&#x662F;&#x9519;&#x8BEF;&#x7684;&#x3002;&#x5176;&#x5B9E;&#x53EF;&#x4EE5;&#x5728;&#x5916;&#x5C42;&#x5FAA;&#x73AF;&#x589E;&#x52A0;&#x4E00;&#x4E9B;&#x5224;&#x65AD;&#xFF0C;&#x8FD9;&#x6837;&#x901F;&#x5EA6;&#x4F1A;&#x5FEB;&#x4E00;&#x4E9B;&#x3002;&#x3002;&#x3002;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro33</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -627,7 +626,7 @@ pre[data-line] .line-highlight[data-end]:after {
                     <span class="token keyword">elif</span> k <span class="token operator">%</span> <span class="token number">10</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span>
                         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>i <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span>j<span class="token punctuation">,</span> <span class="token string">&apos;&apos;</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> i<span class="token operator">/</span>k<span class="token punctuation">:</span>
                             <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;%d %d&quot;</span> <span class="token operator">%</span> <span class="token punctuation">(</span>i<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-34-digit-factorialshttpsprojecteulernetproblem34"><a href="https://projecteuler.net/problem=34" target="_blank" rel="noopener">Problem 34: Digit factorials</a></h2>
+</pre><h2 class="mume-header" id="problem-34-digit-factorialshttpsprojecteulernetproblem34"><a href="https://projecteuler.net/problem=34" target="_blank" rel="external nofollow noopener noreferrer">Problem 34: Digit factorials</a></h2>
 
 <p>&#x7B97;&#x5C31;&#x5BF9;&#x4E86;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro34</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -642,7 +641,7 @@ pre[data-line] .line-highlight[data-end]:after {
             <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
             out <span class="token operator">+=</span> i
     <span class="token keyword">print</span><span class="token punctuation">(</span>out<span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-35-circular-primeshttpsprojecteulernetproblem35"><a href="https://projecteuler.net/problem=35" target="_blank" rel="noopener">Problem 35: Circular primes</a></h2>
+</pre><h2 class="mume-header" id="problem-35-circular-primeshttpsprojecteulernetproblem35"><a href="https://projecteuler.net/problem=35" target="_blank" rel="external nofollow noopener noreferrer">Problem 35: Circular primes</a></h2>
 
 <p>&#x904D;&#x5386;&#xFF0C;&#x5224;&#x65AD;&#x8D28;&#x6570;&#x7684;&#x7A0B;&#x5E8F;&#x53C8;&#x5199;&#x4E86;python&#x7248;&#x7684;&#xFF0C;&#x5728;&#x6700;&#x540E;&#x8D34;&#x4E0A;&#x6765;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro35</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -661,7 +660,7 @@ pre[data-line] .line-highlight[data-end]:after {
                 <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
                 out <span class="token operator">+=</span> <span class="token number">1</span>
     <span class="token keyword">print</span><span class="token punctuation">(</span>out<span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-36-double-base-palindromeshttpsprojecteulernetproblem36"><a href="https://projecteuler.net/problem=36" target="_blank" rel="noopener">Problem 36: Double-base palindromes</a></h2>
+</pre><h2 class="mume-header" id="problem-36-double-base-palindromeshttpsprojecteulernetproblem36"><a href="https://projecteuler.net/problem=36" target="_blank" rel="external nofollow noopener noreferrer">Problem 36: Double-base palindromes</a></h2>
 
 <p>&#x904D;&#x5386;&#xFF0C;&#x4E0D;&#x8BB2;&#xFF08;&#x4E0D;&#x8FC7;python&#x786E;&#x5B9E;&#x884C;&#x6570;&#x5C11;&#x5F88;&#x591A;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro36</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -674,7 +673,7 @@ pre[data-line] .line-highlight[data-end]:after {
                 <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
                 out <span class="token operator">+=</span> i
     <span class="token keyword">print</span><span class="token punctuation">(</span>out<span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-37-truncatable-primeshttpsprojecteulernetproblem37"><a href="https://projecteuler.net/problem=37" target="_blank" rel="noopener">Problem 37: Truncatable primes</a></h2>
+</pre><h2 class="mume-header" id="problem-37-truncatable-primeshttpsprojecteulernetproblem37"><a href="https://projecteuler.net/problem=37" target="_blank" rel="external nofollow noopener noreferrer">Problem 37: Truncatable primes</a></h2>
 
 <p>&#x904D;&#x5386;&#x3002;&#x3002;&#x3002;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro37</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -693,7 +692,7 @@ pre[data-line] .line-highlight[data-end]:after {
                 <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
                 out <span class="token operator">+=</span> i
     <span class="token keyword">print</span><span class="token punctuation">(</span>out<span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-38-pandigital-multipleshttpsprojecteulernetproblem38"><a href="https://projecteuler.net/problem=38" target="_blank" rel="noopener">Problem 38: Pandigital multiples</a></h2>
+</pre><h2 class="mume-header" id="problem-38-pandigital-multipleshttpsprojecteulernetproblem38"><a href="https://projecteuler.net/problem=38" target="_blank" rel="external nofollow noopener noreferrer">Problem 38: Pandigital multiples</a></h2>
 
 <p>&#x540C;&#x4E0A;&#x3002;&#x3002;&#x3002;&#xFF08;&#x8FD9;&#x6B21;&#x9898;&#x6CA1;&#x6709;&#x597D;&#x73A9;&#x7684;&#x5440;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro38</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -719,7 +718,7 @@ pre[data-line] .line-highlight[data-end]:after {
             leng <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
             <span class="token keyword">if</span> <span class="token punctuation">(</span>leng <span class="token operator">==</span> <span class="token number">9</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token number">0</span> <span class="token keyword">not</span> <span class="token keyword">in</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
                 <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-39-integer-right-triangleshttpsprojecteulernetproblem39"><a href="https://projecteuler.net/problem=39" target="_blank" rel="noopener">Problem 39: Integer right triangles</a></h2>
+</pre><h2 class="mume-header" id="problem-39-integer-right-triangleshttpsprojecteulernetproblem39"><a href="https://projecteuler.net/problem=39" target="_blank" rel="external nofollow noopener noreferrer">Problem 39: Integer right triangles</a></h2>
 
 <p>&#x904D;&#x5386;&#x3002;&#x3002;&#xFF0C;&#x8FD9;&#x4E2A;&#x9898;&#x5224;&#x65AD;&#x6761;&#x4EF6;&#x53EF;&#x4EE5;&#x4ED4;&#x7EC6;&#x601D;&#x8003;&#x4E00;&#x4E0B;&#xFF0C;&#x80FD;&#x8282;&#x7EA6;&#x5F88;&#x591A;&#x65E0;&#x6548;&#x7684;&#x8BA1;&#x7B97;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro39</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -737,7 +736,7 @@ pre[data-line] .line-highlight[data-end]:after {
             solution <span class="token operator">=</span> so
             out <span class="token operator">=</span> p
     <span class="token keyword">print</span><span class="token punctuation">(</span>out<span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-40-champernownes-constanthttpsprojecteulernetproblem40"><a href="https://projecteuler.net/problem=40" target="_blank" rel="noopener">Problem 40: Champernowne&apos;s constant</a></h2>
+</pre><h2 class="mume-header" id="problem-40-champernownes-constanthttpsprojecteulernetproblem40"><a href="https://projecteuler.net/problem=40" target="_blank" rel="external nofollow noopener noreferrer">Problem 40: Champernowne&apos;s constant</a></h2>
 
 <p>&#x8822;&#x904D;&#x5386;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro40</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -860,15 +859,15 @@ pre[data-line] .line-highlight[data-end]:after {
           
       <div class="tabs tabs-comment">
         <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-valine">valine</a></li>
             <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
+            <li class="tab"><a href="#comment-valine">valine</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane valine" id="comment-valine">
-              <div class="comments" id="comments"></div>
-            </div>
             <div class="tab-pane gitalk" id="comment-gitalk">
               <div class="comments" id="gitalk-container"></div>
+            </div>
+            <div class="tab-pane valine" id="comment-valine">
+              <div class="comments" id="comments"></div>
             </div>
         </div>
       </div>
@@ -918,8 +917,7 @@ pre[data-line] .line-highlight[data-end]:after {
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Jassy"
-      src="/images/avatar.jpg">
+    <img class="site-author-image" itemprop="image" alt="Jassy" src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Jassy</p>
   <div class="site-description" itemprop="description">Little blog, Little think</div>
 </div>
@@ -942,13 +940,13 @@ pre[data-line] .line-highlight[data-end]:after {
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/Jassy930" title="GitHub → https://github.com/Jassy930" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/Jassy930" title="GitHub → https://github.com/Jassy930" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-github"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:fengw930@163.com" title="E-Mail → mailto:fengw930@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+        <a href="mailto:fengw930@163.com" title="E-Mail → mailto:fengw930@163.com" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.jassy.wang" title="Weibo → https://weibo.jassy.wang" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+        <a href="https://weibo.jassy.wang" title="Weibo → https://weibo.jassy.wang" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
       </span>
   </div>
 
@@ -960,10 +958,10 @@ pre[data-line] .line-highlight[data-end]:after {
     </div>
     <ul class="links-of-blogroll-list">
         <li class="links-of-blogroll-item">
-          <a href="https://blog.hetty.today/" title="https://blog.hetty.today/" rel="noopener" target="_blank">Hetty</a>
+          <a href="https://blog.hetty.today/" title="https://blog.hetty.today/" rel="external nofollow noopener noreferrer" target="_blank">Hetty</a>
         </li>
         <li class="links-of-blogroll-item">
-          <a href="https://chenpy.com/" title="https://chenpy.com/" rel="noopener" target="_blank">Cpy</a>
+          <a href="https://chenpy.com/" title="https://chenpy.com/" rel="external nofollow noopener noreferrer" target="_blank">Cpy</a>
         </li>
     </ul>
   </div>
@@ -981,7 +979,7 @@ pre[data-line] .line-highlight[data-end]:after {
     <footer class="footer">
       <div class="footer-inner">
         
-  <div class="beian"><a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">京ICP备16009867号-1 </a>
+  <div class="beian"><a href="http://www.beian.miit.gov.cn" rel="external nofollow noopener noreferrer" target="_blank">京ICP备16009867号-1 </a>
       <img src="/images/beian.png" style="display: inline-block;">
   </div>
 
@@ -994,10 +992,10 @@ pre[data-line] .line-highlight[data-end]:after {
   </span>
   <span class="author" itemprop="copyrightHolder">Jassy</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Pisces</a> v7.5.0
   </div>
 
 <div class="theme-info">
@@ -1021,8 +1019,10 @@ pre[data-line] .line-highlight[data-end]:after {
 
   
   
-  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script>
@@ -1056,6 +1056,24 @@ pre[data-line] .line-highlight[data-end]:after {
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5dc1438e00012d02d483',
+      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
+      repo: 'Jassy930.github.io',
+      owner: 'Jassy930',
+      admin: ['Jassy930'],
+      id: '2d7e4772c7d6a755b013fa9c51c68a7d',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
 
 <script>
 NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
@@ -1081,24 +1099,6 @@ NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     serverURLs: ''
   });
 }, window.Valine);
-</script>
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '5dc1438e00012d02d483',
-      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
-      repo: 'Jassy930.github.io',
-      owner: 'Jassy930',
-      admin: ['Jassy930'],
-      id: '2d7e4772c7d6a755b013fa9c51c68a7d',
-        language: 'zh-CN',
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
 </script>
 
 </body>

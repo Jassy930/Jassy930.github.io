@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang>
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -14,6 +14,7 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 
 <script id="hexo-configurations">
@@ -28,7 +29,7 @@
     copycode: {"enable":false,"show_result":false,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
+    fancybox: true,
     mediumzoom: false,
     lazyload: false,
     pangu: false,
@@ -47,7 +48,7 @@
 </script>
 
   <meta name="description" content="每过一段时间，总是需要一些刺激激励自己前进，不知道自己丢失的是热情还是耐心  今天的问题局部变量存储在___，全局变量存储在__，动态申请数据存储在__。 栈  静态存储区  堆 内存空间静态存储区（全局变量）先说最简单的全局变量，包含全局变量和 static 修饰符修饰的静态变量，都是保存在静态存储区当中，并且分为未初始化区域和初始化区域。初始化的全局变量和静态变量保存在一块区域中，未初始化的">
-<meta name="keywords" content="Conception,Embedded">
+<meta name="keywords" content="Embedded,Conception">
 <meta property="og:type" content="article">
 <meta property="og:title" content="堆内存和栈内存">
 <meta property="og:url" content="http://blog.jassy.wang/archives/e896e76f.html">
@@ -183,9 +184,7 @@
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocorrect="off" autocapitalize="none"
-           placeholder="Searching..." spellcheck="false"
-           type="text" id="search-input">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Searching..." spellcheck="false" type="text" id="search-input">
   </div>
   <span class="popup-btn-close">
     <i class="fa fa-times-circle"></i>
@@ -349,8 +348,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Conception/" rel="tag"><i class="fa fa-tag"></i> Conception</a>
               <a href="/tags/Embedded/" rel="tag"><i class="fa fa-tag"></i> Embedded</a>
+              <a href="/tags/Conception/" rel="tag"><i class="fa fa-tag"></i> Conception</a>
           </div>
 
         
@@ -381,15 +380,15 @@
           
       <div class="tabs tabs-comment">
         <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-valine">valine</a></li>
             <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
+            <li class="tab"><a href="#comment-valine">valine</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane valine" id="comment-valine">
-              <div class="comments" id="comments"></div>
-            </div>
             <div class="tab-pane gitalk" id="comment-gitalk">
               <div class="comments" id="gitalk-container"></div>
+            </div>
+            <div class="tab-pane valine" id="comment-valine">
+              <div class="comments" id="comments"></div>
             </div>
         </div>
       </div>
@@ -439,8 +438,7 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Jassy"
-      src="/images/avatar.jpg">
+    <img class="site-author-image" itemprop="image" alt="Jassy" src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Jassy</p>
   <div class="site-description" itemprop="description">Little blog, Little think</div>
 </div>
@@ -463,13 +461,13 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/Jassy930" title="GitHub → https://github.com/Jassy930" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/Jassy930" title="GitHub → https://github.com/Jassy930" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-github"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:fengw930@163.com" title="E-Mail → mailto:fengw930@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+        <a href="mailto:fengw930@163.com" title="E-Mail → mailto:fengw930@163.com" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.jassy.wang" title="Weibo → https://weibo.jassy.wang" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+        <a href="https://weibo.jassy.wang" title="Weibo → https://weibo.jassy.wang" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
       </span>
   </div>
 
@@ -481,10 +479,10 @@
     </div>
     <ul class="links-of-blogroll-list">
         <li class="links-of-blogroll-item">
-          <a href="https://blog.hetty.today/" title="https://blog.hetty.today/" rel="noopener" target="_blank">Hetty</a>
+          <a href="https://blog.hetty.today/" title="https://blog.hetty.today/" rel="external nofollow noopener noreferrer" target="_blank">Hetty</a>
         </li>
         <li class="links-of-blogroll-item">
-          <a href="https://chenpy.com/" title="https://chenpy.com/" rel="noopener" target="_blank">Cpy</a>
+          <a href="https://chenpy.com/" title="https://chenpy.com/" rel="external nofollow noopener noreferrer" target="_blank">Cpy</a>
         </li>
     </ul>
   </div>
@@ -502,7 +500,7 @@
     <footer class="footer">
       <div class="footer-inner">
         
-  <div class="beian"><a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">京ICP备16009867号-1 </a>
+  <div class="beian"><a href="http://www.beian.miit.gov.cn" rel="external nofollow noopener noreferrer" target="_blank">京ICP备16009867号-1 </a>
       <img src="/images/beian.png" style="display: inline-block;">
   </div>
 
@@ -515,10 +513,10 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Jassy</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Pisces</a> v7.5.0
   </div>
 
 <div class="theme-info">
@@ -542,8 +540,10 @@
 
   
   
-  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script>
@@ -577,6 +577,24 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5dc1438e00012d02d483',
+      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
+      repo: 'Jassy930.github.io',
+      owner: 'Jassy930',
+      admin: ['Jassy930'],
+      id: '65fc3508de5cb79e54b737499b60ec70',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
 
 <script>
 NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
@@ -602,24 +620,6 @@ NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     serverURLs: ''
   });
 }, window.Valine);
-</script>
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '5dc1438e00012d02d483',
-      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
-      repo: 'Jassy930.github.io',
-      owner: 'Jassy930',
-      admin: ['Jassy930'],
-      id: '65fc3508de5cb79e54b737499b60ec70',
-        language: 'zh-CN',
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
 </script>
 
 </body>

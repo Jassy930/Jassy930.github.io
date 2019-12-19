@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang>
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -14,6 +14,7 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 
 <script id="hexo-configurations">
@@ -28,7 +29,7 @@
     copycode: {"enable":false,"show_result":false,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
+    fancybox: true,
     mediumzoom: false,
     lazyload: false,
     pangu: false,
@@ -183,9 +184,7 @@
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocorrect="off" autocapitalize="none"
-           placeholder="Searching..." spellcheck="false"
-           type="text" id="search-input">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Searching..." spellcheck="false" type="text" id="search-input">
   </div>
   <span class="popup-btn-close">
     <i class="fa fa-times-circle"></i>
@@ -287,14 +286,14 @@
       
         <h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
 <p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧<del>~</del>错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。</p>
-<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" target="_blank" rel="noopener">删除最外层的括号</a></h3><p>1WA</p>
+<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" target="_blank" rel="external nofollow noopener noreferrer">删除最外层的括号</a></h3><p>1WA</p>
 <p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
   <a id="more"></a>
-<h3 id="No-5017-从根到叶的二进制数之和"><a href="#No-5017-从根到叶的二进制数之和" class="headerlink" title="No.5017 从根到叶的二进制数之和"></a>No.5017 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/sum-of-root-to-leaf-binary-numbers/" target="_blank" rel="noopener">从根到叶的二进制数之和</a></h3><p>一开始初始值给错了，没有大问题。</p>
-<h3 id="No-5018-驼峰式匹配"><a href="#No-5018-驼峰式匹配" class="headerlink" title="No.5018 驼峰式匹配"></a>No.5018 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/camelcase-matching/" target="_blank" rel="noopener">驼峰式匹配</a></h3><p>居然，做到一半的时候，忘记题目了！！！</p>
+<h3 id="No-5017-从根到叶的二进制数之和"><a href="#No-5017-从根到叶的二进制数之和" class="headerlink" title="No.5017 从根到叶的二进制数之和"></a>No.5017 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/sum-of-root-to-leaf-binary-numbers/" target="_blank" rel="external nofollow noopener noreferrer">从根到叶的二进制数之和</a></h3><p>一开始初始值给错了，没有大问题。</p>
+<h3 id="No-5018-驼峰式匹配"><a href="#No-5018-驼峰式匹配" class="headerlink" title="No.5018 驼峰式匹配"></a>No.5018 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/camelcase-matching/" target="_blank" rel="external nofollow noopener noreferrer">驼峰式匹配</a></h3><p>居然，做到一半的时候，忘记题目了！！！</p>
 <p>做到一半的时候只记得要匹配对了就可以了，完全忘记了是只能插入小写字母，但是还好还好这道题给的测试用例比较全面，才通过了。</p>
 <p>另外可以多接触一下库啊，isupper这种函数的用法，多知道一些总是好事。</p>
-<h3 id="No-5019-视频拼接"><a href="#No-5019-视频拼接" class="headerlink" title="No.5019 视频拼接"></a>No.5019 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/video-stitching/" target="_blank" rel="noopener">视频拼接</a></h3><p>1WA</p>
+<h3 id="No-5019-视频拼接"><a href="#No-5019-视频拼接" class="headerlink" title="No.5019 视频拼接"></a>No.5019 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/video-stitching/" target="_blank" rel="external nofollow noopener noreferrer">视频拼接</a></h3><p>1WA</p>
 <p>完完全全忘记了那次错误提交是为什么，明明是昨天刚做过的题……</p>
 <p>嗯，那就没啥说的了</p>
 
@@ -359,15 +358,15 @@
           
       <div class="tabs tabs-comment">
         <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-valine">valine</a></li>
             <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
+            <li class="tab"><a href="#comment-valine">valine</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane valine" id="comment-valine">
-              <div class="comments" id="comments"></div>
-            </div>
             <div class="tab-pane gitalk" id="comment-gitalk">
               <div class="comments" id="gitalk-container"></div>
+            </div>
+            <div class="tab-pane valine" id="comment-valine">
+              <div class="comments" id="comments"></div>
             </div>
         </div>
       </div>
@@ -417,8 +416,7 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Jassy"
-      src="/images/avatar.jpg">
+    <img class="site-author-image" itemprop="image" alt="Jassy" src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Jassy</p>
   <div class="site-description" itemprop="description">Little blog, Little think</div>
 </div>
@@ -441,13 +439,13 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/Jassy930" title="GitHub → https://github.com/Jassy930" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/Jassy930" title="GitHub → https://github.com/Jassy930" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-github"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:fengw930@163.com" title="E-Mail → mailto:fengw930@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+        <a href="mailto:fengw930@163.com" title="E-Mail → mailto:fengw930@163.com" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.jassy.wang" title="Weibo → https://weibo.jassy.wang" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+        <a href="https://weibo.jassy.wang" title="Weibo → https://weibo.jassy.wang" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
       </span>
   </div>
 
@@ -459,10 +457,10 @@
     </div>
     <ul class="links-of-blogroll-list">
         <li class="links-of-blogroll-item">
-          <a href="https://blog.hetty.today/" title="https://blog.hetty.today/" rel="noopener" target="_blank">Hetty</a>
+          <a href="https://blog.hetty.today/" title="https://blog.hetty.today/" rel="external nofollow noopener noreferrer" target="_blank">Hetty</a>
         </li>
         <li class="links-of-blogroll-item">
-          <a href="https://chenpy.com/" title="https://chenpy.com/" rel="noopener" target="_blank">Cpy</a>
+          <a href="https://chenpy.com/" title="https://chenpy.com/" rel="external nofollow noopener noreferrer" target="_blank">Cpy</a>
         </li>
     </ul>
   </div>
@@ -480,7 +478,7 @@
     <footer class="footer">
       <div class="footer-inner">
         
-  <div class="beian"><a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank">京ICP备16009867号-1 </a>
+  <div class="beian"><a href="http://www.beian.miit.gov.cn" rel="external nofollow noopener noreferrer" target="_blank">京ICP备16009867号-1 </a>
       <img src="/images/beian.png" style="display: inline-block;">
   </div>
 
@@ -493,10 +491,10 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Jassy</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Pisces</a> v7.5.0
   </div>
 
 <div class="theme-info">
@@ -520,8 +518,10 @@
 
   
   
-  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script>
@@ -555,6 +555,24 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5dc1438e00012d02d483',
+      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
+      repo: 'Jassy930.github.io',
+      owner: 'Jassy930',
+      admin: ['Jassy930'],
+      id: 'd07e1e7e1e3050de3abf07bd588751e2',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
 
 <script>
 NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
@@ -580,24 +598,6 @@ NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     serverURLs: ''
   });
 }, window.Valine);
-</script>
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '5dc1438e00012d02d483',
-      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
-      repo: 'Jassy930.github.io',
-      owner: 'Jassy930',
-      admin: ['Jassy930'],
-      id: 'd07e1e7e1e3050de3abf07bd588751e2',
-        language: 'zh-CN',
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
 </script>
 
 </body>
