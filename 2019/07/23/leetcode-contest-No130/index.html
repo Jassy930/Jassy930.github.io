@@ -47,7 +47,7 @@
 </script>
 
   <meta name="description" content="Contest 130通过：4/4  排名：59/1293  1:58:42  6WA No.1018 可被 5 整除的二进制前缀思考过多，还在想那样做对不对，做的太少所以对题目类型不熟悉。 No.1017 负二进制转换2WA emmmmmm，这道题怎么就过了呢。。。 思考过程：用几个数字尝试拼凑了一下，感觉上是要拼凑到最近的2的幂次上去，但是并没有找到绝对的规律。 然后发现某一位数字可以通过其他">
-<meta name="keywords" content="Algorithm,LeetCode">
+<meta name="keywords" content="LeetCode,Algorithm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode Contest No.130">
 <meta property="og:url" content="http://blog.jassy.com/2019/07/23/leetcode-contest-No130/index.html">
@@ -78,8 +78,26 @@
 
   <title>LeetCode Contest No.130 | 弱者</title>
   
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154771641-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-154771641-1');
+      }
+    </script>
 
 
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2cde5fc3e525b8ac3c86c6bd41fdb0f1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -315,8 +333,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Algorithm/" rel="tag"><i class="fa fa-tag"></i> Algorithm</a>
               <a href="/tags/LeetCode/" rel="tag"><i class="fa fa-tag"></i> LeetCode</a>
+              <a href="/tags/Algorithm/" rel="tag"><i class="fa fa-tag"></i> Algorithm</a>
           </div>
 
         
@@ -325,12 +343,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/07/23/intelligent_pointer/index.html" rel="prev" title="智能指针">
-      <i class="fa fa-chevron-left"></i> 智能指针
+    <a href="/2019/07/23/heap_memory_and_stack_memory/index.html" rel="prev" title="堆内存和栈内存">
+      <i class="fa fa-chevron-left"></i> 堆内存和栈内存
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/07/23/leetcode-contest-No132/index.html" rel="next" title="LeetCode Contest No.132">
-      LeetCode Contest No.132 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/07/23/intelligent_pointer/index.html" rel="next" title="智能指针">
+      智能指针 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -347,15 +365,15 @@
           
       <div class="tabs tabs-comment">
         <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
             <li class="tab"><a href="#comment-valine">valine</a></li>
+            <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane gitalk" id="comment-gitalk">
-              <div class="comments" id="gitalk-container"></div>
-            </div>
             <div class="tab-pane valine" id="comment-valine">
               <div class="comments" id="comments"></div>
+            </div>
+            <div class="tab-pane gitalk" id="comment-gitalk">
+              <div class="comments" id="gitalk-container"></div>
             </div>
         </div>
       </div>
@@ -543,24 +561,6 @@
 
   
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '5dc1438e00012d02d483',
-      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
-      repo: 'Jassy930.github.io',
-      owner: 'Jassy930',
-      admin: ['Jassy930'],
-      id: 'a4db1f52fe7dfef1f53dfeb9db9f025f',
-        language: 'zh-CN',
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-</script>
-
 
 <script>
 NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
@@ -586,6 +586,24 @@ NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     serverURLs: ''
   });
 }, window.Valine);
+</script>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5dc1438e00012d02d483',
+      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
+      repo: 'Jassy930.github.io',
+      owner: 'Jassy930',
+      admin: ['Jassy930'],
+      id: 'a4db1f52fe7dfef1f53dfeb9db9f025f',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
 </script>
 
 </body>
