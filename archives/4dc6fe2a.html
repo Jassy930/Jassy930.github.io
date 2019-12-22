@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang>
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/witch_128px.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/witch_128px.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/witch_128px.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://blog.jassy.wang').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Contest 168通过：4/4  排名：61 / 1552  1:08:39  1WA No.5291 统计位数为偶数的数字 给你一个整数数组 nums，请你返回其中位数为 偶数 的数字的个数。 示例 1：  输入： nums = [12,345,2,6,7896]输出： 2解释：12 是 2 位数字（位数为偶数）345 是 3 位数字（位数为奇数）2 是 1 位数字（位数为奇数）6 是 1">
+<meta name="keywords" content="Algorithm,LeetCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode Contest No.168">
+<meta property="og:url" content="http://blog.jassy.wang/archives/4dc6fe2a.html">
+<meta property="og:site_name" content="弱者">
+<meta property="og:description" content="Contest 168通过：4/4  排名：61 / 1552  1:08:39  1WA No.5291 统计位数为偶数的数字 给你一个整数数组 nums，请你返回其中位数为 偶数 的数字的个数。 示例 1：  输入： nums = [12,345,2,6,7896]输出： 2解释：12 是 2 位数字（位数为偶数）345 是 3 位数字（位数为奇数）2 是 1 位数字（位数为奇数）6 是 1">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-12-15T04:29:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeetCode Contest No.168">
+<meta name="twitter:description" content="Contest 168通过：4/4  排名：61 / 1552  1:08:39  1WA No.5291 统计位数为偶数的数字 给你一个整数数组 nums，请你返回其中位数为 偶数 的数字的个数。 示例 1：  输入： nums = [12,345,2,6,7896]输出： 2解释：12 是 2 位数字（位数为偶数）345 是 3 位数字（位数为奇数）2 是 1 位数字（位数为奇数）6 是 1">
+
+<link rel="canonical" href="http://blog.jassy.wang/archives/4dc6fe2a.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>LeetCode Contest No.168 | 弱者</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154771641-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-154771641-1');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2cde5fc3e525b8ac3c86c6bd41fdb0f1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">弱者</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">21</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Searching..." spellcheck="false" type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="default">
+    <link itemprop="mainEntityOfPage" href="http://blog.jassy.wang/archives/4dc6fe2a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jassy">
+      <meta itemprop="description" content="Little blog, Little think">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="弱者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode Contest No.168
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-22 13:19:59" itemprop="dateCreated datePublished" datetime="2019-12-22T13:19:59+08:00">2019-12-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-15 12:29:59" itemprop="dateModified" datetime="2019-12-15T12:29:59+08:00">2019-12-15</time>
+              </span>
+
+          
+            <span id="/archives/4dc6fe2a.html" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode Contest No.168" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/archives/4dc6fe2a.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/4dc6fe2a.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Contest-168"><a href="#Contest-168" class="headerlink" title="Contest 168"></a>Contest 168</h2><p>通过：4/4  排名：61 / 1552  1:08:39  1WA</p>
+<h3 id="No-5291-统计位数为偶数的数字"><a href="#No-5291-统计位数为偶数的数字" class="headerlink" title="No.5291 统计位数为偶数的数字"></a>No.5291 <a href="https://leetcode-cn.com/problems/find-numbers-with-even-number-of-digits/" rel="external nofollow noopener noreferrer" target="_blank">统计位数为偶数的数字</a></h3><blockquote>
+<p>给你一个整数数组 nums，请你返回其中位数为 偶数 的数字的个数。</p>
+<p><strong>示例 1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [12,345,2,6,7896]<br><strong>输出：</strong> 2<br><strong>解释：</strong><br>12 是 2 位数字（位数为偶数）<br>345 是 3 位数字（位数为奇数）<br>2 是 1 位数字（位数为奇数）<br>6 是 1 位数字 位数为奇数）<br>7896 是 4 位数字（位数为偶数）<br>因此只有 12 和 7896 是位数为偶数的数字</p>
+</blockquote>
+<p><strong>示例 2：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [555,901,482,1771]<br><strong>输出：</strong> 1<br><strong>解释：</strong><br>只有 1771 是位数为偶数的数字。</p>
+</blockquote>
+<p><strong>提示：</strong></p>
+<blockquote>
+<ul>
+<li>1 &lt;= nums.length &lt;= 500</li>
+<li>1 &lt;= nums[i] &lt;= 10^5</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>嗯，水题。（但是大佬一行代码。。）<br>时间复杂度：$O(n)$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findNumbers</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> len(str(num))%<span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">                ans+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h3 id="No-5292-划分数组为连续数字的集合"><a href="#No-5292-划分数组为连续数字的集合" class="headerlink" title="No.5292 划分数组为连续数字的集合"></a>No.5292 <a href="https://leetcode-cn.com/problems/divide-array-in-sets-of-k-consecutive-numbers/" rel="external nofollow noopener noreferrer" target="_blank">划分数组为连续数字的集合</a></h3><blockquote>
+<p>给你一个整数数组 nums 和一个正整数 k，请你判断是否可以把这个数组划分成一&gt;些由 k 个连续数字组成的集合。<br>如果可以，请返回 True；否则，返回 False。</p>
+<p><strong>示例 1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [1,2,3,3,4,4,5,6], k = 4<br><strong>输出：</strong> true<br><strong>解释：</strong> 数组可以分成 [1,2,3,4] 和 [3,4,5,6]。</p>
+</blockquote>
+<p><strong>示例 2：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [3,2,1,2,3,4,3,4,5,9,10,11], k = 3<br><strong>输出：</strong> true<br><strong>解释：</strong> 数组可以分成 [1,2,3] , [2,3,4] , [3,4,5] 和 [9,10,11]。</p>
+</blockquote>
+<p><strong>示例 3：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [3,3,2,2,1,1], k = 3<br><strong>输出：</strong> true</p>
+</blockquote>
+<p><strong>示例 4：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [1,2,3,4], k = 3<br><strong>输出：</strong> false<br><strong>解释：</strong> 数组不能分成几个大小为 3 的子数组。</p>
+</blockquote>
+<p><strong>提示：</strong></p>
+<blockquote>
+<ul>
+<li>1 &lt;= nums.length &lt;= 10^5</li>
+<li>1 &lt;= nums[i] &lt;= 10^9</li>
+<li>1 &lt;= k &lt;= nums.length</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>将所有数字进行排序，排序后选出最小的数字，组成一个分组（因为如果能分组成功的话，这个最小的数字在组内也必定是最小的数字），然后将这个分组的数字移除，重复过程直到不能进行分组或者全部数字分组完成。</p>
+<p>时间复杂度： $O(nlgn+n)$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isPossibleDivide</span><span class="params">(self, nums: List[int], k: int)</span> -&gt; bool:</span></span><br><span class="line">        ans = len(nums)</span><br><span class="line">        <span class="keyword">if</span> ans%k != <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        dd = &#123;&#125;</span><br><span class="line">        nums.sort()</span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">            dd[n] = dd.get(n,<span class="number">0</span>)+<span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> len(dd)!=<span class="number">0</span>:</span><br><span class="line">            a = min(dd.keys())</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(a,a+k):</span><br><span class="line">                <span class="keyword">if</span> i <span class="keyword">in</span> dd:</span><br><span class="line">                    dd[i]-=<span class="number">1</span></span><br><span class="line">                    <span class="keyword">if</span> dd[i] == <span class="number">0</span>:</span><br><span class="line">                        <span class="keyword">del</span> dd[i]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="No-5293-子串的最大出现次数"><a href="#No-5293-子串的最大出现次数" class="headerlink" title="No.5293 子串的最大出现次数"></a>No.5293 <a href="https://leetcode-cn.com/problems/maximum-number-of-occurrences-of-a-substring/" rel="external nofollow noopener noreferrer" target="_blank">子串的最大出现次数</a></h3><blockquote>
+<p>给你一个字符串 s ，请你返回满足以下条件且出现次数最大的 任意 子串的出现次数：</p>
+<p>子串中不同字母的数目必须小于等于 maxLetters 。<br>子串的长度必须大于等于 minSize 且小于等于 maxSize 。</p>
+<p><strong>示例 1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> s = “aababcaab”, maxLetters = 2, minSize = 3, maxSize = 4<br><strong>输出：</strong> 2<br><strong>解释：</strong> 子串 “aab” 在原字符串中出现了 2 次。<br>它满足所有的要求：2 个不同的字母，长度为 3 （在 minSize 和 maxSize 范围内）。</p>
+</blockquote>
+<p><strong>示例 2：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> s = “aaaa”, maxLetters = 1, minSize = 3, maxSize = 3<br><strong>输出：</strong> 2<br><strong>解释：</strong> 子串 “aaa” 在原字符串中出现了 2 次，且它们有重叠部分。</p>
+</blockquote>
+<p><strong>示例 3：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> s = “aabcabcab”, maxLetters = 2, minSize = 2, maxSize = 3<br><strong>输出：</strong> 3</p>
+</blockquote>
+<p><strong>示例 4：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> s = “abcde”, maxLetters = 2, minSize = 3, maxSize = 3<br><strong>输出：</strong> 0</p>
+</blockquote>
+<p><strong>提示：</strong></p>
+<blockquote>
+<ul>
+<li>1 &lt;= s.length &lt;= 10^5</li>
+<li>1 &lt;= maxLetters &lt;= 26</li>
+<li>1 &lt;= minSize &lt;= maxSize &lt;= min(26, s.length)</li>
+<li>s 只包含小写英文字母。</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>这道题最开始理解错题意了，题目要求是满足条件的字串中出现次数最多的字串的数量。我理解成了所有可能满足条件的字串的数量。这样分析的话<code>maxSize</code>其实是没有用的因为只要不是以<code>minSize</code>组成的子串，必然能选出<code>minSize</code>大小的字串出现数量大于等于当前字串的出现数量。所以该题目简化后变成，遍历字符串中所有<code>minSize</code>长度的字串，在满足条件的字串中查找出现数量最多的子串的出现数量。</p>
+<p>时间复杂度：$O(n \times minSize)$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxFreq</span><span class="params">(self, s: str, maxLetters: int, minSize: int, maxSize: int)</span> -&gt; int:</span></span><br><span class="line">        a = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(s)-minSize+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> len(set(s[i:i+minSize])) &lt;= maxLetters:</span><br><span class="line">                a.append(s[i:i+minSize])</span><br><span class="line">        b = collections.Counter(a).most_common(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> b[<span class="number">0</span>][<span class="number">1</span>] <span class="keyword">if</span> b <span class="keyword">else</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="No-5294-你能从盒子里获得的最大糖果数"><a href="#No-5294-你能从盒子里获得的最大糖果数" class="headerlink" title="No.5294 你能从盒子里获得的最大糖果数"></a>No.5294 <a href="https://leetcode-cn.com/problems/maximum-candies-you-can-get-from-boxes/" rel="external nofollow noopener noreferrer" target="_blank">你能从盒子里获得的最大糖果数</a></h3><p>这个题目太吓人了，好长，输入量也很多。但是感觉只要注意细节其实比第三题简单的（日常第三题比第四题难）。我们要做的就是遍历已有的没开的<code>box</code>，依次打开并拿出里面的盒子、糖果、钥匙，然后根据盒子和钥匙再继续向下开，中间记录一下已经开过的盒子，避免重复开盒子计数即可。当某次遍历时不能拿到新的盒子的话，就算已经把能开的都开完了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxCandies</span><span class="params">(self, status: List[int], candies: List[int], keys: List[List[int]], containedBoxes: List[List[int]], initialBoxes: List[int])</span> -&gt; int:</span></span><br><span class="line">        mybox = initialBoxes</span><br><span class="line">        mykeys = []</span><br><span class="line">        openedbox = set([])</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> mybox:</span><br><span class="line">            llen = len(mybox)</span><br><span class="line">            <span class="keyword">for</span> box <span class="keyword">in</span> mybox:</span><br><span class="line">                <span class="keyword">if</span> (status[box] == <span class="number">1</span> <span class="keyword">or</span> (status[box] == <span class="number">0</span> <span class="keyword">and</span> box <span class="keyword">in</span> mykeys)) <span class="keyword">and</span> box <span class="keyword">not</span> <span class="keyword">in</span> openedbox:</span><br><span class="line">                    mykeys = mykeys+keys[box]</span><br><span class="line">                    ans+=candies[box]</span><br><span class="line">                    mybox+=containedBoxes[box]</span><br><span class="line">                    openedbox.add(box)</span><br><span class="line">            <span class="keyword">if</span> llen == len(mybox):</span><br><span class="line">                <span class="keyword">return</span> ans</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/weixin.png" alt="Jassy WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Jassy Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Algorithm/" rel="tag"><i class="fa fa-tag"></i> Algorithm</a>
+              <a href="/tags/LeetCode/" rel="tag"><i class="fa fa-tag"></i> LeetCode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/38a01d69.html" rel="prev" title="LeetCode Contest No.15 Biweekly">
+      <i class="fa fa-chevron-left"></i> LeetCode Contest No.15 Biweekly
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
+            <li class="tab"><a href="#comment-valine">valine</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane gitalk" id="comment-gitalk">
+              <div class="comments" id="gitalk-container"></div>
+            </div>
+            <div class="tab-pane valine" id="comment-valine">
+              <div class="comments" id="comments"></div>
+            </div>
+        </div>
+      </div>
+      <script>
+        window.addEventListener('tabs:register', () => {
+          let activeClass = '';
+            activeClass = localStorage.getItem('comments_active') || activeClass;
+          if (activeClass) {
+            let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+            if (activeTab) {
+              activeTab.click();
+            }
+          }
+        });
+        window.addEventListener('tabs:click', event => {
+          let commentClass = event.target.classList[1];
+          localStorage.setItem('comments_active', commentClass);
+        });
+      </script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Contest-168"><span class="nav-number">1.</span> <span class="nav-text">Contest 168</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#No-5291-统计位数为偶数的数字"><span class="nav-number">1.1.</span> <span class="nav-text">No.5291 统计位数为偶数的数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#No-5292-划分数组为连续数字的集合"><span class="nav-number">1.2.</span> <span class="nav-text">No.5292 划分数组为连续数字的集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#No-5293-子串的最大出现次数"><span class="nav-number">1.3.</span> <span class="nav-text">No.5293 子串的最大出现次数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#No-5294-你能从盒子里获得的最大糖果数"><span class="nav-number">1.4.</span> <span class="nav-text">No.5294 你能从盒子里获得的最大糖果数</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jassy" src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Jassy</p>
+  <div class="site-description" itemprop="description">Little blog, Little think</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jassy930" title="GitHub → https://github.com/Jassy930" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fengw930@163.com" title="E-Mail → mailto:fengw930@163.com" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.jassy.wang" title="Weibo → https://weibo.jassy.wang" rel="external nofollow noopener noreferrer" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Link
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.hetty.today/" title="https://blog.hetty.today/" rel="external nofollow noopener noreferrer" target="_blank">Hetty</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://chenpy.com/" title="https://chenpy.com/" rel="external nofollow noopener noreferrer" target="_blank">Cpy</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn" rel="external nofollow noopener noreferrer" target="_blank">京ICP备16009867号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;">
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-shower"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jassy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count"> |  Total 42.8k</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5dc1438e00012d02d483',
+      clientSecret: 'fbd3a9af9bebb027aeeb2d6df3ab4f901c59bb9b',
+      repo: 'Jassy930.github.io',
+      owner: 'Jassy930',
+      admin: ['Jassy930'],
+      id: 'd091f5595f5ef04f83c98328f0a079e6',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'gvQsnIBkcSU2IDQ4t3qP0B2U-gzGzoHsz',
+    appKey: 'WrMn9MyGJfJasftbSH6doEVs',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: true,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

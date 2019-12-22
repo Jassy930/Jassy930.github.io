@@ -167,7 +167,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">20</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">21</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -287,17 +287,17 @@
         <h2 id="Contest-132"><a href="#Contest-132" class="headerlink" title="Contest 132"></a>Contest 132</h2><p>通过：3/4  排名：99/1047  0:59:44  1WA</p>
 <p>最后一道题规定时间内没有做出来，超时7分钟做出来的，无错误提交（似乎）。</p>
 <p>这次竞赛感觉看完题都比较虚，但是其实做题之后的效果比预想的好，虽然最后一道题规定时间内没有做出来，但是感觉可以接受，也是很久没有出过 hard 的题目了，这次的 hard 题目实现的相当的。。。。复杂且乱，但是能做出来就是好事。</p>
-<h3 id="No-5024-除数博弈"><a href="#No-5024-除数博弈" class="headerlink" title="No.5024 除数博弈"></a>No.5024 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/divisor-game/" target="_blank" rel="external nofollow noopener noreferrer">除数博弈</a></h3><p>1WA</p>
+<h3 id="No-5024-除数博弈"><a href="#No-5024-除数博弈" class="headerlink" title="No.5024 除数博弈"></a>No.5024 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/divisor-game/" rel="external nofollow noopener noreferrer" target="_blank">除数博弈</a></h3><p>1WA</p>
 <p>看到这个题，感觉可能是动态规划后，第一个想法：动态规划都是简单的题了啊！</p>
 <p>是的，这道题还花了整整20分钟才做出来，感觉其中十分钟浪费在了不可置信上和另外一些事情上。。。这次做竞赛太不专心了，批评一下自己，竞赛还是要好好做的。</p>
 <p>实现思路上没啥可说的，就是动态规划的思路，从小到大依次遍历所有约数对应的<code>N-x</code>的值，所有约数全部为 true 的时候，这时无论先手做如何操作，对方都是必胜的情况，所以这时的 N 为 false ，其余所有情况均为 true ，只需要在每一步操作时将 N 的值变为对应的 false 的 <code>N-x</code> 的值即可。</p>
   <a id="more"></a>
-<h3 id="No-5030-节点与其祖先之间的最大差值"><a href="#No-5030-节点与其祖先之间的最大差值" class="headerlink" title="No.5030 节点与其祖先之间的最大差值"></a>No.5030 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/maximum-difference-between-node-and-ancestor/" target="_blank" rel="external nofollow noopener noreferrer">节点与其祖先之间的最大差值</a></h3><p>一开始脑袋有点乱，想用 pair&lt;int,int&gt; 去实现同时寻找最大值最小值，但是思路一直没有理顺，抱着这次竞赛就放弃了的态度（。。。。）就想着先只写一个 max 吧，很快完成之后，同样的方法复制一份 min ，游戏结束。</p>
+<h3 id="No-5030-节点与其祖先之间的最大差值"><a href="#No-5030-节点与其祖先之间的最大差值" class="headerlink" title="No.5030 节点与其祖先之间的最大差值"></a>No.5030 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/maximum-difference-between-node-and-ancestor/" rel="external nofollow noopener noreferrer" target="_blank">节点与其祖先之间的最大差值</a></h3><p>一开始脑袋有点乱，想用 pair&lt;int,int&gt; 去实现同时寻找最大值最小值，但是思路一直没有理顺，抱着这次竞赛就放弃了的态度（。。。。）就想着先只写一个 max 吧，很快完成之后，同样的方法复制一份 min ，游戏结束。</p>
 <p>思路：后序遍历，先左后右找最大最小值，然后向上计算最大差值，重复循环即可。</p>
 <p>注：这里的最大最小值是需要跟着遍历走的，而且必须是后序遍历，这样才不会左右子树之间的最大最小值互串。</p>
-<h3 id="No-5025-最长等差数列"><a href="#No-5025-最长等差数列" class="headerlink" title="No.5025 最长等差数列"></a>No.5025 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/longest-arithmetic-sequence/" target="_blank" rel="external nofollow noopener noreferrer">最长等差数列</a></h3><p>最没想到的一道题，看完题目毫无思路，而且感觉以前见过类似的题，但是没有做，也没有去找答案怎么实现，感觉自己栽在了自己的手上。按照上一道题的破罐子破摔的思路，想着就用朴素方法做吧，最后一道 hard 的题目看着也不面善，这个至少朴素方法的思路还是有的，甚至实现后都没怎么跑例子测试，没想到直接通过了。思路也没啥思路，暴力搜索。</p>
+<h3 id="No-5025-最长等差数列"><a href="#No-5025-最长等差数列" class="headerlink" title="No.5025 最长等差数列"></a>No.5025 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/longest-arithmetic-sequence/" rel="external nofollow noopener noreferrer" target="_blank">最长等差数列</a></h3><p>最没想到的一道题，看完题目毫无思路，而且感觉以前见过类似的题，但是没有做，也没有去找答案怎么实现，感觉自己栽在了自己的手上。按照上一道题的破罐子破摔的思路，想着就用朴素方法做吧，最后一道 hard 的题目看着也不面善，这个至少朴素方法的思路还是有的，甚至实现后都没怎么跑例子测试，没想到直接通过了。思路也没啥思路，暴力搜索。</p>
 <p>TODO: 认真去看看别人的实现，回来写一下思路。</p>
-<h3 id="No-5031-从先序遍历还原二叉树"><a href="#No-5031-从先序遍历还原二叉树" class="headerlink" title="No.5031 从先序遍历还原二叉树"></a>No.5031 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/recover-a-tree-from-preorder-traversal/" target="_blank" rel="external nofollow noopener noreferrer">从先序遍历还原二叉树</a></h3><p>好可惜的题，有了思路之后只剩下不到二十分钟了，然后最后快到时的时候其实主要思路也完成了，缺少一个判断，没有理清楚逻辑放在哪里，生生拖到七分钟。</p>
+<h3 id="No-5031-从先序遍历还原二叉树"><a href="#No-5031-从先序遍历还原二叉树" class="headerlink" title="No.5031 从先序遍历还原二叉树"></a>No.5031 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/recover-a-tree-from-preorder-traversal/" rel="external nofollow noopener noreferrer" target="_blank">从先序遍历还原二叉树</a></h3><p>好可惜的题，有了思路之后只剩下不到二十分钟了，然后最后快到时的时候其实主要思路也完成了，缺少一个判断，没有理清楚逻辑放在哪里，生生拖到七分钟。</p>
 <p>字符串！字符串！字符串！重要的事情，唉，说三遍也不管用，不知道第几次栽在字符串上面了，但是我的字符串水平还是停留在磕磕绊绊能实现上。用了一个超复杂的方式把原始字符串的数据整齐的摆放在了一个 vector&lt;pair&lt;int,int&gt;&gt; 当中，嗯，是我做事情的风格，东西要摆整齐。后面遍历问题倒是不大。</p>
 <p>用一个 stack 保存当前处理的 TreeNode 节点，并留一个变量保存当前深度，对每一个新的数字，判断深度的关系:。情况1：如果新数是当前节点的下一层，判断当前节点的左子树是否为空，为空的话放在左子树，否则放在右子树。情况2：如果新数是当前节点的层数或者更高层，从 stack 中取出上一个保存的节点，并且深度-1，直到满足情况1为止。情况3：如果新数是当前节点的下一层以下，将当前处理的节点推入 stack 中，并且深度+1，这时需要判断当前节点的右子树是否为空 ，如果为空的话当前节点等于当前节点的左子树，否则为当前节点的右子树，直到满足情况1为止。</p>
 <p>看到这里，我居然又忘记为什么这么判断了，唔，应该是因为原始数据为先序遍历的结果，所以新数如果比当前节点的子节点更深的话，有两种情况。一种是先序遍历的左子树，这时候左子树有值，右子树为空，那下一个处理的节点必定为左子树。另一种情况是之前经过了情况2后当前处理的节点上升到了该层，这时候当前层的左子树已经处理完毕了， 所以如果右子树不为空的话，当前要处理的必定在右子树内。</p>
@@ -345,12 +345,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/archives/3e6a825d.html" rel="prev" title="LeetCode Contest No.130">
-      <i class="fa fa-chevron-left"></i> LeetCode Contest No.130
+    <a href="/archives/496db2cb.html" rel="prev" title="LeetCode Contest No.131">
+      <i class="fa fa-chevron-left"></i> LeetCode Contest No.131
     </a></div>
       <div class="post-nav-item">
-    <a href="/archives/496db2cb.html" rel="next" title="LeetCode Contest No.131">
-      LeetCode Contest No.131 <i class="fa fa-chevron-right"></i>
+    <a href="/archives/d7fa286a.html" rel="next" title="LeetCode 1155">
+      LeetCode 1155 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -434,7 +434,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -508,7 +508,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> |  Total 41.5k</span>
+  <span class="post-count"> |  Total 42.8k</span>
 </div>
 
         

@@ -165,7 +165,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">20</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">21</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -213,6 +213,119 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="default">
+    <link itemprop="mainEntityOfPage" href="http://blog.jassy.wang/archives/4dc6fe2a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jassy">
+      <meta itemprop="description" content="Little blog, Little think">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="弱者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/4dc6fe2a.html" class="post-title-link" itemprop="url">LeetCode Contest No.168</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-22 13:19:59" itemprop="dateCreated datePublished" datetime="2019-12-22T13:19:59+08:00">2019-12-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-15 12:29:59" itemprop="dateModified" datetime="2019-12-15T12:29:59+08:00">2019-12-15</time>
+              </span>
+
+          
+            <span id="/archives/4dc6fe2a.html" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode Contest No.168" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/archives/4dc6fe2a.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/4dc6fe2a.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Contest-168"><a href="#Contest-168" class="headerlink" title="Contest 168"></a>Contest 168</h2><p>通过：4/4  排名：61 / 1552  1:08:39  1WA</p>
+<h3 id="No-5291-统计位数为偶数的数字"><a href="#No-5291-统计位数为偶数的数字" class="headerlink" title="No.5291 统计位数为偶数的数字"></a>No.5291 <a href="https://leetcode-cn.com/problems/find-numbers-with-even-number-of-digits/" rel="external nofollow noopener noreferrer" target="_blank">统计位数为偶数的数字</a></h3><blockquote>
+<p>给你一个整数数组 nums，请你返回其中位数为 偶数 的数字的个数。</p>
+<p><strong>示例 1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [12,345,2,6,7896]<br><strong>输出：</strong> 2<br><strong>解释：</strong><br>12 是 2 位数字（位数为偶数）<br>345 是 3 位数字（位数为奇数）<br>2 是 1 位数字（位数为奇数）<br>6 是 1 位数字 位数为奇数）<br>7896 是 4 位数字（位数为偶数）<br>因此只有 12 和 7896 是位数为偶数的数字</p>
+</blockquote>
+<p><strong>示例 2：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [555,901,482,1771]<br><strong>输出：</strong> 1<br><strong>解释：</strong><br>只有 1771 是位数为偶数的数字。</p>
+</blockquote>
+<p><strong>提示：</strong></p>
+<blockquote>
+<ul>
+<li>1 &lt;= nums.length &lt;= 500</li>
+<li>1 &lt;= nums[i] &lt;= 10^5</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>嗯，水题。（但是大佬一行代码。。）<br>时间复杂度：$O(n)$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findNumbers</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> len(str(num))%<span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">                ans+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/4dc6fe2a.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -278,7 +391,7 @@
 
       
           <h2 id="Contest-No-15-Biweekly"><a href="#Contest-No-15-Biweekly" class="headerlink" title="Contest No.15 Biweekly"></a>Contest No.15 Biweekly</h2><p>通过：4/4  排名：43 / 797  0:46:11  1WA</p>
-<h3 id="No-5126-有序数组中出现次数超过25-的元素"><a href="#No-5126-有序数组中出现次数超过25-的元素" class="headerlink" title="No.5126 有序数组中出现次数超过25%的元素"></a>No.5126 <a href="https://leetcode-cn.com/problems/element-appearing-more-than-25-in-sorted-array/" target="_blank" rel="external nofollow noopener noreferrer">有序数组中出现次数超过25%的元素</a></h3><blockquote>
+<h3 id="No-5126-有序数组中出现次数超过25-的元素"><a href="#No-5126-有序数组中出现次数超过25-的元素" class="headerlink" title="No.5126 有序数组中出现次数超过25%的元素"></a>No.5126 <a href="https://leetcode-cn.com/problems/element-appearing-more-than-25-in-sorted-array/" rel="external nofollow noopener noreferrer" target="_blank">有序数组中出现次数超过25%的元素</a></h3><blockquote>
 <p>给你一个非递减的 有序 整数数组，已知这个数组中恰好有一个整数，它的出现次数超过数组元素总数的 25%。<br>请你找到并返回这个整数</p>
 <p>示例：</p>
 <blockquote>
@@ -384,7 +497,7 @@
 
       
           <h2 id="Contest-167"><a href="#Contest-167" class="headerlink" title="Contest 167"></a>Contest 167</h2><p>通过：4/4  排名：107 / 1534  1:43:12  5WA</p>
-<h3 id="No-5283-二进制链表转整数"><a href="#No-5283-二进制链表转整数" class="headerlink" title="No.5283 二进制链表转整数"></a>No.5283 <a href="https://leetcode-cn.com/problems/convert-binary-number-in-a-linked-list-to-integer/" target="_blank" rel="external nofollow noopener noreferrer">二进制链表转整数</a></h3><blockquote>
+<h3 id="No-5283-二进制链表转整数"><a href="#No-5283-二进制链表转整数" class="headerlink" title="No.5283 二进制链表转整数"></a>No.5283 <a href="https://leetcode-cn.com/problems/convert-binary-number-in-a-linked-list-to-integer/" rel="external nofollow noopener noreferrer" target="_blank">二进制链表转整数</a></h3><blockquote>
 <p>给你一个单链表的引用结点 head。链表中每个结点的值不是 0 就是 1。已知此链表是一个整数数字的二进制表示形式。<br>请你返回该链表所表示数字的 十进制值 。</p>
 <p>示例 1：</p>
 <blockquote>
@@ -1199,102 +1312,6 @@ bottom: .4em;
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="default">
-    <link itemprop="mainEntityOfPage" href="http://blog.jassy.wang/archives/496db2cb.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Jassy">
-      <meta itemprop="description" content="Little blog, Little think">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="弱者">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/archives/496db2cb.html" class="post-title-link" itemprop="url">LeetCode Contest No.131</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-07-23 22:07:37" itemprop="dateCreated datePublished" datetime="2019-07-23T22:07:37+08:00">2019-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-04-08 14:27:39" itemprop="dateModified" datetime="2019-04-08T14:27:39+08:00">2019-04-08</time>
-              </span>
-
-          
-            <span id="/archives/496db2cb.html" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode Contest No.131" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/archives/496db2cb.html#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/archives/496db2cb.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
-<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧<del>~</del>错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。</p>
-<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" target="_blank" rel="external nofollow noopener noreferrer">删除最外层的括号</a></h3><p>1WA</p>
-<p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/archives/496db2cb.html#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="default">
     <link itemprop="mainEntityOfPage" href="http://blog.jassy.wang/archives/d064e371.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1364,7 +1381,7 @@ bottom: .4em;
           <h2 id="Contest-132"><a href="#Contest-132" class="headerlink" title="Contest 132"></a>Contest 132</h2><p>通过：3/4  排名：99/1047  0:59:44  1WA</p>
 <p>最后一道题规定时间内没有做出来，超时7分钟做出来的，无错误提交（似乎）。</p>
 <p>这次竞赛感觉看完题都比较虚，但是其实做题之后的效果比预想的好，虽然最后一道题规定时间内没有做出来，但是感觉可以接受，也是很久没有出过 hard 的题目了，这次的 hard 题目实现的相当的。。。。复杂且乱，但是能做出来就是好事。</p>
-<h3 id="No-5024-除数博弈"><a href="#No-5024-除数博弈" class="headerlink" title="No.5024 除数博弈"></a>No.5024 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/divisor-game/" target="_blank" rel="external nofollow noopener noreferrer">除数博弈</a></h3><p>1WA</p>
+<h3 id="No-5024-除数博弈"><a href="#No-5024-除数博弈" class="headerlink" title="No.5024 除数博弈"></a>No.5024 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/divisor-game/" rel="external nofollow noopener noreferrer" target="_blank">除数博弈</a></h3><p>1WA</p>
 <p>看到这个题，感觉可能是动态规划后，第一个想法：动态规划都是简单的题了啊！</p>
 <p>是的，这道题还花了整整20分钟才做出来，感觉其中十分钟浪费在了不可置信上和另外一些事情上。。。这次做竞赛太不专心了，批评一下自己，竞赛还是要好好做的。</p>
 <p>实现思路上没啥可说的，就是动态规划的思路，从小到大依次遍历所有约数对应的<code>N-x</code>的值，所有约数全部为 true 的时候，这时无论先手做如何操作，对方都是必胜的情况，所以这时的 N 为 false ，其余所有情况均为 true ，只需要在每一步操作时将 N 的值变为对应的 false 的 <code>N-x</code> 的值即可。</p>
@@ -1394,7 +1411,7 @@ bottom: .4em;
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="default">
-    <link itemprop="mainEntityOfPage" href="http://blog.jassy.wang/archives/3e6a825d.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.jassy.wang/archives/496db2cb.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1408,7 +1425,7 @@ bottom: .4em;
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/archives/3e6a825d.html" class="post-title-link" itemprop="url">LeetCode Contest No.130</a>
+            <a href="/archives/496db2cb.html" class="post-title-link" itemprop="url">LeetCode Contest No.131</a>
         </h1>
 
         <div class="post-meta">
@@ -1425,11 +1442,11 @@ bottom: .4em;
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-04-02 15:31:23" itemprop="dateModified" datetime="2019-04-02T15:31:23+08:00">2019-04-02</time>
+                <time title="Modified: 2019-04-08 14:27:39" itemprop="dateModified" datetime="2019-04-08T14:27:39+08:00">2019-04-08</time>
               </span>
 
           
-            <span id="/archives/3e6a825d.html" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode Contest No.130" title="Views">
+            <span id="/archives/496db2cb.html" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode Contest No.131" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -1444,8 +1461,8 @@ bottom: .4em;
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/archives/3e6a825d.html#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/archives/3e6a825d.html" itemprop="commentCount"></span>
+    <a title="valine" href="/archives/496db2cb.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/496db2cb.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1460,22 +1477,18 @@ bottom: .4em;
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Contest-130"><a href="#Contest-130" class="headerlink" title="Contest 130"></a>Contest 130</h2><p>通过：4/4  排名：59/1293  1:58:42  6WA</p>
-<h3 id="No-1018-可被-5-整除的二进制前缀"><a href="#No-1018-可被-5-整除的二进制前缀" class="headerlink" title="No.1018 可被 5 整除的二进制前缀"></a>No.1018 <a href="https://leetcode-cn.com/problems/binary-prefix-divisible-by-5/" target="_blank" rel="external nofollow noopener noreferrer">可被 5 整除的二进制前缀</a></h3><p>思考过多，还在想那样做对不对，做的太少所以对题目类型不熟悉。</p>
-<h3 id="No-1017-负二进制转换"><a href="#No-1017-负二进制转换" class="headerlink" title="No.1017 负二进制转换"></a>No.1017 <a href="https://leetcode-cn.com/problems/convert-to-base-2/" target="_blank" rel="external nofollow noopener noreferrer">负二进制转换</a></h3><p>2WA</p>
-<p>emmmmmm，这道题怎么就过了呢。。。</p>
-<p>思考过程：用几个数字尝试拼凑了一下，感觉上是要拼凑到最近的2的幂次上去，但是并没有找到绝对的规律。</p>
-<p>然后发现某一位数字可以通过其他位来拼凑，如<img src="https://latex.codecogs.com/gif.latex?(2)^1=(-2)^2+(-2)^1">，然后将原始数字以4进制做拆分，再由低位至高位依次处理大于1的情况。例如：<img src="https://latex.codecogs.com/gif.latex?9=1&#x5C;times(-2)^0+2&#x5C;times(-2)^2">，负二进制表示为<code>201</code>，然后从低位到高位，分别处理2、3、4的情况，<code>200</code> 和 <code>11000</code> 相等，<code>300</code> 和 <code>11100</code>相等， <code>400</code> 和 <code>10000</code> 相等。最后即可得到结果。（好麻烦啊）</p>
-<pre><code>&lt;!-- more --&gt;</code></pre><p>看了一下别人的回答，类似于二进制转换，得到 %2 后再进行 /2 的操作。区别只是在奇数位时+1而不是-1。不知道如何证明这样是正确的，但是感觉上是正确的，嗯。不懂得东西先记住就好了。</p>
-<p>另外还有一点思考，如何证明负二进制是可以表示所有数字的呢，类似的，负三进制是否可以，负四进制是否可以，待求证。</p>
-<h3 id="No-1019-链表中的下一个更大节点"><a href="#No-1019-链表中的下一个更大节点" class="headerlink" title="No.1019 链表中的下一个更大节点"></a>No.1019 <a href="https://leetcode-cn.com/problems/next-greater-node-in-linked-list/" target="_blank" rel="external nofollow noopener noreferrer">链表中的下一个更大节点</a></h3><p>1WA</p>
-<p>以前做过一道类似的题，维护一个栈，当下一个数字比栈顶的数字大时，取出栈顶的数字并记录，否则将下一个数字入栈，全部循环后若栈内还有数字，均输出0。</p>
-<p>这道题对比了一下我的做法和别人的，思路是一样的，但是代码量差距很大，自己在这种问题的边界条件和条件分类处理上有点死板和脑袋不清楚，所以代码量大，代码思路也不是十分清晰，还需要多多练习。</p>
-<h3 id="No-1020-飞地的数量"><a href="#No-1020-飞地的数量" class="headerlink" title="No.1020 飞地的数量"></a>No.1020 <a href="https://leetcode-cn.com/problems/number-of-enclaves/" target="_blank" rel="external nofollow noopener noreferrer">飞地的数量</a></h3><p>3WA</p>
-<p>前面大量时间浪费在了一个错误的思路上，第一反应是和做过的类似，进行一个DFS的遍历，遍历每一个“陆地”，然后向四个方向去搜索，看是否能够找到依然是陆地并接触到边界，如果能，那么不是飞地，如果不能，是飞地，然后标记，进行计数。后来发现越做思路越乱，且复杂，在进行深度搜索的时候还需要维护一个表去标记该地是否是已经搜索过的，极度复杂。然后转回去做第二题，做第二题的途中想到，应该反向去搜索，从接触边界的陆地进行深度搜索，每个搜索过的陆地都进行标记，为不是飞地的陆地，全部搜索遍历结束后，再进行遍历计数。</p>
-<p>两个可优化的点：一个是根据看别人的代码发现，我是使用迭代进行深度搜索的，有人是使用一个 queue，需要进行搜索的陆地都推入 queue 中，在搜索过程中新搜索到的相邻的不是飞地的地也推入 queue 中，直至整个 queue 清空为止，感觉这种方法思路更加清晰一些，下次做到类似的题需要尝试一下。</p>
-<p>另外一个是搜索上下左右四个方向的时候，建立一个数组 <code>[[0,1],[0,-1],[1,0],[-1,0]]</code>，然后对每个点循环加这四个变量即可，这种方法在前面做题过程中有见到提过，但是自己仍然没有用过，后面遇到一样的题也是需要尝试一下使用这种方法实现。</p>
-
+          <h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
+<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧<del>~</del>错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。</p>
+<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" rel="external nofollow noopener noreferrer" target="_blank">删除最外层的括号</a></h3><p>1WA</p>
+<p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/496db2cb.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1494,7 +1507,7 @@ bottom: .4em;
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1539,7 +1552,7 @@ bottom: .4em;
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1613,7 +1626,7 @@ bottom: .4em;
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> |  Total 41.5k</span>
+  <span class="post-count"> |  Total 42.8k</span>
 </div>
 
         

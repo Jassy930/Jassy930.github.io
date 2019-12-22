@@ -1,10 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>LeetCode Contest No.168</title>
+    <url>/archives/4dc6fe2a.html</url>
+    <content><![CDATA[<h2 id="Contest-168"><a href="#Contest-168" class="headerlink" title="Contest 168"></a>Contest 168</h2><p>通过：4/4  排名：61 / 1552  1:08:39  1WA</p>
+<h3 id="No-5291-统计位数为偶数的数字"><a href="#No-5291-统计位数为偶数的数字" class="headerlink" title="No.5291 统计位数为偶数的数字"></a>No.5291 <a href="https://leetcode-cn.com/problems/find-numbers-with-even-number-of-digits/" rel="external nofollow noopener noreferrer" target="_blank">统计位数为偶数的数字</a></h3><blockquote>
+<p>给你一个整数数组 nums，请你返回其中位数为 偶数 的数字的个数。</p>
+<p><strong>示例 1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [12,345,2,6,7896]<br><strong>输出：</strong> 2<br><strong>解释：</strong><br>12 是 2 位数字（位数为偶数）<br>345 是 3 位数字（位数为奇数）<br>2 是 1 位数字（位数为奇数）<br>6 是 1 位数字 位数为奇数）<br>7896 是 4 位数字（位数为偶数）<br>因此只有 12 和 7896 是位数为偶数的数字</p>
+</blockquote>
+<p><strong>示例 2：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [555,901,482,1771]<br><strong>输出：</strong> 1<br><strong>解释：</strong><br>只有 1771 是位数为偶数的数字。</p>
+</blockquote>
+<p><strong>提示：</strong></p>
+<blockquote>
+<ul>
+<li>1 &lt;= nums.length &lt;= 500</li>
+<li>1 &lt;= nums[i] &lt;= 10^5</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>嗯，水题。（但是大佬一行代码。。）<br>时间复杂度：$O(n)$</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findNumbers</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> len(str(num))%<span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">                ans+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h3 id="No-5292-划分数组为连续数字的集合"><a href="#No-5292-划分数组为连续数字的集合" class="headerlink" title="No.5292 划分数组为连续数字的集合"></a>No.5292 <a href="https://leetcode-cn.com/problems/divide-array-in-sets-of-k-consecutive-numbers/" rel="external nofollow noopener noreferrer" target="_blank">划分数组为连续数字的集合</a></h3><blockquote>
+<p>给你一个整数数组 nums 和一个正整数 k，请你判断是否可以把这个数组划分成一&gt;些由 k 个连续数字组成的集合。<br>如果可以，请返回 True；否则，返回 False。</p>
+<p><strong>示例 1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [1,2,3,3,4,4,5,6], k = 4<br><strong>输出：</strong> true<br><strong>解释：</strong> 数组可以分成 [1,2,3,4] 和 [3,4,5,6]。</p>
+</blockquote>
+<p><strong>示例 2：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [3,2,1,2,3,4,3,4,5,9,10,11], k = 3<br><strong>输出：</strong> true<br><strong>解释：</strong> 数组可以分成 [1,2,3] , [2,3,4] , [3,4,5] 和 [9,10,11]。</p>
+</blockquote>
+<p><strong>示例 3：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [3,3,2,2,1,1], k = 3<br><strong>输出：</strong> true</p>
+</blockquote>
+<p><strong>示例 4：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> nums = [1,2,3,4], k = 3<br><strong>输出：</strong> false<br><strong>解释：</strong> 数组不能分成几个大小为 3 的子数组。</p>
+</blockquote>
+<p><strong>提示：</strong></p>
+<blockquote>
+<ul>
+<li>1 &lt;= nums.length &lt;= 10^5</li>
+<li>1 &lt;= nums[i] &lt;= 10^9</li>
+<li>1 &lt;= k &lt;= nums.length</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>将所有数字进行排序，排序后选出最小的数字，组成一个分组（因为如果能分组成功的话，这个最小的数字在组内也必定是最小的数字），然后将这个分组的数字移除，重复过程直到不能进行分组或者全部数字分组完成。</p>
+<p>时间复杂度： $O(nlgn+n)$</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isPossibleDivide</span><span class="params">(self, nums: List[int], k: int)</span> -&gt; bool:</span></span><br><span class="line">        ans = len(nums)</span><br><span class="line">        <span class="keyword">if</span> ans%k != <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        dd = &#123;&#125;</span><br><span class="line">        nums.sort()</span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">            dd[n] = dd.get(n,<span class="number">0</span>)+<span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> len(dd)!=<span class="number">0</span>:</span><br><span class="line">            a = min(dd.keys())</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(a,a+k):</span><br><span class="line">                <span class="keyword">if</span> i <span class="keyword">in</span> dd:</span><br><span class="line">                    dd[i]-=<span class="number">1</span></span><br><span class="line">                    <span class="keyword">if</span> dd[i] == <span class="number">0</span>:</span><br><span class="line">                        <span class="keyword">del</span> dd[i]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="No-5293-子串的最大出现次数"><a href="#No-5293-子串的最大出现次数" class="headerlink" title="No.5293 子串的最大出现次数"></a>No.5293 <a href="https://leetcode-cn.com/problems/maximum-number-of-occurrences-of-a-substring/" rel="external nofollow noopener noreferrer" target="_blank">子串的最大出现次数</a></h3><blockquote>
+<p>给你一个字符串 s ，请你返回满足以下条件且出现次数最大的 任意 子串的出现次数：</p>
+<p>子串中不同字母的数目必须小于等于 maxLetters 。<br>子串的长度必须大于等于 minSize 且小于等于 maxSize 。</p>
+<p><strong>示例 1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> s = “aababcaab”, maxLetters = 2, minSize = 3, maxSize = 4<br><strong>输出：</strong> 2<br><strong>解释：</strong> 子串 “aab” 在原字符串中出现了 2 次。<br>它满足所有的要求：2 个不同的字母，长度为 3 （在 minSize 和 maxSize 范围内）。</p>
+</blockquote>
+<p><strong>示例 2：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> s = “aaaa”, maxLetters = 1, minSize = 3, maxSize = 3<br><strong>输出：</strong> 2<br><strong>解释：</strong> 子串 “aaa” 在原字符串中出现了 2 次，且它们有重叠部分。</p>
+</blockquote>
+<p><strong>示例 3：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> s = “aabcabcab”, maxLetters = 2, minSize = 2, maxSize = 3<br><strong>输出：</strong> 3</p>
+</blockquote>
+<p><strong>示例 4：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> s = “abcde”, maxLetters = 2, minSize = 3, maxSize = 3<br><strong>输出：</strong> 0</p>
+</blockquote>
+<p><strong>提示：</strong></p>
+<blockquote>
+<ul>
+<li>1 &lt;= s.length &lt;= 10^5</li>
+<li>1 &lt;= maxLetters &lt;= 26</li>
+<li>1 &lt;= minSize &lt;= maxSize &lt;= min(26, s.length)</li>
+<li>s 只包含小写英文字母。</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>这道题最开始理解错题意了，题目要求是满足条件的字串中出现次数最多的字串的数量。我理解成了所有可能满足条件的字串的数量。这样分析的话<code>maxSize</code>其实是没有用的因为只要不是以<code>minSize</code>组成的子串，必然能选出<code>minSize</code>大小的字串出现数量大于等于当前字串的出现数量。所以该题目简化后变成，遍历字符串中所有<code>minSize</code>长度的字串，在满足条件的字串中查找出现数量最多的子串的出现数量。</p>
+<p>时间复杂度：$O(n \times minSize)$</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxFreq</span><span class="params">(self, s: str, maxLetters: int, minSize: int, maxSize: int)</span> -&gt; int:</span></span><br><span class="line">        a = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(s)-minSize+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> len(set(s[i:i+minSize])) &lt;= maxLetters:</span><br><span class="line">                a.append(s[i:i+minSize])</span><br><span class="line">        b = collections.Counter(a).most_common(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> b[<span class="number">0</span>][<span class="number">1</span>] <span class="keyword">if</span> b <span class="keyword">else</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="No-5294-你能从盒子里获得的最大糖果数"><a href="#No-5294-你能从盒子里获得的最大糖果数" class="headerlink" title="No.5294 你能从盒子里获得的最大糖果数"></a>No.5294 <a href="https://leetcode-cn.com/problems/maximum-candies-you-can-get-from-boxes/" rel="external nofollow noopener noreferrer" target="_blank">你能从盒子里获得的最大糖果数</a></h3><p>这个题目太吓人了，好长，输入量也很多。但是感觉只要注意细节其实比第三题简单的（日常第三题比第四题难）。我们要做的就是遍历已有的没开的<code>box</code>，依次打开并拿出里面的盒子、糖果、钥匙，然后根据盒子和钥匙再继续向下开，中间记录一下已经开过的盒子，避免重复开盒子计数即可。当某次遍历时不能拿到新的盒子的话，就算已经把能开的都开完了。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxCandies</span><span class="params">(self, status: List[int], candies: List[int], keys: List[List[int]], containedBoxes: List[List[int]], initialBoxes: List[int])</span> -&gt; int:</span></span><br><span class="line">        mybox = initialBoxes</span><br><span class="line">        mykeys = []</span><br><span class="line">        openedbox = set([])</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> mybox:</span><br><span class="line">            llen = len(mybox)</span><br><span class="line">            <span class="keyword">for</span> box <span class="keyword">in</span> mybox:</span><br><span class="line">                <span class="keyword">if</span> (status[box] == <span class="number">1</span> <span class="keyword">or</span> (status[box] == <span class="number">0</span> <span class="keyword">and</span> box <span class="keyword">in</span> mykeys)) <span class="keyword">and</span> box <span class="keyword">not</span> <span class="keyword">in</span> openedbox:</span><br><span class="line">                    mykeys = mykeys+keys[box]</span><br><span class="line">                    ans+=candies[box]</span><br><span class="line">                    mybox+=containedBoxes[box]</span><br><span class="line">                    openedbox.add(box)</span><br><span class="line">            <span class="keyword">if</span> llen == len(mybox):</span><br><span class="line">                <span class="keyword">return</span> ans</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode Contest No.15 Biweekly</title>
     <url>/archives/38a01d69.html</url>
     <content><![CDATA[<h2 id="Contest-No-15-Biweekly"><a href="#Contest-No-15-Biweekly" class="headerlink" title="Contest No.15 Biweekly"></a>Contest No.15 Biweekly</h2><p>通过：4/4  排名：43 / 797  0:46:11  1WA</p>
-<h3 id="No-5126-有序数组中出现次数超过25-的元素"><a href="#No-5126-有序数组中出现次数超过25-的元素" class="headerlink" title="No.5126 有序数组中出现次数超过25%的元素"></a>No.5126 <a href="https://leetcode-cn.com/problems/element-appearing-more-than-25-in-sorted-array/" target="_blank" rel="noopener">有序数组中出现次数超过25%的元素</a></h3><blockquote>
+<h3 id="No-5126-有序数组中出现次数超过25-的元素"><a href="#No-5126-有序数组中出现次数超过25-的元素" class="headerlink" title="No.5126 有序数组中出现次数超过25%的元素"></a>No.5126 <a href="https://leetcode-cn.com/problems/element-appearing-more-than-25-in-sorted-array/" rel="external nofollow noopener noreferrer" target="_blank">有序数组中出现次数超过25%的元素</a></h3><blockquote>
 <p>给你一个非递减的 有序 整数数组，已知这个数组中恰好有一个整数，它的出现次数超过数组元素总数的 25%。<br>请你找到并返回这个整数</p>
 <p>示例：</p>
 <blockquote>
@@ -26,7 +128,7 @@
 
 <a id="more"></a>
 
-<h3 id="No-5127-删除被覆盖区间"><a href="#No-5127-删除被覆盖区间" class="headerlink" title="No.5127 删除被覆盖区间"></a>No.5127 <a href="https://leetcode-cn.com/problems/remove-covered-intervals/" target="_blank" rel="noopener">删除被覆盖区间</a></h3><blockquote>
+<h3 id="No-5127-删除被覆盖区间"><a href="#No-5127-删除被覆盖区间" class="headerlink" title="No.5127 删除被覆盖区间"></a>No.5127 <a href="https://leetcode-cn.com/problems/remove-covered-intervals/" rel="external nofollow noopener noreferrer" target="_blank">删除被覆盖区间</a></h3><blockquote>
 <p>给你一个区间列表，请你删除列表中被其他区间所覆盖的区间。</p>
 <p>只有当 c &lt;= a 且 b &lt;= d 时，我们才认为区间 [a,b) 被区间 [c,d) 覆盖。</p>
 <p>在完成所有删除操作后，请你返回列表中剩余区间的数目。</p>
@@ -48,7 +150,7 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeCoveredIntervals</span><span class="params">(self, intervals: List[List[int]])</span> -&gt; int:</span></span><br><span class="line">        intervals.sort()</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i&lt;len(intervals)<span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">if</span> intervals[i][<span class="number">0</span>]&lt;=intervals[i+<span class="number">1</span>][<span class="number">0</span>] <span class="keyword">and</span> intervals[i][<span class="number">1</span>]&gt;=intervals[i+<span class="number">1</span>][<span class="number">1</span>]:</span><br><span class="line">                intervals.pop(i+<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">elif</span> intervals[i][<span class="number">0</span>]&gt;=intervals[i+<span class="number">1</span>][<span class="number">0</span>] <span class="keyword">and</span> intervals[i][<span class="number">1</span>]&lt;=intervals[i+<span class="number">1</span>][<span class="number">1</span>]:</span><br><span class="line">                intervals.pop(i)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                i+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> i+<span class="number">1</span></span><br></pre></td></tr></table></figure>
 
 
-<h3 id="No-5123-字母组合迭代器"><a href="#No-5123-字母组合迭代器" class="headerlink" title="No.5123 字母组合迭代器"></a>No.5123 <a href="https://leetcode-cn.com/problems/iterator-for-combination/" target="_blank" rel="noopener">字母组合迭代器</a></h3><blockquote>
+<h3 id="No-5123-字母组合迭代器"><a href="#No-5123-字母组合迭代器" class="headerlink" title="No.5123 字母组合迭代器"></a>No.5123 <a href="https://leetcode-cn.com/problems/iterator-for-combination/" rel="external nofollow noopener noreferrer" target="_blank">字母组合迭代器</a></h3><blockquote>
 <p>请你设计一个迭代器类，包括以下内容：</p>
 <p>一个构造函数，输入参数包括：一个 有序且字符唯一 的字符串 characters（该字符串只包含小写英文字母）和一个数字 combinationLength 。<br>函数 next() ，按 字典序 返回长度为 combinationLength 的下一个字母组合。<br>函数 hasNext() ，只有存在长度为 combinationLength 的下一个字母组合时，才返回 True；否则，返回 False。</p>
 <p>示例：</p>
@@ -72,7 +174,7 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CombinationIterator</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, characters: str, combinationLength: int)</span>:</span></span><br><span class="line">        self.cc = characters</span><br><span class="line">        self.ll = combinationLength</span><br><span class="line">        self.cur = list(range(self.ll))</span><br><span class="line">        self.last = list(range(len(self.cc) - self.ll,len(self.cc)))</span><br><span class="line">        self.last[<span class="number">0</span>] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next</span><span class="params">(self)</span> -&gt; str:</span></span><br><span class="line">        a = <span class="string">""</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> self.cur:</span><br><span class="line">            a+=self.cc[i]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(self.ll)[::<span class="number">-1</span>]:</span><br><span class="line">            <span class="keyword">if</span> self.cur[i] != self.last[i]:</span><br><span class="line">                self.cur[i] += <span class="number">1</span></span><br><span class="line">                <span class="keyword">for</span> k <span class="keyword">in</span> range(i+<span class="number">1</span>,len(self.cur)):</span><br><span class="line">                    self.cur[k] = self.cur[k<span class="number">-1</span>]+<span class="number">1</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hasNext</span><span class="params">(self)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">return</span> self.cur[<span class="number">0</span>] &lt;= len(self.cc) - self.ll</span><br></pre></td></tr></table></figure>
 
 
-<h3 id="No-5129-下降路径最小和-II"><a href="#No-5129-下降路径最小和-II" class="headerlink" title="No.5129 下降路径最小和  II"></a>No.5129 <a href="https://leetcode-cn.com/problems/minimum-falling-path-sum-ii/" target="_blank" rel="noopener">下降路径最小和  II</a></h3><blockquote>
+<h3 id="No-5129-下降路径最小和-II"><a href="#No-5129-下降路径最小和-II" class="headerlink" title="No.5129 下降路径最小和  II"></a>No.5129 <a href="https://leetcode-cn.com/problems/minimum-falling-path-sum-ii/" rel="external nofollow noopener noreferrer" target="_blank">下降路径最小和  II</a></h3><blockquote>
 <p>给你一个整数方阵 arr ，定义「非零偏移下降路径」为：从 arr 数组中的每一行选择一个数字，且按顺序选出来的数字中，相邻数字不在原数组的同一列。<br>请你返回非零偏移下降路径数字和的最小值。</p>
 <p>示例 1：</p>
 <blockquote>
@@ -98,7 +200,7 @@
     <title>LeetCode Contest No.167</title>
     <url>/archives/dd79e3bb.html</url>
     <content><![CDATA[<h2 id="Contest-167"><a href="#Contest-167" class="headerlink" title="Contest 167"></a>Contest 167</h2><p>通过：4/4  排名：107 / 1534  1:43:12  5WA</p>
-<h3 id="No-5283-二进制链表转整数"><a href="#No-5283-二进制链表转整数" class="headerlink" title="No.5283 二进制链表转整数"></a>No.5283 <a href="https://leetcode-cn.com/problems/convert-binary-number-in-a-linked-list-to-integer/" target="_blank" rel="noopener">二进制链表转整数</a></h3><blockquote>
+<h3 id="No-5283-二进制链表转整数"><a href="#No-5283-二进制链表转整数" class="headerlink" title="No.5283 二进制链表转整数"></a>No.5283 <a href="https://leetcode-cn.com/problems/convert-binary-number-in-a-linked-list-to-integer/" rel="external nofollow noopener noreferrer" target="_blank">二进制链表转整数</a></h3><blockquote>
 <p>给你一个单链表的引用结点 head。链表中每个结点的值不是 0 就是 1。已知此链表是一个整数数字的二进制表示形式。<br>请你返回该链表所表示数字的 十进制值 。</p>
 <p>示例 1：</p>
 <blockquote>
@@ -134,7 +236,7 @@
 
 <a id="more"></a>
 
-<h3 id="No-5124-顺次数"><a href="#No-5124-顺次数" class="headerlink" title="No.5124 顺次数"></a>No.5124 <a href="https://leetcode-cn.com/problems/sequential-digits/" target="_blank" rel="noopener">顺次数</a></h3><blockquote>
+<h3 id="No-5124-顺次数"><a href="#No-5124-顺次数" class="headerlink" title="No.5124 顺次数"></a>No.5124 <a href="https://leetcode-cn.com/problems/sequential-digits/" rel="external nofollow noopener noreferrer" target="_blank">顺次数</a></h3><blockquote>
 <p>我们定义「顺次数」为：每一位上的数字都比前一位上的数字大 1 的整数。<br>请你返回由 [low, high] 范围内所有顺次数组成的 有序 列表（从小到大排序）。</p>
 <p>示例 1：</p>
 <blockquote>
@@ -156,7 +258,7 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sequentialDigits</span><span class="params">(self, low: int, high: int)</span> -&gt; List[int]:</span></span><br><span class="line">        ans = []</span><br><span class="line">        num = [<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>,<span class="string">'4'</span>,<span class="string">'5'</span>,<span class="string">'6'</span>,<span class="string">'7'</span>,<span class="string">'8'</span>,<span class="string">'9'</span>]</span><br><span class="line">        lc = <span class="number">0</span></span><br><span class="line">        hc = <span class="number">0</span></span><br><span class="line">        ll = low</span><br><span class="line">        hh = high</span><br><span class="line">        <span class="keyword">while</span> low&gt;<span class="number">0</span>:</span><br><span class="line">            lc+=<span class="number">1</span></span><br><span class="line">            low = low//<span class="number">10</span></span><br><span class="line">        <span class="keyword">while</span> high&gt;<span class="number">0</span>:</span><br><span class="line">            hc+=<span class="number">1</span></span><br><span class="line">            high = high//<span class="number">10</span></span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> range(lc,hc+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">9</span>-k+<span class="number">1</span>):</span><br><span class="line">                ans.append(int(<span class="string">''</span>.join(num[i:i+k])))</span><br><span class="line">        o = []</span><br><span class="line">        <span class="keyword">for</span> a <span class="keyword">in</span> ans:</span><br><span class="line">            <span class="keyword">if</span> a &gt;=ll <span class="keyword">and</span> a&lt;=hh:</span><br><span class="line">                o.append(a)</span><br><span class="line">        <span class="keyword">return</span> o</span><br></pre></td></tr></table></figure>
 
 
-<h3 id="No-5285-元素和小于等于阈值的正方形的最大边长"><a href="#No-5285-元素和小于等于阈值的正方形的最大边长" class="headerlink" title="No.5285 元素和小于等于阈值的正方形的最大边长"></a>No.5285 <a href="https://leetcode-cn.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/" target="_blank" rel="noopener">元素和小于等于阈值的正方形的最大边长</a></h3><blockquote>
+<h3 id="No-5285-元素和小于等于阈值的正方形的最大边长"><a href="#No-5285-元素和小于等于阈值的正方形的最大边长" class="headerlink" title="No.5285 元素和小于等于阈值的正方形的最大边长"></a>No.5285 <a href="https://leetcode-cn.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/" rel="external nofollow noopener noreferrer" target="_blank">元素和小于等于阈值的正方形的最大边长</a></h3><blockquote>
 <p>给你一个大小为 m x n 的矩阵 mat 和一个整数阈值 threshold。<br>请你返回元素总和小于或等于阈值的正方形区域的最大边长；如果没有这样的正方形区域，则返回 0 。</p>
 <p>示例 1：</p>
 <blockquote>
@@ -192,7 +294,7 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSideLength</span><span class="params">(self, mat: List[List[int]], threshold: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(mat)):</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">1</span>,len(mat[<span class="number">0</span>])):</span><br><span class="line">                mat[i][k] += mat[i][k<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> range(len(mat[<span class="number">0</span>])):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(mat)):</span><br><span class="line">                mat[i][k] += mat[i<span class="number">-1</span>][k]</span><br><span class="line">        m = [[<span class="number">0</span>]*(len(mat[<span class="number">0</span>])+<span class="number">1</span>)] +[[<span class="number">0</span>]+mat[x] <span class="keyword">for</span> x <span class="keyword">in</span> range(len(mat))]</span><br><span class="line">        mat = m</span><br><span class="line">        ans = <span class="number">-1</span></span><br><span class="line">        lans = ans</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(min(len(mat),len(mat[<span class="number">0</span>]))):</span><br><span class="line">            m = <span class="number">0</span></span><br><span class="line">            <span class="keyword">while</span> m&lt;len(mat)-i:</span><br><span class="line">                n = <span class="number">0</span></span><br><span class="line">                <span class="keyword">while</span> n&lt;len(mat[<span class="number">0</span>])-i:</span><br><span class="line">                    sm = mat[m+i][n+i] + mat[m][n] - mat[m][n+i] - mat[m+i][n]</span><br><span class="line">                    <span class="keyword">if</span> sm &lt;= threshold <span class="keyword">and</span> i&gt;ans:</span><br><span class="line">                        ans = i</span><br><span class="line">                        m = len(mat)</span><br><span class="line">                        n = len(mat[<span class="number">0</span>])</span><br><span class="line">                    n+=<span class="number">1</span></span><br><span class="line">                m+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> ans == lans:</span><br><span class="line">                <span class="keyword">return</span> ans</span><br><span class="line">            lans = ans</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
 
 
-<h3 id="No-5286-网格中的最短路径"><a href="#No-5286-网格中的最短路径" class="headerlink" title="No.5286 网格中的最短路径"></a>No.5286 <a href="https://leetcode-cn.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/" target="_blank" rel="noopener">网格中的最短路径</a></h3><blockquote>
+<h3 id="No-5286-网格中的最短路径"><a href="#No-5286-网格中的最短路径" class="headerlink" title="No.5286 网格中的最短路径"></a>No.5286 <a href="https://leetcode-cn.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/" rel="external nofollow noopener noreferrer" target="_blank">网格中的最短路径</a></h3><blockquote>
 <p>给你一个 m * n 的网格，其中每个单元格不是 0（空）就是 1（障碍物）。每一步，您都可以在空白单元格中上、下、左、右移动。<br>如果您 最多 可以消除 k 个障碍物，请找出从左上角 (0, 0) 到右下角 (m-1, n-1) 的最短路径，并返回通过该路径所&gt;需的步数。如果找不到这样的路径，则返回 -1。</p>
 <p>示例 1：</p>
 <blockquote>
@@ -219,7 +321,8 @@
 
 ]]></content>
       <tags>
-        <tag>LeetCode - Algorithm</tag>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -259,8 +362,8 @@
 <p>另外，这个关键字C++中并没有引入。</p>
 <p>另另外，在linux中 <code>restrict</code> 需要替换为 <code>_restrict</code></p>
 <h2 id="C11-新增关键字"><a href="#C11-新增关键字" class="headerlink" title="C11 新增关键字"></a>C11 新增关键字</h2><h3 id="Alignas-amp-amp-Alignof"><a href="#Alignas-amp-amp-Alignof" class="headerlink" title="_Alignas &amp;&amp; _Alignof"></a>_Alignas &amp;&amp; _Alignof</h3><p>加个 cppreference 的链接辅助：</p>
-<p><a href="https://zh.cppreference.com/w/c/language/_Alignas" target="_blank" rel="noopener">_Alignas</a></p>
-<p><a href="https://zh.cppreference.com/w/c/language/_Alignof" target="_blank" rel="noopener">_Alignof</a></p>
+<p><a href="https://zh.cppreference.com/w/c/language/_Alignas" rel="external nofollow noopener noreferrer" target="_blank">_Alignas</a></p>
+<p><a href="https://zh.cppreference.com/w/c/language/_Alignof" rel="external nofollow noopener noreferrer" target="_blank">_Alignof</a></p>
 <p>修改被声明对象的对齐说明，是的，这个对齐说明就是 <code>struct</code> 的那个对齐说明，后面可以放置数字或者一个类型，如：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdalign.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">//  每一个 struct sse_t 类型的对象会在 16 字节边界对齐</span></span><br><span class="line"><span class="comment">// （注意：需要支持 DR 444 ）</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sse_t</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  alignas(<span class="number">16</span>) <span class="keyword">float</span> sse_data[<span class="number">4</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这种 struct data 的每一个对象都会在 128 字节边界对齐</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">data</span> &#123;</span></span><br><span class="line">  <span class="keyword">char</span> x;</span><br><span class="line">  alignas(<span class="number">128</span>) <span class="keyword">char</span> cacheline[<span class="number">128</span>]; <span class="comment">// 过对齐的 char 数组对象，</span></span><br><span class="line">                                    <span class="comment">// 不是过对齐的 char 对象的数组</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"sizeof(data) = %zu (1 byte + 127 bytes padding + 128-byte array)\n"</span>,</span><br><span class="line">           <span class="keyword">sizeof</span>(struct data));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"alignment of sse_t is %zu\n"</span>, <span class="keyword">alignof</span>(struct <span class="keyword">sse_t</span>));</span><br><span class="line">    alignas(<span class="number">2048</span>) <span class="class"><span class="keyword">struct</span> <span class="title">data</span> <span class="title">d</span>;</span> <span class="comment">// 此 struct data 的实例会更严格地对齐</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -281,12 +384,12 @@
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GENERAL_ABS(x) _Generic((x),int:abs,float:fabsf,double:fabs)(x)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"intabs:%d\n"</span>,GENERAL_ABS(<span class="number">-12</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"floatabs:%f\n"</span>,GENERAL_ABS(<span class="number">-12.04f</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"doubleabs:%f\n"</span>,GENERAL_ABS(<span class="number">-13.09876</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> b=<span class="number">0</span>,c=<span class="number">0</span>;</span><br><span class="line">    _Generic(a+<span class="number">0.1f</span>,<span class="keyword">int</span>:b,<span class="keyword">float</span>:c,<span class="keyword">default</span>:b)++;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"b=%d,c=%d\n"</span>,b,c);</span><br><span class="line">    _Generic(a+=<span class="number">1.1f</span>,<span class="keyword">int</span>:b,<span class="keyword">float</span>:c,<span class="keyword">default</span>:b)++;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"a=%d,b=%d,c=%d\n"</span>,a,b,c);</span><br></pre></td></tr></table></figure>
 
 <p>对不同的输入参数的类型执行不同的函数，x为函数的输入参数，后面是对应不同输入参数类型的操作，最后可以加一个 <code>defalut</code> 用于其他的输出结果。</p>
-<h3 id="Noreturn"><a href="#Noreturn" class="headerlink" title="_Noreturn"></a>_Noreturn</h3><p><a href="https://en.cppreference.com/w/c/language/_Noreturn" target="_blank" rel="noopener">cppreference</a></p>
+<h3 id="Noreturn"><a href="#Noreturn" class="headerlink" title="_Noreturn"></a>_Noreturn</h3><p><a href="https://en.cppreference.com/w/c/language/_Noreturn" rel="external nofollow noopener noreferrer" target="_blank">cppreference</a></p>
 <p>这是一个描述函数的关键词，用于表示该函数执行完毕后不会返回，请注意这里是<strong>不会返回</strong>，而不是像 <code>void</code> 一样是返回空，而是根本不会返回，编译器也会因此对代码进行优化。例如:</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">noreturn <span class="keyword">void</span> <span class="title">stop_now</span><span class="params">(<span class="keyword">int</span> i)</span> <span class="comment">// or _Noreturn void stop_now(int i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i &gt; <span class="number">0</span>) <span class="built_in">exit</span>(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>但是这个说明符并没有什么<strong>实际</strong>的作用，这个实际体现在，他是程序员对编译器的一种承诺，我不会让这个函数返回的，你也别让他返回，只是一个提示、通知的作用，但是你要在函数里非要返回，编译器也不会在你返回的时候强行停止掉。that’s it.</p>
-<h3 id="Static-assert"><a href="#Static-assert" class="headerlink" title="_Static_assert"></a>_Static_assert</h3><p><a href="https://en.cppreference.com/w/c/error/static_assert" target="_blank" rel="noopener">cppreference</a></p>
+<h3 id="Static-assert"><a href="#Static-assert" class="headerlink" title="_Static_assert"></a>_Static_assert</h3><p><a href="https://en.cppreference.com/w/c/error/static_assert" rel="external nofollow noopener noreferrer" target="_blank">cppreference</a></p>
 <p>静态断言，如果第一个参数的值为false（可以输入一个表达式或者string），那么编译器会报出第二个string的错误，同时编译失败，如果第一个表达式的值为true的话没有任何影响。</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static_assert</span>(<span class="number">2</span> + <span class="number">2</span> == <span class="number">4</span>, <span class="string">"2+2 isn't 4"</span>);      <span class="comment">// well-formed</span></span><br><span class="line">    <span class="keyword">static_assert</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) &lt; <span class="keyword">sizeof</span>(<span class="keyword">char</span>),</span><br><span class="line">                 <span class="string">"this program requires that int is less than char"</span>); <span class="comment">// compile-time error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1045,43 +1148,22 @@ bottom: .4em;
       </tags>
   </entry>
   <entry>
-    <title>LeetCode Contest No.131</title>
-    <url>/archives/496db2cb.html</url>
-    <content><![CDATA[<h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
-<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧<del>~</del>错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。</p>
-<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" target="_blank" rel="noopener">删除最外层的括号</a></h3><p>1WA</p>
-<p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
-  <a id="more"></a>
-<h3 id="No-5017-从根到叶的二进制数之和"><a href="#No-5017-从根到叶的二进制数之和" class="headerlink" title="No.5017 从根到叶的二进制数之和"></a>No.5017 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/sum-of-root-to-leaf-binary-numbers/" target="_blank" rel="noopener">从根到叶的二进制数之和</a></h3><p>一开始初始值给错了，没有大问题。</p>
-<h3 id="No-5018-驼峰式匹配"><a href="#No-5018-驼峰式匹配" class="headerlink" title="No.5018 驼峰式匹配"></a>No.5018 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/camelcase-matching/" target="_blank" rel="noopener">驼峰式匹配</a></h3><p>居然，做到一半的时候，忘记题目了！！！</p>
-<p>做到一半的时候只记得要匹配对了就可以了，完全忘记了是只能插入小写字母，但是还好还好这道题给的测试用例比较全面，才通过了。</p>
-<p>另外可以多接触一下库啊，isupper这种函数的用法，多知道一些总是好事。</p>
-<h3 id="No-5019-视频拼接"><a href="#No-5019-视频拼接" class="headerlink" title="No.5019 视频拼接"></a>No.5019 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/video-stitching/" target="_blank" rel="noopener">视频拼接</a></h3><p>1WA</p>
-<p>完完全全忘记了那次错误提交是为什么，明明是昨天刚做过的题……</p>
-<p>嗯，那就没啥说的了</p>
-]]></content>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode Contest No.132</title>
     <url>/archives/d064e371.html</url>
     <content><![CDATA[<h2 id="Contest-132"><a href="#Contest-132" class="headerlink" title="Contest 132"></a>Contest 132</h2><p>通过：3/4  排名：99/1047  0:59:44  1WA</p>
 <p>最后一道题规定时间内没有做出来，超时7分钟做出来的，无错误提交（似乎）。</p>
 <p>这次竞赛感觉看完题都比较虚，但是其实做题之后的效果比预想的好，虽然最后一道题规定时间内没有做出来，但是感觉可以接受，也是很久没有出过 hard 的题目了，这次的 hard 题目实现的相当的。。。。复杂且乱，但是能做出来就是好事。</p>
-<h3 id="No-5024-除数博弈"><a href="#No-5024-除数博弈" class="headerlink" title="No.5024 除数博弈"></a>No.5024 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/divisor-game/" target="_blank" rel="noopener">除数博弈</a></h3><p>1WA</p>
+<h3 id="No-5024-除数博弈"><a href="#No-5024-除数博弈" class="headerlink" title="No.5024 除数博弈"></a>No.5024 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/divisor-game/" rel="external nofollow noopener noreferrer" target="_blank">除数博弈</a></h3><p>1WA</p>
 <p>看到这个题，感觉可能是动态规划后，第一个想法：动态规划都是简单的题了啊！</p>
 <p>是的，这道题还花了整整20分钟才做出来，感觉其中十分钟浪费在了不可置信上和另外一些事情上。。。这次做竞赛太不专心了，批评一下自己，竞赛还是要好好做的。</p>
 <p>实现思路上没啥可说的，就是动态规划的思路，从小到大依次遍历所有约数对应的<code>N-x</code>的值，所有约数全部为 true 的时候，这时无论先手做如何操作，对方都是必胜的情况，所以这时的 N 为 false ，其余所有情况均为 true ，只需要在每一步操作时将 N 的值变为对应的 false 的 <code>N-x</code> 的值即可。</p>
   <a id="more"></a>
-<h3 id="No-5030-节点与其祖先之间的最大差值"><a href="#No-5030-节点与其祖先之间的最大差值" class="headerlink" title="No.5030 节点与其祖先之间的最大差值"></a>No.5030 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/maximum-difference-between-node-and-ancestor/" target="_blank" rel="noopener">节点与其祖先之间的最大差值</a></h3><p>一开始脑袋有点乱，想用 pair&lt;int,int&gt; 去实现同时寻找最大值最小值，但是思路一直没有理顺，抱着这次竞赛就放弃了的态度（。。。。）就想着先只写一个 max 吧，很快完成之后，同样的方法复制一份 min ，游戏结束。</p>
+<h3 id="No-5030-节点与其祖先之间的最大差值"><a href="#No-5030-节点与其祖先之间的最大差值" class="headerlink" title="No.5030 节点与其祖先之间的最大差值"></a>No.5030 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/maximum-difference-between-node-and-ancestor/" rel="external nofollow noopener noreferrer" target="_blank">节点与其祖先之间的最大差值</a></h3><p>一开始脑袋有点乱，想用 pair&lt;int,int&gt; 去实现同时寻找最大值最小值，但是思路一直没有理顺，抱着这次竞赛就放弃了的态度（。。。。）就想着先只写一个 max 吧，很快完成之后，同样的方法复制一份 min ，游戏结束。</p>
 <p>思路：后序遍历，先左后右找最大最小值，然后向上计算最大差值，重复循环即可。</p>
 <p>注：这里的最大最小值是需要跟着遍历走的，而且必须是后序遍历，这样才不会左右子树之间的最大最小值互串。</p>
-<h3 id="No-5025-最长等差数列"><a href="#No-5025-最长等差数列" class="headerlink" title="No.5025 最长等差数列"></a>No.5025 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/longest-arithmetic-sequence/" target="_blank" rel="noopener">最长等差数列</a></h3><p>最没想到的一道题，看完题目毫无思路，而且感觉以前见过类似的题，但是没有做，也没有去找答案怎么实现，感觉自己栽在了自己的手上。按照上一道题的破罐子破摔的思路，想着就用朴素方法做吧，最后一道 hard 的题目看着也不面善，这个至少朴素方法的思路还是有的，甚至实现后都没怎么跑例子测试，没想到直接通过了。思路也没啥思路，暴力搜索。</p>
+<h3 id="No-5025-最长等差数列"><a href="#No-5025-最长等差数列" class="headerlink" title="No.5025 最长等差数列"></a>No.5025 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/longest-arithmetic-sequence/" rel="external nofollow noopener noreferrer" target="_blank">最长等差数列</a></h3><p>最没想到的一道题，看完题目毫无思路，而且感觉以前见过类似的题，但是没有做，也没有去找答案怎么实现，感觉自己栽在了自己的手上。按照上一道题的破罐子破摔的思路，想着就用朴素方法做吧，最后一道 hard 的题目看着也不面善，这个至少朴素方法的思路还是有的，甚至实现后都没怎么跑例子测试，没想到直接通过了。思路也没啥思路，暴力搜索。</p>
 <p>TODO: 认真去看看别人的实现，回来写一下思路。</p>
-<h3 id="No-5031-从先序遍历还原二叉树"><a href="#No-5031-从先序遍历还原二叉树" class="headerlink" title="No.5031 从先序遍历还原二叉树"></a>No.5031 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/recover-a-tree-from-preorder-traversal/" target="_blank" rel="noopener">从先序遍历还原二叉树</a></h3><p>好可惜的题，有了思路之后只剩下不到二十分钟了，然后最后快到时的时候其实主要思路也完成了，缺少一个判断，没有理清楚逻辑放在哪里，生生拖到七分钟。</p>
+<h3 id="No-5031-从先序遍历还原二叉树"><a href="#No-5031-从先序遍历还原二叉树" class="headerlink" title="No.5031 从先序遍历还原二叉树"></a>No.5031 <a href="https://leetcode-cn.com/contest/weekly-contest-132/problems/recover-a-tree-from-preorder-traversal/" rel="external nofollow noopener noreferrer" target="_blank">从先序遍历还原二叉树</a></h3><p>好可惜的题，有了思路之后只剩下不到二十分钟了，然后最后快到时的时候其实主要思路也完成了，缺少一个判断，没有理清楚逻辑放在哪里，生生拖到七分钟。</p>
 <p>字符串！字符串！字符串！重要的事情，唉，说三遍也不管用，不知道第几次栽在字符串上面了，但是我的字符串水平还是停留在磕磕绊绊能实现上。用了一个超复杂的方式把原始字符串的数据整齐的摆放在了一个 vector&lt;pair&lt;int,int&gt;&gt; 当中，嗯，是我做事情的风格，东西要摆整齐。后面遍历问题倒是不大。</p>
 <p>用一个 stack 保存当前处理的 TreeNode 节点，并留一个变量保存当前深度，对每一个新的数字，判断深度的关系:。情况1：如果新数是当前节点的下一层，判断当前节点的左子树是否为空，为空的话放在左子树，否则放在右子树。情况2：如果新数是当前节点的层数或者更高层，从 stack 中取出上一个保存的节点，并且深度-1，直到满足情况1为止。情况3：如果新数是当前节点的下一层以下，将当前处理的节点推入 stack 中，并且深度+1，这时需要判断当前节点的右子树是否为空 ，如果为空的话当前节点等于当前节点的左子树，否则为当前节点的右子树，直到满足情况1为止。</p>
 <p>看到这里，我居然又忘记为什么这么判断了，唔，应该是因为原始数据为先序遍历的结果，所以新数如果比当前节点的子节点更深的话，有两种情况。一种是先序遍历的左子树，这时候左子树有值，右子树为空，那下一个处理的节点必定为左子树。另一种情况是之前经过了情况2后当前处理的节点上升到了该层，这时候当前层的左子树已经处理完毕了， 所以如果右子树不为空的话，当前要处理的必定在右子树内。</p>
@@ -1096,23 +1178,20 @@ bottom: .4em;
       </tags>
   </entry>
   <entry>
-    <title>LeetCode Contest No.130</title>
-    <url>/archives/3e6a825d.html</url>
-    <content><![CDATA[<h2 id="Contest-130"><a href="#Contest-130" class="headerlink" title="Contest 130"></a>Contest 130</h2><p>通过：4/4  排名：59/1293  1:58:42  6WA</p>
-<h3 id="No-1018-可被-5-整除的二进制前缀"><a href="#No-1018-可被-5-整除的二进制前缀" class="headerlink" title="No.1018 可被 5 整除的二进制前缀"></a>No.1018 <a href="https://leetcode-cn.com/problems/binary-prefix-divisible-by-5/" target="_blank" rel="noopener">可被 5 整除的二进制前缀</a></h3><p>思考过多，还在想那样做对不对，做的太少所以对题目类型不熟悉。</p>
-<h3 id="No-1017-负二进制转换"><a href="#No-1017-负二进制转换" class="headerlink" title="No.1017 负二进制转换"></a>No.1017 <a href="https://leetcode-cn.com/problems/convert-to-base-2/" target="_blank" rel="noopener">负二进制转换</a></h3><p>2WA</p>
-<p>emmmmmm，这道题怎么就过了呢。。。</p>
-<p>思考过程：用几个数字尝试拼凑了一下，感觉上是要拼凑到最近的2的幂次上去，但是并没有找到绝对的规律。</p>
-<p>然后发现某一位数字可以通过其他位来拼凑，如<img src="https://latex.codecogs.com/gif.latex?(2)^1=(-2)^2+(-2)^1">，然后将原始数字以4进制做拆分，再由低位至高位依次处理大于1的情况。例如：<img src="https://latex.codecogs.com/gif.latex?9=1&#x5C;times(-2)^0+2&#x5C;times(-2)^2">，负二进制表示为<code>201</code>，然后从低位到高位，分别处理2、3、4的情况，<code>200</code> 和 <code>11000</code> 相等，<code>300</code> 和 <code>11100</code>相等， <code>400</code> 和 <code>10000</code> 相等。最后即可得到结果。（好麻烦啊）</p>
-<pre><code>&lt;!-- more --&gt;</code></pre><p>看了一下别人的回答，类似于二进制转换，得到 %2 后再进行 /2 的操作。区别只是在奇数位时+1而不是-1。不知道如何证明这样是正确的，但是感觉上是正确的，嗯。不懂得东西先记住就好了。</p>
-<p>另外还有一点思考，如何证明负二进制是可以表示所有数字的呢，类似的，负三进制是否可以，负四进制是否可以，待求证。</p>
-<h3 id="No-1019-链表中的下一个更大节点"><a href="#No-1019-链表中的下一个更大节点" class="headerlink" title="No.1019 链表中的下一个更大节点"></a>No.1019 <a href="https://leetcode-cn.com/problems/next-greater-node-in-linked-list/" target="_blank" rel="noopener">链表中的下一个更大节点</a></h3><p>1WA</p>
-<p>以前做过一道类似的题，维护一个栈，当下一个数字比栈顶的数字大时，取出栈顶的数字并记录，否则将下一个数字入栈，全部循环后若栈内还有数字，均输出0。</p>
-<p>这道题对比了一下我的做法和别人的，思路是一样的，但是代码量差距很大，自己在这种问题的边界条件和条件分类处理上有点死板和脑袋不清楚，所以代码量大，代码思路也不是十分清晰，还需要多多练习。</p>
-<h3 id="No-1020-飞地的数量"><a href="#No-1020-飞地的数量" class="headerlink" title="No.1020 飞地的数量"></a>No.1020 <a href="https://leetcode-cn.com/problems/number-of-enclaves/" target="_blank" rel="noopener">飞地的数量</a></h3><p>3WA</p>
-<p>前面大量时间浪费在了一个错误的思路上，第一反应是和做过的类似，进行一个DFS的遍历，遍历每一个“陆地”，然后向四个方向去搜索，看是否能够找到依然是陆地并接触到边界，如果能，那么不是飞地，如果不能，是飞地，然后标记，进行计数。后来发现越做思路越乱，且复杂，在进行深度搜索的时候还需要维护一个表去标记该地是否是已经搜索过的，极度复杂。然后转回去做第二题，做第二题的途中想到，应该反向去搜索，从接触边界的陆地进行深度搜索，每个搜索过的陆地都进行标记，为不是飞地的陆地，全部搜索遍历结束后，再进行遍历计数。</p>
-<p>两个可优化的点：一个是根据看别人的代码发现，我是使用迭代进行深度搜索的，有人是使用一个 queue，需要进行搜索的陆地都推入 queue 中，在搜索过程中新搜索到的相邻的不是飞地的地也推入 queue 中，直至整个 queue 清空为止，感觉这种方法思路更加清晰一些，下次做到类似的题需要尝试一下。</p>
-<p>另外一个是搜索上下左右四个方向的时候，建立一个数组 <code>[[0,1],[0,-1],[1,0],[-1,0]]</code>，然后对每个点循环加这四个变量即可，这种方法在前面做题过程中有见到提过，但是自己仍然没有用过，后面遇到一样的题也是需要尝试一下使用这种方法实现。</p>
+    <title>LeetCode Contest No.131</title>
+    <url>/archives/496db2cb.html</url>
+    <content><![CDATA[<h2 id="Contest-131"><a href="#Contest-131" class="headerlink" title="Contest 131"></a>Contest 131</h2><p>通过：4/4  排名：44/917  1:10:59  2WA</p>
+<p>这次竞赛整体感觉难度一般，基本看到题目后直接就有思路，看了看其他人的做法，基本上思路一样。但是依旧<del>~</del>错的多、逻辑复杂、做题的时候感觉考虑清楚了但是做的时候细节还是有没考虑到的地方。速度嘛，不要求了，目前的目的还是能做出来吧。</p>
+<h3 id="No-5016-删除最外层的括号"><a href="#No-5016-删除最外层的括号" class="headerlink" title="No.5016 删除最外层的括号"></a>No.5016 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/remove-outermost-parentheses/" rel="external nofollow noopener noreferrer" target="_blank">删除最外层的括号</a></h3><p>1WA</p>
+<p>一开始使用迭代器进行 string 的遍历，然后在测试的时候，有时候测试结果是正确的，有时候是 out of range，最后也没有发现是什么原因，就先去做剩下三个题了，回来之后改成循环数字下标就好了，可能是最后一个位置超出了 string 的长度，以后还是多用下标比较合适，除非循环内要做的工作比较简单。</p>
+  <a id="more"></a>
+<h3 id="No-5017-从根到叶的二进制数之和"><a href="#No-5017-从根到叶的二进制数之和" class="headerlink" title="No.5017 从根到叶的二进制数之和"></a>No.5017 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/sum-of-root-to-leaf-binary-numbers/" rel="external nofollow noopener noreferrer" target="_blank">从根到叶的二进制数之和</a></h3><p>一开始初始值给错了，没有大问题。</p>
+<h3 id="No-5018-驼峰式匹配"><a href="#No-5018-驼峰式匹配" class="headerlink" title="No.5018 驼峰式匹配"></a>No.5018 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/camelcase-matching/" rel="external nofollow noopener noreferrer" target="_blank">驼峰式匹配</a></h3><p>居然，做到一半的时候，忘记题目了！！！</p>
+<p>做到一半的时候只记得要匹配对了就可以了，完全忘记了是只能插入小写字母，但是还好还好这道题给的测试用例比较全面，才通过了。</p>
+<p>另外可以多接触一下库啊，isupper这种函数的用法，多知道一些总是好事。</p>
+<h3 id="No-5019-视频拼接"><a href="#No-5019-视频拼接" class="headerlink" title="No.5019 视频拼接"></a>No.5019 <a href="https://leetcode-cn.com/contest/weekly-contest-131/problems/video-stitching/" rel="external nofollow noopener noreferrer" target="_blank">视频拼接</a></h3><p>1WA</p>
+<p>完完全全忘记了那次错误提交是为什么，明明是昨天刚做过的题……</p>
+<p>嗯，那就没啥说的了</p>
 ]]></content>
       <tags>
         <tag>Algorithm</tag>
@@ -1122,11 +1201,35 @@ bottom: .4em;
   <entry>
     <title>智能指针</title>
     <url>/archives/38a918c7.html</url>
-    <content><![CDATA[<p><a href="https://www.cnblogs.com/TenosDoIt/p/3456704.html" target="_blank" rel="noopener">https://www.cnblogs.com/TenosDoIt/p/3456704.html</a></p>
+    <content><![CDATA[<p><a href="https://www.cnblogs.com/TenosDoIt/p/3456704.html" rel="external nofollow noopener noreferrer" target="_blank">https://www.cnblogs.com/TenosDoIt/p/3456704.html</a></p>
 ]]></content>
       <tags>
-        <tag>Conception</tag>
         <tag>C++</tag>
+        <tag>Conception</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LeetCode Contest No.130</title>
+    <url>/archives/3e6a825d.html</url>
+    <content><![CDATA[<h2 id="Contest-130"><a href="#Contest-130" class="headerlink" title="Contest 130"></a>Contest 130</h2><p>通过：4/4  排名：59/1293  1:58:42  6WA</p>
+<h3 id="No-1018-可被-5-整除的二进制前缀"><a href="#No-1018-可被-5-整除的二进制前缀" class="headerlink" title="No.1018 可被 5 整除的二进制前缀"></a>No.1018 <a href="https://leetcode-cn.com/problems/binary-prefix-divisible-by-5/" rel="external nofollow noopener noreferrer" target="_blank">可被 5 整除的二进制前缀</a></h3><p>思考过多，还在想那样做对不对，做的太少所以对题目类型不熟悉。</p>
+<h3 id="No-1017-负二进制转换"><a href="#No-1017-负二进制转换" class="headerlink" title="No.1017 负二进制转换"></a>No.1017 <a href="https://leetcode-cn.com/problems/convert-to-base-2/" rel="external nofollow noopener noreferrer" target="_blank">负二进制转换</a></h3><p>2WA</p>
+<p>emmmmmm，这道题怎么就过了呢。。。</p>
+<p>思考过程：用几个数字尝试拼凑了一下，感觉上是要拼凑到最近的2的幂次上去，但是并没有找到绝对的规律。</p>
+<p>然后发现某一位数字可以通过其他位来拼凑，如<img src="https://latex.codecogs.com/gif.latex?(2)^1=(-2)^2+(-2)^1">，然后将原始数字以4进制做拆分，再由低位至高位依次处理大于1的情况。例如：<img src="https://latex.codecogs.com/gif.latex?9=1&#x5C;times(-2)^0+2&#x5C;times(-2)^2">，负二进制表示为<code>201</code>，然后从低位到高位，分别处理2、3、4的情况，<code>200</code> 和 <code>11000</code> 相等，<code>300</code> 和 <code>11100</code>相等， <code>400</code> 和 <code>10000</code> 相等。最后即可得到结果。（好麻烦啊）</p>
+<pre><code>&lt;!-- more --&gt;</code></pre><p>看了一下别人的回答，类似于二进制转换，得到 %2 后再进行 /2 的操作。区别只是在奇数位时+1而不是-1。不知道如何证明这样是正确的，但是感觉上是正确的，嗯。不懂得东西先记住就好了。</p>
+<p>另外还有一点思考，如何证明负二进制是可以表示所有数字的呢，类似的，负三进制是否可以，负四进制是否可以，待求证。</p>
+<h3 id="No-1019-链表中的下一个更大节点"><a href="#No-1019-链表中的下一个更大节点" class="headerlink" title="No.1019 链表中的下一个更大节点"></a>No.1019 <a href="https://leetcode-cn.com/problems/next-greater-node-in-linked-list/" rel="external nofollow noopener noreferrer" target="_blank">链表中的下一个更大节点</a></h3><p>1WA</p>
+<p>以前做过一道类似的题，维护一个栈，当下一个数字比栈顶的数字大时，取出栈顶的数字并记录，否则将下一个数字入栈，全部循环后若栈内还有数字，均输出0。</p>
+<p>这道题对比了一下我的做法和别人的，思路是一样的，但是代码量差距很大，自己在这种问题的边界条件和条件分类处理上有点死板和脑袋不清楚，所以代码量大，代码思路也不是十分清晰，还需要多多练习。</p>
+<h3 id="No-1020-飞地的数量"><a href="#No-1020-飞地的数量" class="headerlink" title="No.1020 飞地的数量"></a>No.1020 <a href="https://leetcode-cn.com/problems/number-of-enclaves/" rel="external nofollow noopener noreferrer" target="_blank">飞地的数量</a></h3><p>3WA</p>
+<p>前面大量时间浪费在了一个错误的思路上，第一反应是和做过的类似，进行一个DFS的遍历，遍历每一个“陆地”，然后向四个方向去搜索，看是否能够找到依然是陆地并接触到边界，如果能，那么不是飞地，如果不能，是飞地，然后标记，进行计数。后来发现越做思路越乱，且复杂，在进行深度搜索的时候还需要维护一个表去标记该地是否是已经搜索过的，极度复杂。然后转回去做第二题，做第二题的途中想到，应该反向去搜索，从接触边界的陆地进行深度搜索，每个搜索过的陆地都进行标记，为不是飞地的陆地，全部搜索遍历结束后，再进行遍历计数。</p>
+<p>两个可优化的点：一个是根据看别人的代码发现，我是使用迭代进行深度搜索的，有人是使用一个 queue，需要进行搜索的陆地都推入 queue 中，在搜索过程中新搜索到的相邻的不是飞地的地也推入 queue 中，直至整个 queue 清空为止，感觉这种方法思路更加清晰一些，下次做到类似的题需要尝试一下。</p>
+<p>另外一个是搜索上下左右四个方向的时候，建立一个数组 <code>[[0,1],[0,-1],[1,0],[-1,0]]</code>，然后对每个点循环加这四个变量即可，这种方法在前面做题过程中有见到提过，但是自己仍然没有用过，后面遇到一样的题也是需要尝试一下使用这种方法实现。</p>
+]]></content>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -1168,8 +1271,8 @@ bottom: .4em;
 </ol>
 ]]></content>
       <tags>
-        <tag>Embedded</tag>
         <tag>Conception</tag>
+        <tag>Embedded</tag>
       </tags>
   </entry>
   <entry>
@@ -1449,11 +1552,11 @@ pre[data-line] .line-highlight[data-end]:after {
 
 <p>(&#x5947;&#x602A;&#xFF0C;&#x8FD9;&#x4EBA;&#x600E;&#x4E48;&#x53C8;&#x5F00;&#x59CB;&#x7528;python&#x5199;&#x4E86;</p>
 
-<h2 class="mume-header" id="problem-31-coin-sumshttpsprojecteulernetproblem31"><a href="https://projecteuler.net/problem=31" target="_blank" rel="noopener">Problem 31: Coin sums</a></h2>
+<h2 class="mume-header" id="problem-31-coin-sumshttpsprojecteulernetproblem31"><a href="https://projecteuler.net/problem=31" rel="external nofollow noopener noreferrer" target="_blank">Problem 31: Coin sums</a></h2>
 
 <p>&#x55EF;&#x3002;&#x3002;&#x633A;&#x7ECF;&#x5178;&#x633A;&#x5E38;&#x89C1;&#x7684;&#x5B8C;&#x5168;&#x80CC;&#x5305;DP&#x95EE;&#x9898;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x6EE1;&#x8111;&#x5B50;&#x4E0D;&#x77E5;&#x9053;&#x5728;&#x60F3;&#x4EC0;&#x4E48;&#xFF0C;&#x6123;&#x662F;&#x6CA1;&#x505A;&#x51FA;&#x6765;&#xFF0C;&#x540E;&#x6765;&#x770B;&#x4E86;&#x770B;&#x522B;&#x4EBA;&#x7684;&#x63D0;&#x793A;&#x624D;&#x60F3;&#x5230;&#x5E94;&#x8BE5;&#x6309;&#x7167;&#x786C;&#x5E01;&#x79CD;&#x7C7B;&#x53BB;&#x5FAA;&#x73AF;&#x3002;&#x4E00;&#x76F4;&#x5728;&#x60F3;&#x600E;&#x4E48;&#x53BB;&#x5904;&#x7406;&#x91CD;&#x590D;&#x7684;&#x60C5;&#x51B5;&#x3002;</p>
-<p><a href="https://projecteuler.net/overview=031" target="_blank" rel="noopener">&#x8FD9;&#x91CC;</a>&#x662F;&#x8FD9;&#x9053;&#x9898;&#x7684;&#x8BE6;&#x7EC6;&#x89E3;&#x91CA;<br>
-<a href="https://blog.csdn.net/na_beginning/article/details/62884939" target="_blank" rel="noopener">&#x8FD9;&#x91CC;</a>&#x662F;&#x5B8C;&#x5168;&#x80CC;&#x5305;&#x3001;01&#x80CC;&#x5305;&#x3001;&#x591A;&#x91CD;&#x80CC;&#x5305;&#x7684;&#x6BD4;&#x8F83;&#x7684;&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF08;&#x6211;&#x6CA1;&#x770B;</p>
+<p><a href="https://projecteuler.net/overview=031" rel="external nofollow noopener noreferrer" target="_blank">&#x8FD9;&#x91CC;</a>&#x662F;&#x8FD9;&#x9053;&#x9898;&#x7684;&#x8BE6;&#x7EC6;&#x89E3;&#x91CA;<br>
+<a href="https://blog.csdn.net/na_beginning/article/details/62884939" rel="external nofollow noopener noreferrer" target="_blank">&#x8FD9;&#x91CC;</a>&#x662F;&#x5B8C;&#x5168;&#x80CC;&#x5305;&#x3001;01&#x80CC;&#x5305;&#x3001;&#x591A;&#x91CD;&#x80CC;&#x5305;&#x7684;&#x6BD4;&#x8F83;&#x7684;&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF08;&#x6211;&#x6CA1;&#x770B;</p>
   <a id="more"></a>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro31</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token comment"># &#x5B8C;&#x5168;&#x80CC;&#x5305;DP</span>
@@ -1465,7 +1568,7 @@ pre[data-line] .line-highlight[data-end]:after {
             <span class="token keyword">if</span> i <span class="token operator">&gt;=</span> k<span class="token punctuation">:</span>
                 methods<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+=</span> methods<span class="token punctuation">[</span>i<span class="token operator">-</span>k<span class="token punctuation">]</span>
     <span class="token keyword">print</span><span class="token punctuation">(</span>methods<span class="token punctuation">[</span><span class="token number">200</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-32-pandigital-productshttpsprojecteulernetproblem32"><a href="https://projecteuler.net/problem=32" target="_blank" rel="noopener">Problem 32: Pandigital products</a></h2>
+</pre><h2 class="mume-header" id="problem-32-pandigital-productshttpsprojecteulernetproblem32"><a href="https://projecteuler.net/problem=32" rel="external nofollow noopener noreferrer" target="_blank">Problem 32: Pandigital products</a></h2>
 
 <p>&#x5F88;&#x8822;&#x7684;&#x4E00;&#x4E2A;&#x505A;&#x6CD5;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x53BB;&#x904D;&#x5386;&#x5224;&#x65AD;&#x7684;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro32</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -1503,7 +1606,7 @@ pre[data-line] .line-highlight[data-end]:after {
                             <span class="token keyword">if</span> i <span class="token keyword">not</span> <span class="token keyword">in</span> out<span class="token punctuation">:</span>
                                 out <span class="token operator">+=</span> <span class="token punctuation">[</span>i<span class="token punctuation">]</span>
     <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">sum</span><span class="token punctuation">(</span>out<span class="token punctuation">)</span><span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-33-digit-cancelling-fractionshttpsprojecteulernetproblem3"><a href="https://projecteuler.net/problem=3" target="_blank" rel="noopener">Problem 33: Digit cancelling fractions</a></h2>
+</pre><h2 class="mume-header" id="problem-33-digit-cancelling-fractionshttpsprojecteulernetproblem3"><a href="https://projecteuler.net/problem=3" rel="external nofollow noopener noreferrer" target="_blank">Problem 33: Digit cancelling fractions</a></h2>
 
 <p>&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x7B2C;&#x4E00;&#x6B21;&#x8003;&#x8651;&#x7684;&#x65F6;&#x5019;&#x8003;&#x8651;&#x9519;&#x4E86;&#xFF0C;&#x4EE5;&#x4E3A;&#x5206;&#x5B50;&#x548C;&#x5206;&#x6BCD;&#x76F8;&#x540C;&#x7684;&#x6570;&#x5B57;&#x80AF;&#x5B9A;&#x4E00;&#x4E2A;&#x5728;&#x5341;&#x4F4D;&#x4E00;&#x4E2A;&#x5728;&#x4E2A;&#x4F4D;&#x7684;&#xFF0C;&#x5BFC;&#x81F4;&#x4E00;&#x5F00;&#x59CB;&#x7B54;&#x6848;&#x662F;&#x9519;&#x8BEF;&#x7684;&#x3002;&#x5176;&#x5B9E;&#x53EF;&#x4EE5;&#x5728;&#x5916;&#x5C42;&#x5FAA;&#x73AF;&#x589E;&#x52A0;&#x4E00;&#x4E9B;&#x5224;&#x65AD;&#xFF0C;&#x8FD9;&#x6837;&#x901F;&#x5EA6;&#x4F1A;&#x5FEB;&#x4E00;&#x4E9B;&#x3002;&#x3002;&#x3002;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro33</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -1517,7 +1620,7 @@ pre[data-line] .line-highlight[data-end]:after {
                     <span class="token keyword">elif</span> k <span class="token operator">%</span> <span class="token number">10</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span>
                         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>i <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span>j<span class="token punctuation">,</span> <span class="token string">&apos;&apos;</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> i<span class="token operator">/</span>k<span class="token punctuation">:</span>
                             <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;%d %d&quot;</span> <span class="token operator">%</span> <span class="token punctuation">(</span>i<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-34-digit-factorialshttpsprojecteulernetproblem34"><a href="https://projecteuler.net/problem=34" target="_blank" rel="noopener">Problem 34: Digit factorials</a></h2>
+</pre><h2 class="mume-header" id="problem-34-digit-factorialshttpsprojecteulernetproblem34"><a href="https://projecteuler.net/problem=34" rel="external nofollow noopener noreferrer" target="_blank">Problem 34: Digit factorials</a></h2>
 
 <p>&#x7B97;&#x5C31;&#x5BF9;&#x4E86;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro34</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -1532,7 +1635,7 @@ pre[data-line] .line-highlight[data-end]:after {
             <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
             out <span class="token operator">+=</span> i
     <span class="token keyword">print</span><span class="token punctuation">(</span>out<span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-35-circular-primeshttpsprojecteulernetproblem35"><a href="https://projecteuler.net/problem=35" target="_blank" rel="noopener">Problem 35: Circular primes</a></h2>
+</pre><h2 class="mume-header" id="problem-35-circular-primeshttpsprojecteulernetproblem35"><a href="https://projecteuler.net/problem=35" rel="external nofollow noopener noreferrer" target="_blank">Problem 35: Circular primes</a></h2>
 
 <p>&#x904D;&#x5386;&#xFF0C;&#x5224;&#x65AD;&#x8D28;&#x6570;&#x7684;&#x7A0B;&#x5E8F;&#x53C8;&#x5199;&#x4E86;python&#x7248;&#x7684;&#xFF0C;&#x5728;&#x6700;&#x540E;&#x8D34;&#x4E0A;&#x6765;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro35</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -1551,7 +1654,7 @@ pre[data-line] .line-highlight[data-end]:after {
                 <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
                 out <span class="token operator">+=</span> <span class="token number">1</span>
     <span class="token keyword">print</span><span class="token punctuation">(</span>out<span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-36-double-base-palindromeshttpsprojecteulernetproblem36"><a href="https://projecteuler.net/problem=36" target="_blank" rel="noopener">Problem 36: Double-base palindromes</a></h2>
+</pre><h2 class="mume-header" id="problem-36-double-base-palindromeshttpsprojecteulernetproblem36"><a href="https://projecteuler.net/problem=36" rel="external nofollow noopener noreferrer" target="_blank">Problem 36: Double-base palindromes</a></h2>
 
 <p>&#x904D;&#x5386;&#xFF0C;&#x4E0D;&#x8BB2;&#xFF08;&#x4E0D;&#x8FC7;python&#x786E;&#x5B9E;&#x884C;&#x6570;&#x5C11;&#x5F88;&#x591A;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro36</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -1564,7 +1667,7 @@ pre[data-line] .line-highlight[data-end]:after {
                 <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
                 out <span class="token operator">+=</span> i
     <span class="token keyword">print</span><span class="token punctuation">(</span>out<span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-37-truncatable-primeshttpsprojecteulernetproblem37"><a href="https://projecteuler.net/problem=37" target="_blank" rel="noopener">Problem 37: Truncatable primes</a></h2>
+</pre><h2 class="mume-header" id="problem-37-truncatable-primeshttpsprojecteulernetproblem37"><a href="https://projecteuler.net/problem=37" rel="external nofollow noopener noreferrer" target="_blank">Problem 37: Truncatable primes</a></h2>
 
 <p>&#x904D;&#x5386;&#x3002;&#x3002;&#x3002;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro37</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -1583,7 +1686,7 @@ pre[data-line] .line-highlight[data-end]:after {
                 <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
                 out <span class="token operator">+=</span> i
     <span class="token keyword">print</span><span class="token punctuation">(</span>out<span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-38-pandigital-multipleshttpsprojecteulernetproblem38"><a href="https://projecteuler.net/problem=38" target="_blank" rel="noopener">Problem 38: Pandigital multiples</a></h2>
+</pre><h2 class="mume-header" id="problem-38-pandigital-multipleshttpsprojecteulernetproblem38"><a href="https://projecteuler.net/problem=38" rel="external nofollow noopener noreferrer" target="_blank">Problem 38: Pandigital multiples</a></h2>
 
 <p>&#x540C;&#x4E0A;&#x3002;&#x3002;&#x3002;&#xFF08;&#x8FD9;&#x6B21;&#x9898;&#x6CA1;&#x6709;&#x597D;&#x73A9;&#x7684;&#x5440;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro38</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -1609,7 +1712,7 @@ pre[data-line] .line-highlight[data-end]:after {
             leng <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
             <span class="token keyword">if</span> <span class="token punctuation">(</span>leng <span class="token operator">==</span> <span class="token number">9</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token number">0</span> <span class="token keyword">not</span> <span class="token keyword">in</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
                 <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-39-integer-right-triangleshttpsprojecteulernetproblem39"><a href="https://projecteuler.net/problem=39" target="_blank" rel="noopener">Problem 39: Integer right triangles</a></h2>
+</pre><h2 class="mume-header" id="problem-39-integer-right-triangleshttpsprojecteulernetproblem39"><a href="https://projecteuler.net/problem=39" rel="external nofollow noopener noreferrer" target="_blank">Problem 39: Integer right triangles</a></h2>
 
 <p>&#x904D;&#x5386;&#x3002;&#x3002;&#xFF0C;&#x8FD9;&#x4E2A;&#x9898;&#x5224;&#x65AD;&#x6761;&#x4EF6;&#x53EF;&#x4EE5;&#x4ED4;&#x7EC6;&#x601D;&#x8003;&#x4E00;&#x4E0B;&#xFF0C;&#x80FD;&#x8282;&#x7EA6;&#x5F88;&#x591A;&#x65E0;&#x6548;&#x7684;&#x8BA1;&#x7B97;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro39</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -1627,7 +1730,7 @@ pre[data-line] .line-highlight[data-end]:after {
             solution <span class="token operator">=</span> so
             out <span class="token operator">=</span> p
     <span class="token keyword">print</span><span class="token punctuation">(</span>out<span class="token punctuation">)</span>
-</pre><h2 class="mume-header" id="problem-40-champernownes-constanthttpsprojecteulernetproblem40"><a href="https://projecteuler.net/problem=40" target="_blank" rel="noopener">Problem 40: Champernowne&apos;s constant</a></h2>
+</pre><h2 class="mume-header" id="problem-40-champernownes-constanthttpsprojecteulernetproblem40"><a href="https://projecteuler.net/problem=40" rel="external nofollow noopener noreferrer" target="_blank">Problem 40: Champernowne&apos;s constant</a></h2>
 
 <p>&#x8822;&#x904D;&#x5386;</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">pro40</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -1965,7 +2068,7 @@ pre[data-line] .line-highlight[data-end]:after {
 
 <p>&#x7EE7;&#x7EED;&#x4E0A;&#x4E00;&#x6B21;&#x7684;Project Euler&#x7684;&#x9898;&#x89E3;&#xFF0C;&#x4E0D;&#x89C1;&#x5F97;&#x6700;&#x4F18;&#xFF0C;&#x4E5F;&#x4E0D;&#x89C1;&#x5F97;&#x4F18;&#x96C5;&#xFF0C;&#x4F46;&#x662F;&#x7B54;&#x6848;&#x662F;&#x5BF9;&#x7684;&#xFF0C;&#x601D;&#x8DEF;&#x4E5F;&#x662F;&#x6CA1;&#x95EE;&#x9898;&#x7684;&#x3002;&#x8FD9;&#x6B21;&#x662F;21~30&#x9898;&#x3002;</p>
 
-<h2 class="mume-header" id="problem-21amicable-numbershttpsprojecteulernetproblem21"><a href="https://projecteuler.net/problem=21" target="_blank" rel="noopener">Problem 21:Amicable numbers</a></h2>
+<h2 class="mume-header" id="problem-21amicable-numbershttpsprojecteulernetproblem21"><a href="https://projecteuler.net/problem=21" rel="external nofollow noopener noreferrer" target="_blank">Problem 21:Amicable numbers</a></h2>
 
 <p>&#x5BF9;&#x4E8E;x&#xFF0C;&#x9664;&#x81EA;&#x5DF1;&#x4EE5;&#x5916;&#x7684;&#x56E0;&#x6570;&#x7684;&#x548C;&#x5B9A;&#x4E49;&#x4E3A;d(x)&#xFF0C;&#x6C42;&#x51FA;1000&#x4EE5;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x6EE1;&#x8DB3;<code>d(a)=d(b) &amp;&amp; a!=b</code>&#x7684;&#x6570;&#x5BF9;&#x5E76;&#x6C42;&#x548C;&#x3002;</p>
 <p>&#x904D;&#x5386;-&gt;&#x6C42;&#x6240;&#x6709;&#x56E0;&#x6570;-&gt;&#x6C42;&#x548C;&#x8BB0;&#x5F55;-&gt;&#x904D;&#x5386;&#x5224;&#x65AD;&#x5E76;&#x6C42;&#x548C;</p>
@@ -1993,7 +2096,7 @@ pre[data-line] .line-highlight[data-end]:after {
     <span class="token punctuation">}</span>
     cout <span class="token operator">&lt;&lt;</span> out <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre><h2 class="mume-header" id="problem-22names-scoreshttpsprojecteulernetproblem22"><a href="https://projecteuler.net/problem=22" target="_blank" rel="noopener">Problem 22:Names scores</a></h2>
+</pre><h2 class="mume-header" id="problem-22names-scoreshttpsprojecteulernetproblem22"><a href="https://projecteuler.net/problem=22" rel="external nofollow noopener noreferrer" target="_blank">Problem 22:Names scores</a></h2>
 
 <p>&#x6709;&#x4E00;&#x7FA4;&#x540D;&#x5B57;&#xFF0C;&#x8981;&#x6C42;&#x6392;&#x5E8F;&#xFF0C;&#x6392;&#x5E8F;&#x4E4B;&#x540E;&#x6BCF;&#x4E2A;&#x540D;&#x5B57;&#x7684;&#x6570;&#x5B57;&#x548C;&#x4E58;&#x4EE5;&#x4F4D;&#x6570;&#x518D;&#x6C42;&#x548C;&#x3002;<br>
 emmmmm&#xFF0C;&#x8FD9;&#x4E2A;&#x9898;&#x4F3C;&#x4E4E;&#x505A;&#x5F97;&#x6709;&#x4E00;&#x70B9;&#x70B9;&#x6284;&#x8FD1;&#x8DEF;&#xFF0C;&#x76F4;&#x63A5;STL&#x6392;&#x5E8F;&#xFF0C;&#x7136;&#x540E;&#x904D;&#x5386;&#x6C42;&#x548C;&#x5373;&#x53EF;&#x3002;</p>
@@ -2028,7 +2131,7 @@ emmmmm&#xFF0C;&#x8FD9;&#x4E2A;&#x9898;&#x4F3C;&#x4E4E;&#x505A;&#x5F97;&#x6709;&#
     <span class="token punctuation">}</span>
     cout <span class="token operator">&lt;&lt;</span> out <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre><h2 class="mume-header" id="problem-23non-abundant-sumshttpsprojecteulernetproblem23"><a href="https://projecteuler.net/problem=23" target="_blank" rel="noopener">Problem 23:Non-abundant sums</a></h2>
+</pre><h2 class="mume-header" id="problem-23non-abundant-sumshttpsprojecteulernetproblem23"><a href="https://projecteuler.net/problem=23" rel="external nofollow noopener noreferrer" target="_blank">Problem 23:Non-abundant sums</a></h2>
 
 <p>&#x5B8C;&#x7F8E;&#x6570;&#xFF0C;&#x9664;&#x4E86;&#x672C;&#x8EAB;&#x4EE5;&#x5916;&#x7684;&#x56E0;&#x6570;&#x7684;&#x548C;&#x7B49;&#x4E8E;&#x81EA;&#x8EAB;&#x3002;<br>
 deficient&#xFF0C;&#x56E0;&#x6570;&#x548C;&#x5C0F;&#x4E8E;&#x81EA;&#x8EAB;&#xFF1B;abundant&#xFF0C;&#x56E0;&#x6570;&#x548C;&#x5927;&#x4E8E;&#x81EA;&#x8EAB;&#x3002;<br>
@@ -2066,7 +2169,7 @@ deficient&#xFF0C;&#x56E0;&#x6570;&#x548C;&#x5C0F;&#x4E8E;&#x81EA;&#x8EAB;&#xFF1B
     <span class="token punctuation">}</span>
     cout <span class="token operator">&lt;&lt;</span> out <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre><h2 class="mume-header" id="problem-24lexicographic-permutationshttpsprojecteulernetproblem24"><a href="https://projecteuler.net/problem=24" target="_blank" rel="noopener">Problem 24:Lexicographic permutations</a></h2>
+</pre><h2 class="mume-header" id="problem-24lexicographic-permutationshttpsprojecteulernetproblem24"><a href="https://projecteuler.net/problem=24" rel="external nofollow noopener noreferrer" target="_blank">Problem 24:Lexicographic permutations</a></h2>
 
 <blockquote>
 <p>A permutation is an ordered arrangement of objects. For example, 3124 is one possible permutation of the digits 1, 2, 3 and 4. If all of the permutations are listed numerically or alphabetically, we call it lexicographic order. The lexicographic permutations of 0, 1 and 2 are:</p>
@@ -2092,7 +2195,7 @@ deficient&#xFF0C;&#x56E0;&#x6570;&#x548C;&#x5C0F;&#x4E8E;&#x81EA;&#x8EAB;&#xFF1B
     <span class="token punctuation">}</span>
     cout <span class="token operator">&lt;&lt;</span> out <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre><h2 class="mume-header" id="problem-251000-digit-fibonacci-numberhttpsprojecteulernetproblem25"><a href="https://projecteuler.net/problem=25" target="_blank" rel="noopener">Problem 25:1000-digit Fibonacci number</a></h2>
+</pre><h2 class="mume-header" id="problem-251000-digit-fibonacci-numberhttpsprojecteulernetproblem25"><a href="https://projecteuler.net/problem=25" rel="external nofollow noopener noreferrer" target="_blank">Problem 25:1000-digit Fibonacci number</a></h2>
 
 <p>&#x6C42;&#x7B2C;&#x51E0;&#x4E2A;&#x6590;&#x6CE2;&#x90A3;&#x5951;&#x6570;&#x5217;&#x7684;&#x503C;&#xFF0C;&#x62E5;&#x6709;1000&#x4F4D;&#x3002;</p>
 <p>&#x4F9D;&#x65E7;&#x7528;&#x4E4B;&#x524D;&#x5199;&#x7684;&#x5927;&#x6574;&#x6570;&#x52A0;&#x6CD5;</p>
@@ -2107,7 +2210,7 @@ deficient&#xFF0C;&#x56E0;&#x6570;&#x548C;&#x5C0F;&#x4E8E;&#x81EA;&#x8EAB;&#xFF1B
     <span class="token punctuation">}</span>
     cout <span class="token operator">&lt;&lt;</span> fib<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre><h2 class="mume-header" id="problem-26reciprocal-cycleshttpsprojecteulernetproblem26"><a href="https://projecteuler.net/problem=26" target="_blank" rel="noopener">Problem 26:Reciprocal cycles</a></h2>
+</pre><h2 class="mume-header" id="problem-26reciprocal-cycleshttpsprojecteulernetproblem26"><a href="https://projecteuler.net/problem=26" rel="external nofollow noopener noreferrer" target="_blank">Problem 26:Reciprocal cycles</a></h2>
 
 <p>&#x597D;&#x50CF;&#x4ED6;&#x4EEC;&#x7BA1;&#x8FD9;&#x4E2A;&#x4E1C;&#x897F;&#x53EB;&#x5FAA;&#x73AF;&#x8282;&#xFF0C;&#x90A3;&#x5C31;&#x662F;&#x6C42;1000&#x4EE5;&#x4E0B;&#x7684;&#x6570;&#x5B57;d&#xFF0C;&#x4F7F;&#x5F97;1/d&#x62E5;&#x6709;&#x6700;&#x957F;&#x5FAA;&#x73AF;&#x8282;&#x3002;<br>
 &#x7528;&#x6D6E;&#x70B9;&#x6570;&#x662F;&#x4E0D;&#x53EF;&#x80FD;&#x7684;&#x4E86;&#xFF0C;&#x7528;&#x811A;&#x6307;&#x5934;&#x60F3;&#x4E5F;&#x662F;&#x4E0D;&#x53EF;&#x80FD;&#x7684;&#x3002;&#x53EA;&#x80FD;&#x7528;&#x6A21;&#x62DF;&#x624B;&#x52A8;&#x9664;&#x6CD5;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x505A;&#x3002;&#x5F53;&#x9664;&#x4E0D;&#x5C3D;&#x7684;&#x65F6;&#x5019;&#x9664;&#x6570;&#x4E58;&#x4EE5;&#x5341;&#x5E76;&#x52A0;&#x4E00;&#x4F4D;&#x8BA1;&#x6570;&#x3002;<br>
@@ -2139,7 +2242,7 @@ deficient&#xFF0C;&#x56E0;&#x6570;&#x548C;&#x5C0F;&#x4E8E;&#x81EA;&#x8EAB;&#xFF1B
     cout <span class="token operator">&lt;&lt;</span> out <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
     cout <span class="token operator">&lt;&lt;</span> true_out <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre><h2 class="mume-header" id="problem-27quadratic-primeshttpsprojecteulernetproblem27"><a href="https://projecteuler.net/problem=27" target="_blank" rel="noopener">Problem 27:Quadratic primes</a></h2>
+</pre><h2 class="mume-header" id="problem-27quadratic-primeshttpsprojecteulernetproblem27"><a href="https://projecteuler.net/problem=27" rel="external nofollow noopener noreferrer" target="_blank">Problem 27:Quadratic primes</a></h2>
 
 <p>&#x66B4;&#x529B;&#x904D;&#x5386;&#xFF0C;&#x53E6;&#x5916;&#x8FD9;&#x91CC;&#x66F4;&#x65B0;&#x4E86;&#x4E00;&#x4E0B;&#x5224;&#x65AD;&#x8D28;&#x6570;&#x7684;&#x7A0B;&#x5E8F;&#xFF0C;&#x80FD;&#x5FEB;&#x4E00;&#x70B9;&#xFF0C;&#x4E5F;&#x8D34;&#x5728;&#x4E0B;&#x9762;&#x5427;&#x3002;<br>
 &#x4F46;&#x662F;&#x8FD9;&#x4E2A;&#x516C;&#x5F0F;&#x86EE;&#x6709;&#x610F;&#x601D;&#x7684;&#xFF0C;&#x60F3;&#x60F3;&#x8001;&#x4E00;&#x8F88;&#x7684;&#x6570;&#x5B66;&#x5BB6;&#x4EEC;&#x53EF;&#x80FD;&#x4E00;&#x4E2A;&#x5947;&#x601D;&#x5999;&#x60F3;&#x6216;&#x8005;&#x8D39;&#x52B2;&#x5FC3;&#x601D;&#x7684;&#x8BA1;&#x7B97;&#x9A8C;&#x8BC1;&#xFF0C;&#x80FD;&#x90FD;&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x5F88;&#x795E;&#x5947;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x4F46;&#x662F;&#x5230;&#x6211;&#x4EEC;&#x8FD9;&#x4EE3;&#x7684;&#x65F6;&#x5019;&#x751A;&#x81F3;&#x53EF;&#x4EE5;&#x628A;&#x8FD9;&#x79CD;&#x7ED3;&#x679C;&#x901A;&#x7528;&#x5316;&#x7684;&#x53BB;&#x9A8C;&#x8BC1;&#x548C;&#x8BA1;&#x7B97;&#xFF0C;&#x5E76;&#x4E14;&#x6BEB;&#x4E0D;&#x8D39;&#x529B;&#xFF0C;&#x79D1;&#x6280;&#x7684;&#x53D1;&#x5C55;&#x771F;&#x7684;&#x662F;&#x5DE8;&#x5927;&#x7684;&#x52A8;&#x529B;&#xFF0C;&#x5C06;&#x65E7;&#x65F6;&#x4EE3;&#x7684;&#x6210;&#x679C;&#x6BEB;&#x4E0D;&#x8D39;&#x529B;&#x7684;&#x78BE;&#x538B;&#x8FC7;&#x53BB;&#x3002;</p>
@@ -2193,7 +2296,7 @@ deficient&#xFF0C;&#x56E0;&#x6570;&#x548C;&#x5C0F;&#x4E8E;&#x81EA;&#x8EAB;&#xFF1B
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
-</pre><h2 class="mume-header" id="problem-28number-spiral-diagonalshttpsprojecteulernetproblem28"><a href="https://projecteuler.net/problem=28" target="_blank" rel="noopener">Problem 28:Number spiral diagonals</a></h2>
+</pre><h2 class="mume-header" id="problem-28number-spiral-diagonalshttpsprojecteulernetproblem28"><a href="https://projecteuler.net/problem=28" rel="external nofollow noopener noreferrer" target="_blank">Problem 28:Number spiral diagonals</a></h2>
 
 <p>&#x624B;&#x52A8;&#x8BA1;&#x7B97;&#x7684;&#xFF0C;&#x591A;&#x5199;&#x51E0;&#x5708;&#x627E;&#x4E00;&#x4E0B;&#x89C4;&#x5F8B;&#xFF0C;&#x6BCF;&#x4E00;&#x5708;&#x51E0;&#x4E2A;&#x6570;&#x5DEE;&#x591A;&#x5C11;&#xFF0C;&#x5708;&#x4E0E;&#x5708;&#x4E4B;&#x95F4;&#x5DEE;&#x591A;&#x5C11;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
 <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">void</span> <span class="token function">problem28</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -2211,7 +2314,7 @@ deficient&#xFF0C;&#x56E0;&#x6570;&#x548C;&#x5C0F;&#x4E8E;&#x81EA;&#x8EAB;&#xFF1B
     <span class="token punctuation">}</span>
     cout <span class="token operator">&lt;&lt;</span> out<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre><h2 class="mume-header" id="problem-29distinct-powershttpsprojecteulernetproblem29"><a href="https://projecteuler.net/problem=29" target="_blank" rel="noopener">Problem 29:Distinct powers</a></h2>
+</pre><h2 class="mume-header" id="problem-29distinct-powershttpsprojecteulernetproblem29"><a href="https://projecteuler.net/problem=29" rel="external nofollow noopener noreferrer" target="_blank">Problem 29:Distinct powers</a></h2>
 
 <p>&#x8FD9;&#x9053;&#x9898;&#x505A;&#x7684;&#x771F;&#x7684;&#x662F;&#xFF0C;&#x592A;&#x6284;&#x8FD1;&#x8DEF;&#xFF0C;&#x76F4;&#x63A5;&#x7528;&#x5927;&#x6574;&#x6570;&#x4E58;&#x6CD5;+set&#x89E3;&#x51B3;&#x4E86;&#x3002;&#x4ED4;&#x7EC6;&#x60F3;&#x60F3;&#x5982;&#x679C;&#x5224;&#x65AD;&#x7684;&#x8BDD;&#xFF0C;&#x6328;&#x4E2A;&#x6570;&#x4ECE;&#x5927;&#x5230;&#x5C0F;&#x5224;&#x65AD;&#x56E0;&#x6570;&#x4F3C;&#x4E4E;&#x4E5F;&#x662F;&#x53EF;&#x884C;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x60C5;&#x51B5;&#x592A;&#x591A;&#xFF0C;&#x53EF;&#x80FD;&#x6F0F;&#x6389;&#xFF0C;&#x8D5E;&#x7F8E;&#x79D1;&#x6280;&#xFF0C;&#x8D5E;&#x7F8E;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x3002;</p>
 <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">void</span> <span class="token function">problem29</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -2236,7 +2339,7 @@ deficient&#xFF0C;&#x56E0;&#x6570;&#x548C;&#x5C0F;&#x4E8E;&#x81EA;&#x8EAB;&#xFF1B
     cout <span class="token operator">&lt;&lt;</span> ss<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment">//Time:541.863000</span>
 <span class="token punctuation">}</span>
-</pre><h2 class="mume-header" id="problem-30digit-fifth-powershttpsprojecteulernetproblem30"><a href="https://projecteuler.net/problem=30" target="_blank" rel="noopener">Problem 30:Digit fifth powers</a></h2>
+</pre><h2 class="mume-header" id="problem-30digit-fifth-powershttpsprojecteulernetproblem30"><a href="https://projecteuler.net/problem=30" rel="external nofollow noopener noreferrer" target="_blank">Problem 30:Digit fifth powers</a></h2>
 
 <p>&#x55EF;&#xFF0C;&#x6C34;&#x4ED9;&#x82B1;&#x6570;&#x8FD8;&#x662F;&#x5565;&#x6765;&#x7740;&#xFF0C;&#x7B97;&#x5C31;&#x5BF9;&#x4E86;&#x3002;</p>
 <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">void</span> <span class="token function">problem30</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -2543,7 +2646,7 @@ pre[data-line] .line-highlight[data-end]:after {
       <div class="mume markdown-preview  ">
 <p>&#x7EE7;&#x7EED;&#x4E0A;&#x4E00;&#x6B21;&#x7684;Project Euler&#x7684;&#x9898;&#x89E3;&#xFF0C;&#x4E0D;&#x89C1;&#x5F97;&#x6700;&#x4F18;&#xFF0C;&#x4E5F;&#x4E0D;&#x89C1;&#x5F97;&#x4F18;&#x96C5;&#xFF0C;&#x4F46;&#x662F;&#x7B54;&#x6848;&#x662F;&#x5BF9;&#x7684;&#xFF0C;&#x601D;&#x8DEF;&#x4E5F;&#x662F;&#x6CA1;&#x95EE;&#x9898;&#x7684;&#x3002;&#x8FD9;&#x6B21;&#x662F;11~20&#x9898;&#x3002;</p>
 
-<h2 class="mume-header" id="problem-11largest-product-in-a-gridhttpsprojecteulernetproblem11"><a href="https://projecteuler.net/problem=11" target="_blank" rel="noopener">Problem 11:Largest product in a grid</a></h2>
+<h2 class="mume-header" id="problem-11largest-product-in-a-gridhttpsprojecteulernetproblem11"><a href="https://projecteuler.net/problem=11" rel="external nofollow noopener noreferrer" target="_blank">Problem 11:Largest product in a grid</a></h2>
 
 <p>&#x5728;&#x4E00;&#x4E2A;20x20&#x7684;&#x8868;&#x683C;&#x5185;&#x5728;&#x6A2A;&#x7AD6;&#x659C;&#x56DB;&#x4E2A;&#x65B9;&#x5411;&#x4E0A;&#x627E;&#x8FDE;&#x7EED;&#x56DB;&#x4E2A;&#x6570;&#x5B57;&#x7684;&#x6700;&#x5927;&#x4E58;&#x79EF;&#x3002;</p>
 <p>&#x66B4;&#x529B;&#x904D;&#x5386;&#x5C31;&#x5BF9;&#x4E86;&#xFF0C;&#x8F93;&#x5165;&#x76F4;&#x63A5;&#x590D;&#x5236;&#x8FC7;&#x6765;&#x901A;&#x8FC7;&#x6587;&#x672C;&#x8F93;&#x5165;&#xFF0C;&#x7ED9;&#x4E00;&#x4E2A;&#x4E8C;&#x7EF4;&#x7684; <code>vector&lt;vector&lt;int&gt;&gt;</code> &#xFF0C;&#x5F00;&#x59CB;&#x53EF;&#x52B2;&#x7684;&#x904D;&#x5386;&#xFF0C;&#x8BA1;&#x7B97;&#x56DB;&#x4E2A;&#x65B9;&#x5411;&#x3002;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x8FB9;&#x754C;&#x6761;&#x4EF6;&#x5224;&#x65AD;&#xFF0C;&#x8FD9;&#x91CC;&#x5206;&#x6210;&#x4E86;&#x4E24;&#x90E8;&#x5206;&#xFF0C;&#x4E00;&#x90E8;&#x5206;&#x5411;&#x53F3;&#xFF0C;&#x4E0B;&#xFF0C;&#x53F3;&#x4E0B;&#x904D;&#x5386;&#xFF0C;&#x4E00;&#x90E8;&#x5206;&#x5411;&#x5DE6;&#x4E0A;&#x904D;&#x5386;&#xFF0C;&#x540C;&#x6837;&#x80FD;&#x904D;&#x5386;&#x6240;&#x6709;&#x60C5;&#x51B5;&#xFF0C;&#x540C;&#x65F6;&#x907F;&#x514D;&#x4E86;&#x8FB9;&#x754C;&#x6761;&#x4EF6;&#x5224;&#x65AD;&#x3002;</p>
@@ -2599,7 +2702,7 @@ pre[data-line] .line-highlight[data-end]:after {
 	cout <span class="token operator">&lt;&lt;</span> out <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-</pre><h2 class="mume-header" id="problem-12highly-divisible-triangular-numberhttpsprojecteulernetproblem12"><a href="https://projecteuler.net/problem=12" target="_blank" rel="noopener">Problem 12:Highly divisible triangular number</a></h2>
+</pre><h2 class="mume-header" id="problem-12highly-divisible-triangular-numberhttpsprojecteulernetproblem12"><a href="https://projecteuler.net/problem=12" rel="external nofollow noopener noreferrer" target="_blank">Problem 12:Highly divisible triangular number</a></h2>
 
 <p>&#x9898;&#x76EE;&#x5199;&#x7684;&#x633A;&#x7ED5;&#x7684;&#xFF0C;&#x6309;&#x6B65;&#x9AA4;&#x505A;&#x5C31;&#x597D;&#x4E86;&#xFF0C;&#x5148;&#x662F;&#x4E00;&#x4E2A;<code>1 ~ n</code>&#x7684;&#x7B49;&#x5DEE;&#x6570;&#x5217;&#x7684;&#x548C;&#xFF0C;&#x6211;&#x8FD9;&#x91CC;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x9EBB;&#x70E6;&#x4E86;&#xFF0C;&#x5728;&#x6BCF;&#x4E2A;&#x5468;&#x671F;&#x4E0A;&#x52A0;<code>i</code>&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;&#x7136;&#x540E;&#x8BA1;&#x7B97;<code>1 ~ sqrt(k)</code>&#x4E4B;&#x95F4;&#x7684;&#x80FD;&#x88AB;&#x6574;&#x9664;&#x7684;&#x6570;&#x5B57;&#x6570;&#x91CF;&#xFF0C;&#x4E58;&#x4EE5;&#x4E8C;&#x5C31;&#x662F;&#x56E0;&#x6570;&#x6570;&#x91CF;&#xFF0C;&#x8FD9;&#x8FB9;&#x6CA1;&#x6709;&#x5355;&#x72EC;&#x5224;&#x65AD;<code>k</code>&#x662F;&#x5E73;&#x65B9;&#x6570;&#x7684;&#x60C5;&#x51B5;&#xFF08;&#x56E0;&#x4E3A;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x6839;&#x672C;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;<code>k=i*(i+1)/2</code>&#xFF09;&#xFF0C;&#x6700;&#x540E;&#x5224;&#x65AD;&#x4E00;&#x4E0B;&#x6570;&#x91CF;&#x5927;&#x4E8E;500&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x5373;&#x53EF;&#x3002;</p>
 <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">void</span> <span class="token function">problem12</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -2622,7 +2725,7 @@ pre[data-line] .line-highlight[data-end]:after {
 		<span class="token punctuation">}</span>
 	<span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</pre><h2 class="mume-header" id="problem-13large-sumhttpsprojecteulernetproblem13"><a href="https://projecteuler.net/problem=13" target="_blank" rel="noopener">Problem 13:Large sum</a></h2>
+</pre><h2 class="mume-header" id="problem-13large-sumhttpsprojecteulernetproblem13"><a href="https://projecteuler.net/problem=13" rel="external nofollow noopener noreferrer" target="_blank">Problem 13:Large sum</a></h2>
 
 <p>&#x628A;&#x4E0B;&#x5217;100&#x4E2A;&#x4E94;&#x5341;&#x4F4D;&#x7684;&#x6570;&#x5B57;&#x76F8;&#x52A0;&#xFF0C;&#x53D6;&#x548C;&#x7684;&#x524D;&#x5341;&#x4F4D;&#x3002;</p>
 <p>&#x672C;&#x6765;&#x8003;&#x8651;&#x662F;&#x4E2A;&#x5927;&#x6574;&#x6570;&#x76F8;&#x52A0;&#xFF0C;&#x4F46;&#x662F;&#x7ED3;&#x679C;&#x53EA;&#x8981;&#x524D;&#x5341;&#x4F4D;&#x554A;&#xFF01;&#x524D;&#x5341;&#x4F4D;&#xFF01;&#x6240;&#x4EE5;&#x4E00;&#x4E2A;<code>long long</code>&#x662F;&#x8DB3;&#x591F;&#x7528;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x53EA;&#x52A0;&#x524D;&#x9762;&#x7684;&#x6570;&#x5B57;&#x5C31;&#x53EF;&#x4EE5;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x52A0;&#x6574;&#x4E2A;&#x7684;50&#x4F4D;&#x6570;&#x5B57;&#x3002;100&#x4E2A;&#x6570;&#x5B57;&#x7684;&#x8BDD;&#x56E0;&#x4E3A;&#x8FDB;&#x4F4D;&#xFF0C;&#x9700;&#x8981;&#x52A0;&#x524D;12&#x4F4D;&#xFF0C;&#x6700;&#x540E;&#x7ED3;&#x679C;&#x53D6;&#x524D;&#x5341;&#x4F4D;&#x6570;&#x5B57;&#x5373;&#x53EF;&#x3002;&#x4E3A;&#x4EC0;&#x4E48;&#x6211;&#x53D6;&#x4E86;11&#x4F4D;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x968F;&#x4FBF;&#x5199;&#x7684;&#xFF0C;&#x53D1;&#x73B0;&#x7B54;&#x6848;&#x662F;&#x5BF9;&#x7684;&#x5C31;&#x8FC7;&#x53BB;&#x4E86;:)</p>
@@ -2648,7 +2751,7 @@ pre[data-line] .line-highlight[data-end]:after {
 	<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">auto</span> i <span class="token operator">:</span> nums<span class="token punctuation">)</span>cout <span class="token operator">&lt;&lt;</span> i <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 	cout <span class="token operator">&lt;&lt;</span> sum<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre><h2 class="mume-header" id="problem-14longest-collatz-sequencehttpsprojecteulernetproblem14"><a href="https://projecteuler.net/problem=14" target="_blank" rel="noopener">Problem 14:Longest Collatz sequence</a></h2>
+</pre><h2 class="mume-header" id="problem-14longest-collatz-sequencehttpsprojecteulernetproblem14"><a href="https://projecteuler.net/problem=14" rel="external nofollow noopener noreferrer" target="_blank">Problem 14:Longest Collatz sequence</a></h2>
 
 <p>&#x5C0F;&#x65F6;&#x5019;&#x73A9;&#x7684;&#x6570;&#x5B66;&#x6E38;&#x620F;&#x91CC;&#x9762;&#x7684;&#x9898;&#x76EE;&#xFF0C;&#x957F;&#x5927;&#x4E86;&#x53D1;&#x73B0;&#x662F;&#x4E2A;&#x5F88;&#x6709;&#x540D;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x751A;&#x81F3;&#x8FD8;&#x6CA1;&#x6709;&#x88AB;&#x89E3;&#x51B3;&#x3002;&#x88AB;&#x79F0;&#x4F5C;&#x514B;&#x62C9;&#x5179;&#x95EE;&#x9898;&#xFF08;Collatz problem&#xFF09;&#x4E5F;&#x88AB;&#x53EB;&#x505A;hailstone&#x95EE;&#x9898;&#x3001;3n+1&#x95EE;&#x9898;&#x3001;Hasse&#x7B97;&#x6CD5;&#x95EE;&#x9898;&#x3001;Kakutani&#x7B97;&#x6CD5;&#x95EE;&#x9898;&#x3001;Thwaites&#x731C;&#x60F3;&#x6216;&#x8005;Ulam&#x95EE;&#x9898;&#x3002;</p>
 <p>&#x8FD9;&#x9053;&#x9898;&#x662F;&#x95EE;&#x4E00;&#x767E;&#x4E07;&#x4EE5;&#x4E0B;&#x7684;&#x6570;&#x5B57;&#x4E2D;&#xFF0C;&#x54EA;&#x4E2A;&#x6570;&#x5B57;&#x7684;&#x94FE;&#x6700;&#x957F;&#xFF0C;&#x904D;&#x5386;&#x5C31;&#x597D;&#x4E86;&#xFF0C;&#x8BB0;&#x5F55;&#x6B65;&#x957F;&#x3002;&#x552F;&#x4E00;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x867D;&#x7136;&#x5F00;&#x59CB;&#x8BA1;&#x7B97;&#x7684;&#x6570;&#x5B57;&#x5C0F;&#x4E8E;&#x4E00;&#x767E;&#x4E07;&#xFF0C;&#x4F46;&#x662F;&#x4E2D;&#x95F4;&#x6570;&#x5B57;&#x4F1A;&#x8D85;&#x8FC7;int&#x7684;&#x6700;&#x5927;&#x503C;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x4F7F;&#x7528;<code>long long</code>&#x8BA1;&#x7B97;</p>
@@ -2674,7 +2777,7 @@ pre[data-line] .line-highlight[data-end]:after {
 	cout <span class="token operator">&lt;&lt;</span> <span class="token string">&quot;ans:&quot;</span> <span class="token operator">&lt;&lt;</span> out <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 
 <span class="token punctuation">}</span>
-</pre><h2 class="mume-header" id="problem-15lattice-pathshttpsprojecteulernetproblem15"><a href="https://projecteuler.net/problem=15" target="_blank" rel="noopener">Problem 15:Lattice paths</a></h2>
+</pre><h2 class="mume-header" id="problem-15lattice-pathshttpsprojecteulernetproblem15"><a href="https://projecteuler.net/problem=15" rel="external nofollow noopener noreferrer" target="_blank">Problem 15:Lattice paths</a></h2>
 
 <p>&#x8FD9;&#x4E2A;&#x9898;&#x662F;&#x505A;&#x8FC7;&#x5F88;&#x591A;&#x904D;&#x7684;&#x4E86;&#xFF0C;&#x7B80;&#x5355;&#x7684;DP&#x95EE;&#x9898;&#x3002;</p>
 <p>&#x53E6;&#x5916;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x6392;&#x5217;&#x7EC4;&#x5408;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x56DB;&#x5341;&#x4E2A;&#x6B65;&#x9AA4;&#x4E2D;&#x63D2;&#x5165;&#x4E8C;&#x5341;&#x4E2A;&#x53F3;&#xFF0C;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>C</mi><mn>40</mn><mn>20</mn></msubsup></mrow><annotation encoding="application/x-tex">C_{40}^{20}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0622159999999998em;vertical-align:-0.24810799999999997em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-2.4518920000000004em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.24810799999999997em;"><span></span></span></span></span></span></span></span></span></span>&#x3002;</p>
@@ -2698,7 +2801,7 @@ pre[data-line] .line-highlight[data-end]:after {
 	<span class="token punctuation">}</span>
 	cout <span class="token operator">&lt;&lt;</span> <span class="token string">&quot;ans:&quot;</span> <span class="token operator">&lt;&lt;</span> nums<span class="token punctuation">[</span>edge<span class="token punctuation">]</span><span class="token punctuation">[</span>edge<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre><h2 class="mume-header" id="problem-16power-digit-sumhttpsprojecteulernetproblem16"><a href="https://projecteuler.net/problem=16" target="_blank" rel="noopener">Problem 16:Power digit sum</a></h2>
+</pre><h2 class="mume-header" id="problem-16power-digit-sumhttpsprojecteulernetproblem16"><a href="https://projecteuler.net/problem=16" rel="external nofollow noopener noreferrer" target="_blank">Problem 16:Power digit sum</a></h2>
 
 <p>&#x55EF;&#xFF0C;&#x8FD9;&#x4E2A;&#x9898;&#x7528;&#x7684;&#x5927;&#x6574;&#x6570;&#x4E58;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x89C1;&#x4E4B;&#x524D;&#x7684;&#x6587;&#x7AE0;&#x5B9E;&#x73B0;&#xFF0C;&#x6700;&#x540E;&#x7D2F;&#x52A0;&#x6BCF;&#x4E00;&#x4F4D;&#x6570;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;&#x8FD9;&#x9053;&#x9898;&#x7528;&#x7684;&#x4E58;2&#x3002;</p>
 <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">void</span> <span class="token function">problem16</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -2731,10 +2834,10 @@ pre[data-line] .line-highlight[data-end]:after {
 	<span class="token punctuation">}</span>
 	cout <span class="token operator">&lt;&lt;</span> <span class="token string">&quot;ans:&quot;</span> <span class="token operator">&lt;&lt;</span> sum<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre><h2 class="mume-header" id="problem-17number-letter-countshttpsprojecteulernetproblem17"><a href="https://projecteuler.net/problem=17" target="_blank" rel="noopener">Problem 17:Number letter counts</a></h2>
+</pre><h2 class="mume-header" id="problem-17number-letter-countshttpsprojecteulernetproblem17"><a href="https://projecteuler.net/problem=17" rel="external nofollow noopener noreferrer" target="_blank">Problem 17:Number letter counts</a></h2>
 
 <p>&#x82F1;&#x8BED;&#x65E0;&#x80FD;&#xFF0C;&#x6328;&#x4E2A;&#x6570;&#x3002;</p>
-<h2 class="mume-header" id="problem-18maximum-path-sum-ihttpsprojecteulernetproblem18"><a href="https://projecteuler.net/problem=18" target="_blank" rel="noopener">Problem 18:Maximum path sum I</a></h2>
+<h2 class="mume-header" id="problem-18maximum-path-sum-ihttpsprojecteulernetproblem18"><a href="https://projecteuler.net/problem=18" rel="external nofollow noopener noreferrer" target="_blank">Problem 18:Maximum path sum I</a></h2>
 
 <p>&#x5BFB;&#x627E;&#x4E00;&#x6761;&#x4ECE;&#x9876;&#x7AEF;&#x5230;&#x5E95;&#x7AEF;&#x7684;&#x8DEF;&#x5F84;&#xFF0C;&#x4F7F;&#x5F97;&#x8DEF;&#x5F84;&#x4E0A;&#x7684;&#x6570;&#x5B57;&#x603B;&#x548C;&#x6700;&#x5927;&#x3002;DP</p>
 <p>&#x4ECE;&#x5E95;&#x7AEF;&#x5411;&#x4E0A;&#x7B97;&#xFF0C;&#x8BB0;&#x5F55;&#x6BCF;&#x4E00;&#x4E2A;&#x503C;&#x5230;&#x4E0B;&#x4E00;&#x884C;&#x7684;&#x53EF;&#x80FD;&#x7684;&#x6700;&#x5927;&#x503C;&#xFF0C;&#x7B97;&#x5230;&#x6700;&#x540E;&#x5269;&#x4E0B;&#x552F;&#x4E00;&#x4E00;&#x4E2A;&#x503C;&#xFF0C;&#x5373;&#x4E3A;&#x9898;&#x76EE;&#x8981;&#x6C42;&#x7684;&#x6700;&#x5927;&#x503C;&#x3002;</p>
@@ -2783,7 +2886,7 @@ pre[data-line] .line-highlight[data-end]:after {
 	<span class="token punctuation">}</span>
 	cout <span class="token operator">&lt;&lt;</span> <span class="token string">&quot;ans:&quot;</span> <span class="token operator">&lt;&lt;</span> trianglenum<span class="token punctuation">.</span><span class="token function">at</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">at</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</pre><p>&#x53E6;&#x5916;&#x9898;&#x76EE;&#x8BF4;&#x660E;&#x91CC;&#x8BF4;&#x8FD9;&#x9053;&#x9898;&#x7684;&#x6570;&#x91CF;&#x7EA7;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x904D;&#x5386;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x7136;&#x540E;&#x8054;&#x52A8;&#x4E86;<a href="https://projecteuler.net/problem=67" target="_blank" rel="noopener">Problem 67:Counting Sundays</a>&#xFF0C;&#x662F;&#x540C;&#x6837;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4F46;&#x662F;&#x6709;100&#x884C;&#xFF0C;&#x505A;&#x6CD5;&#x4E0E;&#x8FD9;&#x9053;&#x9898;&#x4E00;&#x6837;&#xFF0C;&#x4EE3;&#x7801;&#x4E5F;&#x8D34;&#x5230;&#x8FD9;&#x91CC;&#x5427;&#x3002;</p>
+</pre><p>&#x53E6;&#x5916;&#x9898;&#x76EE;&#x8BF4;&#x660E;&#x91CC;&#x8BF4;&#x8FD9;&#x9053;&#x9898;&#x7684;&#x6570;&#x91CF;&#x7EA7;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x904D;&#x5386;&#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x7136;&#x540E;&#x8054;&#x52A8;&#x4E86;<a href="https://projecteuler.net/problem=67" rel="external nofollow noopener noreferrer" target="_blank">Problem 67:Counting Sundays</a>&#xFF0C;&#x662F;&#x540C;&#x6837;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4F46;&#x662F;&#x6709;100&#x884C;&#xFF0C;&#x505A;&#x6CD5;&#x4E0E;&#x8FD9;&#x9053;&#x9898;&#x4E00;&#x6837;&#xFF0C;&#x4EE3;&#x7801;&#x4E5F;&#x8D34;&#x5230;&#x8FD9;&#x91CC;&#x5427;&#x3002;</p>
 <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">void</span> <span class="token function">problem67</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
 	string trianglefilename <span class="token operator">=</span> <span class="token string">&quot;p067_triangle.txt&quot;</span><span class="token punctuation">;</span>
@@ -2825,10 +2928,10 @@ pre[data-line] .line-highlight[data-end]:after {
 	cout <span class="token operator">&lt;&lt;</span> <span class="token string">&quot;ans:&quot;</span> <span class="token operator">&lt;&lt;</span> trianglenum<span class="token punctuation">.</span><span class="token function">at</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">at</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-</pre><h2 class="mume-header" id="problem-19counting-sundayshttpsprojecteulernetproblem19"><a href="https://projecteuler.net/problem=19" target="_blank" rel="noopener">Problem 19:Counting Sundays</a></h2>
+</pre><h2 class="mume-header" id="problem-19counting-sundayshttpsprojecteulernetproblem19"><a href="https://projecteuler.net/problem=19" rel="external nofollow noopener noreferrer" target="_blank">Problem 19:Counting Sundays</a></h2>
 
 <p>&#x6570;</p>
-<h2 class="mume-header" id="problem-20factorial-digit-sumhttpsprojecteulernetproblem20"><a href="https://projecteuler.net/problem=20" target="_blank" rel="noopener">Problem 20:Factorial digit sum</a></h2>
+<h2 class="mume-header" id="problem-20factorial-digit-sumhttpsprojecteulernetproblem20"><a href="https://projecteuler.net/problem=20" rel="external nofollow noopener noreferrer" target="_blank">Problem 20:Factorial digit sum</a></h2>
 
 <p>&#x8BA1;&#x7B97;100&#x7684;&#x9636;&#x4E58;&#x7684;&#x6570;&#x5B57;&#x548C;&#x3002;&#x548C;&#x4E4B;&#x524D;&#x7684;&#x9898;&#x76EE;&#x4E00;&#x6837;&#xFF0C;&#x7528;&#x5927;&#x6574;&#x6570;&#x4E58;&#x6CD5;&#xFF0C;&#x89C1;&#x4E4B;&#x524D;&#x7684;&#x6587;&#x7AE0;&#x3002;</p>
 <pre data-role="codeBlock" data-info="c++" class="language-cpp"><span class="token keyword">void</span> <span class="token function">problem20</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -2976,34 +3079,34 @@ pre[data-line] .line-highlight[data-end]:after {
 <p>Working is not boring, Earning money is boring.</p>
 </blockquote>
 <p>自己做的Project Euler的题解，不见得最优，也不见得优雅，但是答案是对的。基本上可以暴力求解的都是直接暴力求的。</p>
-<h2 id="Problem-1-Multiples-of-3-and-5"><a href="#Problem-1-Multiples-of-3-and-5" class="headerlink" title="Problem 1:Multiples of 3 and 5"></a><a href="https://projecteuler.net/problem=1" target="_blank" rel="noopener">Problem 1:Multiples of 3 and 5</a></h2><p>暴力遍历，能整除3或者5的话累加</p>
+<h2 id="Problem-1-Multiples-of-3-and-5"><a href="#Problem-1-Multiples-of-3-and-5" class="headerlink" title="Problem 1:Multiples of 3 and 5"></a><a href="https://projecteuler.net/problem=1" rel="external nofollow noopener noreferrer" target="_blank">Problem 1:Multiples of 3 and 5</a></h2><p>暴力遍历，能整除3或者5的话累加</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (i % <span class="number">3</span> == <span class="number">0</span> || i % <span class="number">5</span> == <span class="number">0</span>)</span><br><span class="line">			num += i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
   <a id="more"></a>
-<h2 id="Problem-2-Even-Fibonacci-numbers"><a href="#Problem-2-Even-Fibonacci-numbers" class="headerlink" title="Problem 2:Even Fibonacci numbers"></a><a href="https://projecteuler.net/problem=2" target="_blank" rel="noopener">Problem 2:Even Fibonacci numbers</a></h2><p>把4000000以下的 fib 数列都求出来，再遍历一般累加奇数。</p>
+<h2 id="Problem-2-Even-Fibonacci-numbers"><a href="#Problem-2-Even-Fibonacci-numbers" class="headerlink" title="Problem 2:Even Fibonacci numbers"></a><a href="https://projecteuler.net/problem=2" rel="external nofollow noopener noreferrer" target="_blank">Problem 2:Even Fibonacci numbers</a></h2><p>把4000000以下的 fib 数列都求出来，再遍历一般累加奇数。</p>
 <p>这里其实 fib 数列的奇偶性是有规律的，按照 奇-奇-偶 的形式无限循环，所以也可以用数列的第几项是否能被3整除来判断。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; fib;</span><br><span class="line">	fib.push_back(<span class="number">1</span>);</span><br><span class="line">	fib.push_back(<span class="number">2</span>);</span><br><span class="line">	<span class="keyword">while</span> (fib.back() &lt; (<span class="number">4000000</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		fib.push_back(fib.at(fib.<span class="built_in">size</span>() - <span class="number">1</span>) + fib.at(fib.<span class="built_in">size</span>() - <span class="number">2</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> f : fib)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (f &lt; <span class="number">4000000</span>) &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; f &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">if</span> (f % <span class="number">2</span> == <span class="number">0</span>) num += f;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Problem-3-Largest-prime-factor"><a href="#Problem-3-Largest-prime-factor" class="headerlink" title="Problem 3:Largest prime factor"></a><a href="https://projecteuler.net/problem=3" target="_blank" rel="noopener">Problem 3:Largest prime factor</a></h2><p>从小打到大找因数，当找到一个因数之后将原始数字除以这个因数，再继续判断。</p>
+<h2 id="Problem-3-Largest-prime-factor"><a href="#Problem-3-Largest-prime-factor" class="headerlink" title="Problem 3:Largest prime factor"></a><a href="https://projecteuler.net/problem=3" rel="external nofollow noopener noreferrer" target="_blank">Problem 3:Largest prime factor</a></h2><p>从小打到大找因数，当找到一个因数之后将原始数字除以这个因数，再继续判断。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">problem3</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span> &gt; nums;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> num = <span class="number">600851475143</span>;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> n = <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">while</span> (n &lt;= num)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (num % n == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			nums.push_back(n);</span><br><span class="line">			num = num / n;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			n++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; n &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> i : nums)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> nums.back();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Problem-4-Largest-palindrome-product"><a href="#Problem-4-Largest-palindrome-product" class="headerlink" title="Problem 4:Largest palindrome product"></a><a href="https://projecteuler.net/problem=4" target="_blank" rel="noopener">Problem 4:Largest palindrome product</a></h2><p>暴力遍历，判断是回文数后记录最大值。</p>
+<h2 id="Problem-4-Largest-palindrome-product"><a href="#Problem-4-Largest-palindrome-product" class="headerlink" title="Problem 4:Largest palindrome product"></a><a href="https://projecteuler.net/problem=4" rel="external nofollow noopener noreferrer" target="_blank">Problem 4:Largest palindrome product</a></h2><p>暴力遍历，判断是回文数后记录最大值。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem4</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">100</span>;</span><br><span class="line">	<span class="keyword">int</span> m = <span class="number">100</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> m = <span class="number">100</span>; m &lt;= <span class="number">999</span>; m++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> n = <span class="number">100</span>; n &lt;= <span class="number">999</span>; n++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">stringstream</span> ss;</span><br><span class="line">			<span class="keyword">int</span> nn = n * m;</span><br><span class="line">			ss &lt;&lt; nn;</span><br><span class="line">			<span class="built_in">string</span> aa = ss.str();</span><br><span class="line">			<span class="built_in">string</span> bb = aa;</span><br><span class="line">			reverse(bb.<span class="built_in">begin</span>(), bb.<span class="built_in">end</span>());</span><br><span class="line"><span class="comment">//			cout &lt;&lt; aa &lt;&lt; "  " &lt;&lt; bb;</span></span><br><span class="line">			<span class="keyword">if</span> (aa.compare(bb) == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				num = MAX(num, n * m);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; m &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Problem-5-Smallest-multiple"><a href="#Problem-5-Smallest-multiple" class="headerlink" title="Problem 5:Smallest multiple"></a><a href="https://projecteuler.net/problem=5" target="_blank" rel="noopener">Problem 5:Smallest multiple</a></h2><p>这个没写程序，直接在计算器里乘了一下。。。</p>
-<h2 id="Problem-6-Sum-square-difference"><a href="#Problem-6-Sum-square-difference" class="headerlink" title="Problem 6:Sum square difference"></a><a href="https://projecteuler.net/problem=6" target="_blank" rel="noopener">Problem 6:Sum square difference</a></h2><p>嗯，算数题，算就对了。</p>
+<h2 id="Problem-5-Smallest-multiple"><a href="#Problem-5-Smallest-multiple" class="headerlink" title="Problem 5:Smallest multiple"></a><a href="https://projecteuler.net/problem=5" rel="external nofollow noopener noreferrer" target="_blank">Problem 5:Smallest multiple</a></h2><p>这个没写程序，直接在计算器里乘了一下。。。</p>
+<h2 id="Problem-6-Sum-square-difference"><a href="#Problem-6-Sum-square-difference" class="headerlink" title="Problem 6:Sum square difference"></a><a href="https://projecteuler.net/problem=6" rel="external nofollow noopener noreferrer" target="_blank">Problem 6:Sum square difference</a></h2><p>嗯，算数题，算就对了。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem6</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num1=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> num2 = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">100</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		num1 += i * i;</span><br><span class="line">		num2 += i;</span><br><span class="line">	&#125;</span><br><span class="line">	num2 = num2 * num2;</span><br><span class="line">	<span class="keyword">return</span> num2 - num1;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Problem-7-10001st-prime"><a href="#Problem-7-10001st-prime" class="headerlink" title="Problem 7:10001st prime"></a><a href="https://projecteuler.net/problem=7" target="_blank" rel="noopener">Problem 7:10001st prime</a></h2><p>判断素数，前面有一篇文章有详细解释。</p>
+<h2 id="Problem-7-10001st-prime"><a href="#Problem-7-10001st-prime" class="headerlink" title="Problem 7:10001st prime"></a><a href="https://projecteuler.net/problem=7" rel="external nofollow noopener noreferrer" target="_blank">Problem 7:10001st prime</a></h2><p>判断素数，前面有一篇文章有详细解释。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem7</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prime;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; ; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">2</span>; k &lt; i; k++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i % k == <span class="number">0</span>) &#123;</span><br><span class="line">				n++; <span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (n == <span class="number">0</span>) &#123; prime.push_back(i); <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">		<span class="keyword">if</span> (prime.<span class="built_in">size</span>() == <span class="number">10001</span>) <span class="keyword">return</span> prime.back();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Problem-8-Largest-product-in-a-series"><a href="#Problem-8-Largest-product-in-a-series" class="headerlink" title="Problem 8:Largest product in a series"></a><a href="https://projecteuler.net/problem=8" target="_blank" rel="noopener">Problem 8:Largest product in a series</a></h2><p>暴力遍历</p>
+<h2 id="Problem-8-Largest-product-in-a-series"><a href="#Problem-8-Largest-product-in-a-series" class="headerlink" title="Problem 8:Largest product in a series"></a><a href="https://projecteuler.net/problem=8" rel="external nofollow noopener noreferrer" target="_blank">Problem 8:Largest product in a series</a></h2><p>暴力遍历</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">problem8</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> out = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">string</span> number = <span class="string">"7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450"</span>;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; numbers;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> i : number)</span><br><span class="line">	&#123;</span><br><span class="line">		numbers.push_back(i - <span class="number">48</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numbers.<span class="built_in">size</span>() - <span class="number">13</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">long</span> <span class="keyword">long</span> num = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = i; k &lt; i + <span class="number">13</span>; k++)</span><br><span class="line">		&#123;</span><br><span class="line">			num = num * numbers.at(k);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i &lt;&lt;<span class="string">"  "</span>&lt;&lt;out&lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		out = MAX(out, num);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*for (int i = 0; i &lt; 13; i++)</span></span><br><span class="line"><span class="comment">	&#123;</span></span><br><span class="line"><span class="comment">		num = num * numbers.at(i);</span></span><br><span class="line"><span class="comment">		out = num;</span></span><br><span class="line"><span class="comment">	&#125;</span></span><br><span class="line"><span class="comment">	for (int i = 13; i &lt; numbers.size(); i++)</span></span><br><span class="line"><span class="comment">	&#123;</span></span><br><span class="line"><span class="comment">		num = num * numbers.at(i);</span></span><br><span class="line"><span class="comment">		num = num / numbers.at(i - 13);</span></span><br><span class="line"><span class="comment">		out = MAX(out, num);</span></span><br><span class="line"><span class="comment">	&#125;*/</span></span><br><span class="line">	<span class="keyword">return</span> out;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Problem-9-Special-Pythagorean-triplet"><a href="#Problem-9-Special-Pythagorean-triplet" class="headerlink" title="Problem 9:Special Pythagorean triplet"></a><a href="https://projecteuler.net/problem=9" target="_blank" rel="noopener">Problem 9:Special Pythagorean triplet</a></h2><p>暴力遍历</p>
+<h2 id="Problem-9-Special-Pythagorean-triplet"><a href="#Problem-9-Special-Pythagorean-triplet" class="headerlink" title="Problem 9:Special Pythagorean triplet"></a><a href="https://projecteuler.net/problem=9" rel="external nofollow noopener noreferrer" target="_blank">Problem 9:Special Pythagorean triplet</a></h2><p>暴力遍历</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">problem9</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (a = <span class="number">1</span>; a &lt; <span class="number">1000</span>; a++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (b = <span class="number">1</span>; b &lt; <span class="number">1000</span>; b++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> cc = a * a + b * b;</span><br><span class="line">			<span class="keyword">int</span> c = <span class="number">1000</span> - a - b;</span><br><span class="line">			<span class="keyword">if</span> (c * c == cc)</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; <span class="string">"a"</span> &lt;&lt; a &lt;&lt; <span class="string">"b"</span> &lt;&lt; b &lt;&lt; <span class="string">"c"</span> &lt;&lt; c &lt;&lt; <span class="string">"out:"</span>&lt;&lt;a*b*c&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Problem-10-Summation-of-primes"><a href="#Problem-10-Summation-of-primes" class="headerlink" title="Problem 10:Summation of primes"></a><a href="https://projecteuler.net/problem=10" target="_blank" rel="noopener">Problem 10:Summation of primes</a></h2><p>同 Problem 7 看之前的文章。</p>
+<h2 id="Problem-10-Summation-of-primes"><a href="#Problem-10-Summation-of-primes" class="headerlink" title="Problem 10:Summation of primes"></a><a href="https://projecteuler.net/problem=10" rel="external nofollow noopener noreferrer" target="_blank">Problem 10:Summation of primes</a></h2><p>同 Problem 7 看之前的文章。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">problem10</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prime;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> sum=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i&lt;<span class="number">2000000</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> ss = <span class="built_in">sqrt</span>(i);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; prime.<span class="built_in">size</span>(); k++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (i % prime.at(k) == <span class="number">0</span>) &#123;</span><br><span class="line">				n++; <span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (prime.at(k) &gt; ss) <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//for (int k = 2; k &lt; i; k++)</span></span><br><span class="line">		<span class="comment">//&#123;</span></span><br><span class="line">		<span class="comment">//	if (i % k == 0) &#123;</span></span><br><span class="line">		<span class="comment">//		n++; break;</span></span><br><span class="line">		<span class="comment">//	&#125;</span></span><br><span class="line">		<span class="comment">//&#125;</span></span><br><span class="line">		<span class="keyword">if</span> (n == <span class="number">0</span>) &#123; prime.push_back(i); sum += i; <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;; &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
@@ -3312,13 +3415,13 @@ pre[data-line] .line-highlight[data-end]:after {
 <p>&#x6700;&#x8FD1;&#x505A;&#x4E86;&#x4E00;&#x4E9B; Project Euler &#x7684;&#x9898;&#x76EE;&#x3002;&#x76EE;&#x524D;&#x53EA;&#x505A;&#x4E86;&#x524D;&#x5341;&#x9898;&#xFF0C;&#x611F;&#x89C9;&#x548C;&#x4E00;&#x822C;&#x7684;&#x7F16;&#x7A0B;&#x9898;&#x76EE;&#x6BD4;&#x8FD8;&#x662F;&#x633A;&#x6709;&#x610F;&#x601D;&#x7684;&#xFF0C;&#x5355;&#x4E00;&#x6848;&#x4F8B;&#xFF0C;&#x4E0D;&#x9650;&#x65F6;&#x95F4;&#xFF0C;&#x4E0D;&#x9650;&#x505A;&#x6CD5;&#xFF0C;&#x53EA;&#x8981;&#x505A;&#x51FA;&#x6765;&#x7684;&#x5C31;&#x53EF;&#x4EE5;&#xFF0C;&#x4F60;&#x613F;&#x610F;&#x7684;&#x8BDD;&#x66B4;&#x529B;&#x6C42;&#x89E3;&#xFF0C;&#x624B;&#x52A8;&#x53BB;&#x7B97;&#x90FD;&#x53EF;&#x4EE5;&#xFF0C;&#x8FD8;&#x662F;&#x633A;&#x6709;&#x610F;&#x601D;&#x7684;&#x3002;</p>
 <p>&#x524D;&#x9762;&#x6709;&#x51E0;&#x9053;&#x5173;&#x4E8E;&#x8D28;&#x6570; (Prime Number) &#x7684;&#x9898;&#x76EE;&#xFF0C;&#x9700;&#x8981;&#x5224;&#x65AD;&#x4E00;&#x4E2A;&#x6570;&#x662F;&#x5426;&#x662F;&#x8D28;&#x6570;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8FD9;&#x6B21;&#x7684;&#x95EE;&#x9898;&#x4E86;&#x3002;</p>
 
-<p><a href="https://projecteuler.net/problem=7" target="_blank" rel="noopener"><strong>Problem 7.</strong> 10001st prime</a></p>
+<p><a href="https://projecteuler.net/problem=7" rel="external nofollow noopener noreferrer" target="_blank"><strong>Problem 7.</strong> 10001st prime</a></p>
 
 <blockquote>
 <p>By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.<br>
 What is the 10 001st prime number?</p>
 </blockquote>
-<p><a href="https://projecteuler.net/problem=10" target="_blank" rel="noopener"><strong>Problem 10.</strong> Summation of primes</a></p>
+<p><a href="https://projecteuler.net/problem=10" rel="external nofollow noopener noreferrer" target="_blank"><strong>Problem 10.</strong> Summation of primes</a></p>
 <blockquote>
 <p>The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.<br>
 Find the sum of all the primes below two million.</p>
@@ -3742,7 +3845,7 @@ libgoogle-glog-dev liblmdb-dev gcc-4.7 g++-4.7
 
 <p>&#x8FD9;&#x91CC;&#x5EFA;&#x8BAE;&#x53C2;&#x8003;</p>
 <blockquote>
-<p><a href="http://blog.csdn.net/mydear_11000/article/details/51968065" target="_blank" rel="noopener">Tegra TX1 &#x5B89;&#x88C5;&#x914D;&#x7F6E; + caffe run</a></p>
+<p><a href="http://blog.csdn.net/mydear_11000/article/details/51968065" rel="external nofollow noopener noreferrer" target="_blank">Tegra TX1 &#x5B89;&#x88C5;&#x914D;&#x7F6E; + caffe run</a></p>
 </blockquote>
 <p>&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x8BB2;&#x5230;&#x9700;&#x8981;&#x4F7F;&#x7528;g++4.7&#x8FDB;&#x884C;&#x7F16;&#x8BD1;&#xFF0C;&#x56E0;&#x4E3A;&#x9ED8;&#x8BA4;&#x4F7F;&#x7528;&#x7684;g++4.8&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#x4F1A;&#x53D1;&#x751F;&#x9519;&#x8BEF;&#xFF0C;&#x6211;&#x7B2C;&#x4E00;&#x6B21;&#x5E76;&#x6CA1;&#x6709;&#x770B;&#x5230;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x7406;&#x6240;&#x5F53;&#x7136;&#x7684;&#x51FA;&#x9519;&#x4E86;&#x3002;</p>
 <hr>
@@ -3752,7 +3855,7 @@ libgoogle-glog-dev liblmdb-dev gcc-4.7 g++-4.7
 <pre data-role="codeBlock" data-info="bash" class="language-bash">nvcc fatal <span class="token keyword">:</span> Unsupported gpu architecture <span class="token string">&apos;compute_60&apos;</span>
 </pre><p>&#x5728;&#x7F51;&#x4E0A;&#x627E;&#x4E86;&#x5F88;&#x591A;&#x8D44;&#x6599;&#x4E5F;&#x6CA1;&#x6709;&#x76F4;&#x63A5;&#x8BF4;&#x660E;&#x767D;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x7684;&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x5173;&#x4E8E;JetsonTX1&#x7684;&#x8D44;&#x6599;&#x592A;&#x5C11;&#xFF0C;&#x540E;&#x6765;&#x5728;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;</p>
 <blockquote>
-<p><a href="http://blog.csdn.net/u013657981/article/details/50519123" target="_blank" rel="noopener">&#x3010;matconvnet&#x3011;&#x6545;&#x969C;&#x6392;&#x9664;&#xFF1A;Error using mex nvcc fatal : Unsupported gpu architecture &apos;compute_52&apos;</a></p>
+<p><a href="http://blog.csdn.net/u013657981/article/details/50519123" rel="external nofollow noopener noreferrer" target="_blank">&#x3010;matconvnet&#x3011;&#x6545;&#x969C;&#x6392;&#x9664;&#xFF1A;Error using mex nvcc fatal : Unsupported gpu architecture &apos;compute_52&apos;</a></p>
 </blockquote>
 <p>&#x4E2D;&#x627E;&#x5230;&#x4E86;&#x4E00;&#x4E9B;&#x7AEF;&#x502A;&#xFF0C;&#x5927;&#x6982;&#x5B9A;&#x4F4D;&#x4E86;&#x9519;&#x8BEF;&#x7684;&#x95EE;&#x9898;&#x3002; &#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x8D77;&#x6E90;&#x4E8E;&#x7F16;&#x8BD1;&#x5668;&#x65E0;&#x6CD5;&#x8BC6;&#x522B;&#x7A0B;&#x5E8F;&#x4E2D;&#x7684;&apos;compute_60&apos;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x662F;CUDA&#x7684;nvcc&#xFF0C;&#x4E8E;&#x662F;&#x6211;&#x5C1D;&#x8BD5;&#x53BB;&#x5347;&#x7EA7;CUDA&#x7684;&#x7248;&#x672C;&#xFF0C;&#x611F;&#x89C9;&#x53EF;&#x4EE5;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x627E;&#x5230;JetsonTX1&#x88C5;CUDA7.0&#x4EE5;&#x4E0A;&#x7248;&#x672C;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x4F5C;&#x4E3A;&#x521D;&#x5B66;&#x8005;&#x4E0D;&#x6562;&#x5927;&#x52A8;&#xFF0C;&#x4E8E;&#x662F;&#x53C8;&#x56DE;&#x53BB;&#x7FFB;&#x770B;&#x4E0A;&#x9762;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x3002;&#x60F3;&#x5230;&#x65E2;&#x7136;&#x662F;&#x7F16;&#x8BD1;&#x4E2D;&#x51FA;&#x73B0;&#x7684;&#x9519;&#x8BEF;&#xFF0C;&#x80AF;&#x5B9A;&#x4E5F;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x53BB;&#x5B9A;&#x4F4D;&#x9519;&#x8BEF;&#x770B;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x627E;&#x5230;&#x95EE;&#x9898;&#x6539;&#x6B63;&#x3002;&#x5728;&#x770B;&#x51FA;&#x9519;&#x6587;&#x4EF6;&#x7684;&#x65F6;&#x5019;&#x7A81;&#x7136;&#x60F3;&#x5230;Caffe&#x7F16;&#x8BD1;&#x65F6;&#x662F;&#x6709;&#x4E00;&#x4E2A;Makefile.config&#x6587;&#x4EF6;&#x7684;&#xFF01;&#xFF01;&#xFF01;&#x7ACB;&#x9A6C;&#x53BB;&#x770B;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x770B;&#x5230;&#x4E86;&#x4E0B;&#x9762;&#x51E0;&#x884C;&#x5185;&#x5BB9;&#xFF1A;</p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># CUDA architecture setting: going with all of them.</span>
@@ -3775,11 +3878,11 @@ CUDA_ARCH :<span class="token operator">=</span> -gencode arch<span class="token
 <pre data-role="codeBlock" data-info="bash" class="language-bash">Check failed: error <span class="token operator">==</span> cudaSuccess <span class="token punctuation">(</span>8 vs. 0<span class="token punctuation">)</span> invalid device <span class="token keyword">function</span>
 </pre><p>&#x77AC;&#x95F4;&#x611F;&#x89C9;&#x6709;&#x70B9;&#x5D29;&#xFF0C;&#x8FC7;&#x7A0B;&#x592A;&#x574E;&#x5777;&#x3002;&#x4E0D;&#x8FC7;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x89E3;&#x51B3;&#x6CA1;&#x6709;&#x82B1;&#x8D39;&#x591A;&#x5C11;&#x65F6;&#x95F4;&#xFF0C;&#x4E0A;&#x7F51;&#x641C;&#x7D22;&#x627E;&#x5230;&#x4E86;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#xFF1A;</p>
 <blockquote>
-<p><a href="http://blog.csdn.net/cwt19902010/article/details/49201333" target="_blank" rel="noopener">caffe&#x95EE;&#x9898;&#x53CA;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;</a></p>
+<p><a href="http://blog.csdn.net/cwt19902010/article/details/49201333" rel="external nofollow noopener noreferrer" target="_blank">caffe&#x95EE;&#x9898;&#x53CA;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;</a></p>
 </blockquote>
 <p>&#x5176;&#x4E2D;&#x63D0;&#x5230;&#x4E86;&#x76F8;&#x540C;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x540C;&#x6837;&#x662F;&#x56E0;&#x4E3A;&#x4E0A;&#x9762;&#x90A3;&#x4E00;&#x5757;&#x7684;config&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x60F3;&#x8D77;&#x6765;&#x5F88;&#x65E9;&#x7684;&#x65F6;&#x5019;&#x770B;&#x5230;NVDIA&#x7684;&#x8BA1;&#x7B97;&#x80FD;&#x529B;&#x7684;&#x4E00;&#x4E2A;&#x8868;&#x683C;&#xFF0C;&#x55EF;&#xFF0C;&#x662F;&#x8FD9;&#x4E2A;&#xFF1A;</p>
 <blockquote>
-<p><a href="https://developer.nvidia.com/cuda-gpus" target="_blank" rel="noopener">CUDA GPUs</a></p>
+<p><a href="https://developer.nvidia.com/cuda-gpus" rel="external nofollow noopener noreferrer" target="_blank">CUDA GPUs</a></p>
 </blockquote>
 <p>&#x5728;&#x8FD9;&#x91CC;&#x67E5;&#x5230;Jetson TX1&#x7684;&#x8BA1;&#x7B97;&#x80FD;&#x529B;&#x4E3A;5.3&#x4E8E;&#x662F;&#x5728;&#x4E0A;&#x9762;&#x90A3;&#x5757;&#x5185;&#x5BB9;&#x4E2D;&#x518D;&#x52A0;&#x5165;&#x4E00;&#x884C;&#xFF1A;</p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash">-gencode arch<span class="token operator">=</span>compute_53,code<span class="token operator">=</span>sm_53 \
@@ -3793,7 +3896,7 @@ Average Backward pass: 144.709 ms.
 Average Forward-Backward: 321.06 ms.
 Total Time: 16053 ms.
 </pre><p>&#x7136;&#x540E;&#x8FD9;&#x91CC;Mark&#x4E00;&#x4E0B;&#xFF0C;Caffe&#x8D44;&#x6599;&#x6C47;&#x603B;&#xFF0C;&#x540E;&#x9762;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x770B;&#x7684;</p>
-<p><a href="http://blog.csdn.net/langb2014/article/details/51543388" target="_blank" rel="noopener">http://blog.csdn.net/langb2014/article/details/51543388</a></p>
+<p><a href="http://blog.csdn.net/langb2014/article/details/51543388" rel="external nofollow noopener noreferrer" target="_blank">http://blog.csdn.net/langb2014/article/details/51543388</a></p>
 <blockquote>
 <p>&#x5410;&#x69FD;&#x4E00;&#x4E0B;&#xFF0C;&#x8FD9;&#x4E2A;&#x6587;&#x7AE0;&#x7684;&#x7F16;&#x8F91;&#x592A;&#x6D88;&#x8017;&#x7CBE;&#x529B;&#x4E86;&#xFF0C;&#x6211;&#x8981;&#x53BB;&#x770B;&#x770B;wordpress&#x80FD;&#x4E0D;&#x80FD;&#x7528;markdown&#x6765;&#x5199;</p>
 </blockquote>
